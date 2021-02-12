@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: totaisei <totaisei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/22 12:43:50 by nfukada           #+#    #+#             */
-/*   Updated: 2020/06/24 12:54:01 by nfukada          ###   ########.fr       */
+/*   Created: 2020/10/08 21:54:34 by totaisei          #+#    #+#             */
+/*   Updated: 2020/10/12 02:48:36 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,11 @@ char	*ft_strchr(const char *s, int c)
 	int i;
 
 	i = 0;
-	if (c == '\0')
+	while (s[i] != (char)c)
 	{
-		return ((char *)(s + ft_strlen(s)));
-	}
-	while (s[i] != '\0')
-	{
-		if (s[i] == (char)c)
-		{
-			return ((char *)(s + i));
-		}
+		if (s[i] == '\0')
+			return (NULL);
 		i++;
 	}
-	return (NULL);
+	return ((char *)&s[i]);
 }

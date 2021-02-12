@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memccpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/22 12:43:29 by nfukada           #+#    #+#             */
-/*   Updated: 2020/06/24 00:45:44 by nfukada          ###   ########.fr       */
+/*   Created: 2020/10/07 11:48:51 by totaisei          #+#    #+#             */
+/*   Updated: 2020/10/08 21:45:14 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,21 @@
 void	*ft_memccpy(void *dst, const void *src, int c, size_t n)
 {
 	size_t			i;
-	unsigned char	*p_dst;
-	unsigned char	*p_src;
-	unsigned char	search_c;
+	unsigned char	*casted_dest;
+	unsigned char	*casted_src;
 
-	p_dst = (unsigned char*)dst;
-	p_src = (unsigned char*)src;
-	search_c = (unsigned char)c;
+	casted_dest = (unsigned char *)dst;
+	casted_src = (unsigned char *)src;
 	i = 0;
-	while (i < n)
+	if (n != 0)
 	{
-		p_dst[i] = p_src[i];
-		if (p_src[i] == search_c)
+		while (i < n)
 		{
-			return (p_dst + i + 1);
+			casted_dest[i] = casted_src[i];
+			if (casted_src[i] == (unsigned char)c)
+				return ((void *)(&casted_dest[++i]));
+			i++;
 		}
-		i++;
 	}
 	return (NULL);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/22 12:17:21 by nfukada           #+#    #+#             */
-/*   Updated: 2020/06/28 11:29:25 by nfukada          ###   ########.fr       */
+/*   Created: 2020/10/08 22:12:27 by totaisei          #+#    #+#             */
+/*   Updated: 2020/10/08 22:12:37 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,7 @@
 
 int	ft_isdigit(int c)
 {
-	return ('0' <= c && c <= '9');
+	if ('0' <= c && c <= '9')
+		return (1);
+	return (0);
 }

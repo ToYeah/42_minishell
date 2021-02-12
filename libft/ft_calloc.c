@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/22 12:41:30 by nfukada           #+#    #+#             */
-/*   Updated: 2020/06/23 22:16:29 by nfukada          ###   ########.fr       */
+/*   Created: 2020/10/09 23:48:03 by totaisei          #+#    #+#             */
+/*   Updated: 2020/10/10 13:52:26 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 void	*ft_calloc(size_t count, size_t size)
 {
-	unsigned char	*ptr;
+	void	*res;
+	size_t	byte_size;
 
-	ptr = malloc(count * size);
-	if (ptr == NULL)
-	{
+	byte_size = (count == 0 || size == 0) ? 1 : count * size;
+	res = malloc(byte_size);
+	if (!res)
 		return (NULL);
-	}
-	ft_memset(ptr, 0, count * size);
-	return (ptr);
+	ft_bzero(res, byte_size);
+	return (res);
 }

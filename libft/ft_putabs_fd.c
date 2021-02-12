@@ -1,32 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcmp.c                                        :+:      :+:    :+:   */
+/*   ft_putabs_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/08 21:48:41 by totaisei          #+#    #+#             */
-/*   Updated: 2020/10/08 21:48:44 by totaisei         ###   ########.fr       */
+/*   Created: 2020/10/17 16:51:16 by totaisei          #+#    #+#             */
+/*   Updated: 2020/10/20 01:18:42 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_memcmp(const void *s1, const void *s2, size_t n)
+void	ft_putabs_fd(int n, int fd)
 {
-	size_t			i;
-	unsigned char	*casted_s1;
-	unsigned char	*casted_s2;
-
-	casted_s1 = (unsigned char *)s1;
-	casted_s2 = (unsigned char *)s2;
-	i = 0;
-	while (i < n)
+	if (0 == n)
+		write(fd, "0", 1);
+	else if (-2147483648 == n)
+		write(fd, "2147483648", 10);
+	else
 	{
-		if (casted_s1[i] == casted_s2[i])
-			i++;
-		else
-			return (casted_s1[i] - casted_s2[i]);
+		if (n < 0)
+			n *= -1;
+		if (n / 10 != 0)
+		{
+			ft_putabs_fd(n / 10, fd);
+		}
+		write(fd, &"0123456789"[n % 10], 1);
 	}
-	return (0);
 }

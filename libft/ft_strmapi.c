@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/23 14:02:45 by nfukada           #+#    #+#             */
-/*   Updated: 2020/06/24 14:41:51 by nfukada          ###   ########.fr       */
+/*   Created: 2020/10/11 00:36:50 by totaisei          #+#    #+#             */
+/*   Updated: 2020/10/11 00:56:57 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,21 @@
 
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	size_t	len_s;
+	size_t	len;
 	size_t	i;
-	char	*mapped;
+	char	*res;
 
-	if (s == NULL)
-	{
+	if (!s || !f)
 		return (NULL);
-	}
-	len_s = ft_strlen(s);
+	len = ft_strlen(s);
 	i = 0;
-	mapped = (char *)malloc(sizeof(char) * (len_s + 1));
-	if (mapped == NULL)
-	{
+	if (!(res = malloc(sizeof(char) * (len + 1))))
 		return (NULL);
-	}
-	while (i < len_s)
+	res[len] = '\0';
+	while (i < len)
 	{
-		mapped[i] = f(i, s[i]);
+		res[i] = (*f)(i, s[i]);
 		i++;
 	}
-	mapped[i] = '\0';
-	return (mapped);
+	return (res);
 }

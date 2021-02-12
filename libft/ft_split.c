@@ -3,107 +3,95 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/23 14:02:33 by nfukada           #+#    #+#             */
-/*   Updated: 2020/06/28 11:20:30 by nfukada          ###   ########.fr       */
+/*   Created: 2020/10/10 16:48:37 by totaisei          #+#    #+#             */
+/*   Updated: 2020/10/16 19:22:41 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	count_words(char const *str, char c)
+static void		remove_c(char *src, char c, size_t len)
 {
-	int i;
-	int len;
-
-	if (str[0] == '\0')
-	{
-		return (0);
-	}
-	len = 1;
-	if (str[0] == c)
-	{
-		len = 0;
-	}
-	i = 1;
-	while (str[i])
-	{
-		if (str[i - 1] == c && str[i] != c)
-		{
-			len++;
-		}
-		i++;
-	}
-	return (len);
-}
-
-static int	count_word(char const *str, char c)
-{
-	int i;
-
-	i = 0;
-	while (str[i] && str[i] != c)
-	{
-		i++;
-	}
-	return (i);
-}
-
-static void	free_all_words(char **words, int len)
-{
-	int i;
+	size_t i;
 
 	i = 0;
 	while (i < len)
 	{
-		free(words[i]);
+		if (src[i] == c)
+			src[i] = '\0';
 		i++;
 	}
-	free(words);
 }
 
-static char	**set_words(char const *s, char c, char **words, int words_len)
+static size_t	count_separated(char *src, size_t len)
 {
-	int	i;
-	int	word_len;
+	size_t i;
+	size_t res;
 
 	i = 0;
-	while (i < words_len)
+	res = 0;
+	while (i < len)
 	{
-		while (*s == c && *s != '\0')
+		if (src[i] != '\0')
 		{
-			s++;
+			i += ft_strlen(&src[i]);
+			res++;
 		}
-		word_len = count_word(s, c);
-		words[i] = (char *)malloc((word_len + 1) * sizeof(char));
-		if (words[i] == NULL)
-		{
-			free_all_words(words, i);
-			return (NULL);
-		}
-		ft_strlcpy(words[i], s, word_len + 1);
-		s += word_len;
 		i++;
 	}
-	words[i] = 0;
-	return (words);
+	return (res);
 }
 
-char		**ft_split(char const *s, char c)
+static t_bool	set_separated(char *src, size_t len, char **result)
 {
-	char	**words;
-	int		words_len;
+	size_t i;
+	size_t parent_count;
 
-	if (s == NULL)
+	i = 0;
+	parent_count = 0;
+	while (i < len)
 	{
-		return (NULL);
+		if (src[i] != '\0')
+		{
+			if (!(result[parent_count] = ft_strdup(&src[i])))
+			{
+				while (parent_count > 0)
+					free(result[--parent_count]);
+				return (FALSE);
+			}
+			i += ft_strlen(&src[i]);
+			parent_count++;
+		}
+		i++;
 	}
-	words_len = count_words(s, c);
-	words = (char **)malloc((words_len + 1) * sizeof(char *));
-	if (words == NULL)
+	return (TRUE);
+}
+
+char			**ft_split(char const *s, char c)
+{
+	char	*src;
+	size_t	len;
+	size_t	sep_count;
+	char	**res;
+
+	if (!s)
+		return (NULL);
+	len = ft_strlen(s);
+	if (!(src = ft_strdup(s)))
+		return (NULL);
+	sep_count = 0;
+	remove_c(src, c, len);
+	sep_count = count_separated(src, len);
+	if (!(res = malloc(sizeof(char *) * (sep_count + 1))))
+		return (NULL);
+	res[sep_count] = NULL;
+	if (!set_separated(src, len, res))
 	{
-		return (NULL);
+		free(res);
+		res = NULL;
 	}
-	return (set_words(s, c, words, words_len));
+	free(src);
+	return (res);
 }

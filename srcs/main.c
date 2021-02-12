@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 18:50:22 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/12 20:14:13 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/12 14:28:21 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	loop_shell(char **envp)
 	while (status)
 	{
 		ft_putstr_fd(SHELL_PROMPT, STDOUT_FILENO);
-		if (get_next_line(STDIN_FILENO, &line) < 0)
+		if (ft_get_next_line(STDIN_FILENO, &line) < 0)
 			error_exit();
 		if ((args = ft_split(line, ' ')) == NULL)
 			error_exit();

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/22 12:43:33 by nfukada           #+#    #+#             */
-/*   Updated: 2020/06/23 19:18:35 by nfukada          ###   ########.fr       */
+/*   Created: 2020/10/08 21:47:49 by totaisei          #+#    #+#             */
+/*   Updated: 2020/10/08 21:48:15 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,16 @@
 
 void	*ft_memchr(const void *s, int c, size_t n)
 {
-	unsigned char	search_c;
-	unsigned char	*p_s;
+	size_t			i;
+	unsigned char	*casted_s;
 
-	search_c = (unsigned char)c;
-	p_s = (unsigned char*)s;
-	while (n--)
+	casted_s = (unsigned char *)s;
+	i = 0;
+	while (i < n)
 	{
-		if (*p_s == search_c)
-		{
-			return (p_s);
-		}
-		p_s++;
+		if (casted_s[i] == (unsigned char)c)
+			return ((void *)(&casted_s[i]));
+		i++;
 	}
 	return (NULL);
 }

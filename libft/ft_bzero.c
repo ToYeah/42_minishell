@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/22 12:29:17 by nfukada           #+#    #+#             */
-/*   Updated: 2020/06/22 20:49:51 by nfukada          ###   ########.fr       */
+/*   Created: 2020/10/08 21:38:02 by totaisei          #+#    #+#             */
+/*   Updated: 2020/10/08 21:38:47 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,17 @@
 
 void	ft_bzero(void *s, size_t n)
 {
-	size_t	i;
-	char	*str;
+	size_t			i;
+	unsigned char	*casted_pointer;
 
+	casted_pointer = (unsigned char *)s;
 	i = 0;
-	str = (char *)s;
-	while (i < n)
+	if (n != 0)
 	{
-		str[i] = '\0';
-		i++;
+		while (i < n)
+		{
+			casted_pointer[i] = 0;
+			i++;
+		}
 	}
 }

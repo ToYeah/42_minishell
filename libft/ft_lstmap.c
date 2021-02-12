@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: totaisei <totaisei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/24 17:37:50 by nfukada           #+#    #+#             */
-/*   Updated: 2020/06/24 17:58:07 by nfukada          ###   ########.fr       */
+/*   Created: 2020/10/12 00:01:02 by totaisei          #+#    #+#             */
+/*   Updated: 2020/10/13 14:57:44 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,24 @@
 
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	t_list	*lst_first;
-	t_list	*lst_new;
+	t_list *target;
+	t_list *res;
+	t_list *tmp;
 
-	lst_first = NULL;
-	while (lst)
+	if (!lst || !f)
+		return (NULL);
+	if (!(res = ft_lstnew((*f)(lst->content))))
+		return (NULL);
+	target = lst->next;
+	while (target)
 	{
-		lst_new = ft_lstnew(f(lst->content));
-		if (lst_new == NULL)
+		if (!(tmp = ft_lstnew((*f)(target->content))))
 		{
-			if (lst_first != NULL)
-			{
-				ft_lstclear(&lst_first, del);
-			}
+			ft_lstclear(&res, del);
 			return (NULL);
 		}
-		ft_lstadd_back(&lst_first, lst_new);
-		lst = lst->next;
+		ft_lstadd_back(&res, tmp);
+		target = target->next;
 	}
-	return (lst_first);
+	return (res);
 }

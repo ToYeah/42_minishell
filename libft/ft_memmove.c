@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/22 12:43:43 by nfukada           #+#    #+#             */
-/*   Updated: 2020/06/23 20:52:13 by nfukada          ###   ########.fr       */
+/*   Created: 2020/10/08 21:40:53 by totaisei          #+#    #+#             */
+/*   Updated: 2020/10/14 21:22:17 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,27 @@
 
 void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	unsigned char	*p_dst;
-	unsigned char	*p_src;
+	size_t			i;
+	unsigned char	*casted_dest;
+	unsigned char	*casted_src;
 
-	p_dst = (unsigned char*)dst;
-	p_src = (unsigned char*)src;
-	if (dst == NULL && src == NULL)
-	{
+	if (dst == src || len == 0)
 		return (dst);
-	}
-	if (p_dst < p_src)
+	casted_dest = (unsigned char *)dst;
+	casted_src = (unsigned char *)src;
+	if (casted_src < casted_dest)
 	{
-		while (len--)
-		{
-			*p_dst++ = *p_src++;
-		}
+		i = len;
+		while (i-- > 0)
+			casted_dest[i] = casted_src[i];
 	}
 	else
 	{
-		while (len--)
+		i = 0;
+		while (i < len)
 		{
-			*(p_dst + len) = *(p_src + len);
+			casted_dest[i] = casted_src[i];
+			i++;
 		}
 	}
 	return (dst);

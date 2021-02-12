@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/22 12:43:40 by nfukada           #+#    #+#             */
-/*   Updated: 2020/06/28 11:47:31 by nfukada          ###   ########.fr       */
+/*   Created: 2020/10/06 21:29:02 by totaisei          #+#    #+#             */
+/*   Updated: 2020/10/08 21:39:55 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,17 @@
 void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
 	size_t			i;
-	unsigned char	*p_dst;
-	unsigned char	*p_src;
+	unsigned char	*casted_dest;
+	unsigned char	*casted_src;
 
-	i = 0;
-	p_src = (unsigned char *)src;
-	p_dst = (unsigned char *)dst;
-	if (dst == NULL && src == NULL)
-	{
+	if (dst == src)
 		return (dst);
-	}
+	casted_dest = (unsigned char *)dst;
+	casted_src = (unsigned char *)src;
+	i = 0;
 	while (i < n)
 	{
-		p_dst[i] = p_src[i];
+		casted_dest[i] = casted_src[i];
 		i++;
 	}
 	return (dst);

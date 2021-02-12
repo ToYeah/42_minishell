@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/22 12:43:22 by nfukada           #+#    #+#             */
-/*   Updated: 2020/06/22 14:33:59 by nfukada          ###   ########.fr       */
+/*   Created: 2020/10/08 22:09:11 by totaisei          #+#    #+#             */
+/*   Updated: 2020/10/08 22:09:35 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,7 @@
 
 int	ft_isascii(int c)
 {
-	return (0 <= c && c <= 127);
+	if (0 <= c && c <= 0177)
+		return (1);
+	return (0);
 }

@@ -1,32 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcmp.c                                        :+:      :+:    :+:   */
+/*   ft_through.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/08 21:48:41 by totaisei          #+#    #+#             */
-/*   Updated: 2020/10/08 21:48:44 by totaisei         ###   ########.fr       */
+/*   Created: 2021/01/04 13:15:36 by totaisei          #+#    #+#             */
+/*   Updated: 2021/01/04 14:19:48 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_memcmp(const void *s1, const void *s2, size_t n)
+char	*ft_through_space(char *str)
 {
-	size_t			i;
-	unsigned char	*casted_s1;
-	unsigned char	*casted_s2;
+	if (!str)
+		return (NULL);
+	while (*str && *str == ' ')
+		str++;
+	return (str);
+}
 
-	casted_s1 = (unsigned char *)s1;
-	casted_s2 = (unsigned char *)s2;
-	i = 0;
-	while (i < n)
-	{
-		if (casted_s1[i] == casted_s2[i])
-			i++;
-		else
-			return (casted_s1[i] - casted_s2[i]);
-	}
-	return (0);
+char	*ft_through_digit(char *str)
+{
+	if (!str)
+		return (NULL);
+	while (*str && ft_isdigit(*str))
+		str++;
+	return (str);
 }

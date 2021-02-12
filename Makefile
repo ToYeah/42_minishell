@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+         #
+#    By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/10 18:36:52 by nfukada           #+#    #+#              #
-#    Updated: 2021/02/12 21:05:21 by nfukada          ###   ########.fr        #
+#    Updated: 2021/02/12 14:27:52 by totaisei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ $(NAME)	: $(OBJS) $(LIBFT)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBS)
 
 $(LIBFT):
-	$(MAKE) -C $(LIBFT_DIR) bonus
+	$(MAKE) -C $(LIBFT_DIR)
 
 bonus	: all
 

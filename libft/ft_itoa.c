@@ -3,56 +3,62 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/23 14:02:02 by nfukada           #+#    #+#             */
-/*   Updated: 2020/06/24 00:45:09 by nfukada          ###   ########.fr       */
+/*   Created: 2020/10/10 22:47:54 by totaisei          #+#    #+#             */
+/*   Updated: 2020/10/19 12:21:17 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t	get_n_len(int n)
+static char		*zero_itoa(void)
 {
-	size_t	len;
+	char *res;
 
-	len = 1;
-	if (n < 0)
-	{
-		len++;
-	}
-	while (n >= 10 || n <= -10)
-	{
-		n /= 10;
-		len++;
-	}
-	return (len);
+	if (!(res = malloc(sizeof(char) * 2)))
+		return (NULL);
+	res[0] = '0';
+	res[1] = '\0';
+	return (res);
+}
+
+static char		*setup_sign_null(int digit, int sign)
+{
+	char *res;
+
+	if (!(res = malloc(sizeof(char) * digit + 1 + (sign * -1))))
+		return (NULL);
+	res[digit + (sign * -1)] = '\0';
+	if (sign)
+		res[0] = '-';
+	return (res);
 }
 
 char			*ft_itoa(int n)
 {
-	char	*str;
-	size_t	len;
+	int		digit;
 	int		sign;
+	int		i;
+	long	tmp;
+	char	*res;
 
-	len = get_n_len(n);
-	str = (char *)malloc(len + 1);
-	if (str == NULL)
-	{
-		return (NULL);
-	}
-	sign = 1;
+	sign = 0;
+	if (n == 0)
+		return (zero_itoa());
 	if (n < 0)
 		sign = -1;
-	str[len] = '\0';
-	while (len--)
+	digit = ft_nbrdig(n);
+	if (!(res = setup_sign_null(digit, sign)))
+		return (NULL);
+	i = digit + (sign * -1) - 1;
+	tmp = n;
+	if (sign)
+		tmp *= -1;
+	while (tmp > 0)
 	{
-		str[len] = n % 10 * sign + '0';
-		n /= 10;
+		res[i--] = (tmp % 10) + '0';
+		tmp = tmp / 10;
 	}
-	if (sign < 0)
-	{
-		str[0] = '-';
-	}
-	return (str);
+	return (res);
 }

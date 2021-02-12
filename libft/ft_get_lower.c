@@ -1,32 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcmp.c                                        :+:      :+:    :+:   */
+/*   ft_get_lower.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/08 21:48:41 by totaisei          #+#    #+#             */
-/*   Updated: 2020/10/08 21:48:44 by totaisei         ###   ########.fr       */
+/*   Created: 2020/10/17 21:53:32 by totaisei          #+#    #+#             */
+/*   Updated: 2020/10/21 16:58:01 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_memcmp(const void *s1, const void *s2, size_t n)
+int	ft_get_lower(int num1, int num2)
 {
-	size_t			i;
-	unsigned char	*casted_s1;
-	unsigned char	*casted_s2;
-
-	casted_s1 = (unsigned char *)s1;
-	casted_s2 = (unsigned char *)s2;
-	i = 0;
-	while (i < n)
-	{
-		if (casted_s1[i] == casted_s2[i])
-			i++;
-		else
-			return (casted_s1[i] - casted_s2[i]);
-	}
-	return (0);
+	if (num1 > num2)
+		return (num2);
+	return (num1);
 }

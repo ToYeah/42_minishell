@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcmp.c                                        :+:      :+:    :+:   */
+/*   ft_find_new_line.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/08 21:48:41 by totaisei          #+#    #+#             */
-/*   Updated: 2020/10/08 21:48:44 by totaisei         ###   ########.fr       */
+/*   Created: 2020/12/15 14:11:52 by totaisei          #+#    #+#             */
+/*   Updated: 2020/12/15 14:33:11 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_memcmp(const void *s1, const void *s2, size_t n)
+char	*ft_find_new_line(const char *s, size_t len)
 {
-	size_t			i;
-	unsigned char	*casted_s1;
-	unsigned char	*casted_s2;
+	size_t i;
 
-	casted_s1 = (unsigned char *)s1;
-	casted_s2 = (unsigned char *)s2;
+	if (!s)
+		return (NULL);
 	i = 0;
-	while (i < n)
+	while (s[i] != '\n')
 	{
-		if (casted_s1[i] == casted_s2[i])
-			i++;
-		else
-			return (casted_s1[i] - casted_s2[i]);
+		if (!(i < len))
+			return (NULL);
+		i++;
 	}
-	return (0);
+	return ((char *)&s[i]);
 }

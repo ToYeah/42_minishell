@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/22 12:44:03 by nfukada           #+#    #+#             */
-/*   Updated: 2020/06/24 11:28:25 by nfukada          ###   ########.fr       */
+/*   Created: 2020/10/08 21:50:37 by totaisei          #+#    #+#             */
+/*   Updated: 2020/10/08 21:51:32 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,20 @@
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
-	size_t	src_len;
-	size_t	index;
+	size_t i;
 
-	if (dst == NULL || src == NULL)
+	i = 0;
+	if (dstsize > 0)
 	{
-		return (0);
+		while (i < dstsize - 1 && src[i])
+		{
+			dst[i] = src[i];
+			i++;
+		}
+		dst[i] = '\0';
 	}
-	src_len = ft_strlen(src);
-	index = 0;
-	if (src_len + 1 < dstsize)
-	{
-		ft_memcpy(dst, src, src_len + 1);
-	}
-	else if (dstsize != 0)
-	{
-		ft_memcpy(dst, src, dstsize - 1);
-		dst[dstsize - 1] = '\0';
-	}
-	return (src_len);
+	i = 0;
+	while (src[i])
+		i++;
+	return (i);
 }

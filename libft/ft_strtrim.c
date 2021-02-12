@@ -3,56 +3,51 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: totaisei <totaisei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/23 14:02:22 by nfukada           #+#    #+#             */
-/*   Updated: 2020/06/24 14:16:59 by nfukada          ###   ########.fr       */
+/*   Created: 2020/10/10 15:23:48 by totaisei          #+#    #+#             */
+/*   Updated: 2020/10/14 20:56:51 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	char_in_set(const char c, char const *set)
+static	int	is_set(char c, char const *set)
 {
-	size_t	i;
+	int i;
 
 	i = 0;
-	while (set[i] != '\0')
+	while (set[i])
 	{
 		if (c == set[i])
-		{
-			return (1);
-		}
+			return (TRUE);
 		i++;
 	}
-	return (0);
+	return (FALSE);
 }
 
 char		*ft_strtrim(char const *s1, char const *set)
 {
-	char	*str;
-	size_t	start;
-	size_t	end;
-	size_t	i;
+	const char	*start;
+	char		*res;
+	size_t		len;
+	size_t		i;
+	size_t		j;
 
+	if (!(s1) || !(set))
+		return (NULL);
+	len = ft_strlen(s1);
 	i = 0;
-	start = 0;
-	if (s1 == NULL)
+	while (is_set(s1[i], set) && s1[i])
+		i++;
+	if (len == i)
+		return (ft_strdup("\0"));
+	start = &s1[i];
+	j = len - 1;
+	while (is_set(s1[j], set) && s1[j])
+		j--;
+	if (!(res = malloc(sizeof(char) * (j - i + 2))))
 		return (NULL);
-	end = ft_strlen(s1);
-	while (s1[start] != '\0' && char_in_set(s1[start], set))
-		start++;
-	while (end > start && char_in_set(s1[end - 1], set))
-		end--;
-	str = (char *)malloc(end - start + 1);
-	if (str == NULL)
-	{
-		return (NULL);
-	}
-	while (start < end)
-	{
-		str[i++] = s1[start++];
-	}
-	str[i] = '\0';
-	return (str);
+	ft_strlcpy(res, start, j - i + 2);
+	return (res);
 }

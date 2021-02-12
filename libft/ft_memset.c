@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/22 12:43:46 by nfukada           #+#    #+#             */
-/*   Updated: 2020/06/28 11:48:47 by nfukada          ###   ########.fr       */
+/*   Created: 2020/10/08 21:36:34 by totaisei          #+#    #+#             */
+/*   Updated: 2020/10/08 21:36:39 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,16 @@
 
 void	*ft_memset(void *b, int c, size_t len)
 {
-	unsigned char	*str;
 	size_t			i;
+	unsigned char	*casted_pointer;
+	unsigned char	casted_char;
 
+	casted_pointer = (unsigned char *)b;
+	casted_char = (unsigned char)c;
 	i = 0;
-	str = (unsigned char *)b;
 	while (i < len)
 	{
-		str[i] = (unsigned char)c;
+		casted_pointer[i] = casted_char;
 		i++;
 	}
 	return (b);

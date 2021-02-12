@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: totaisei <totaisei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/23 14:03:09 by nfukada           #+#    #+#             */
-/*   Updated: 2020/06/23 23:37:07 by nfukada          ###   ########.fr       */
+/*   Created: 2020/10/11 02:24:42 by totaisei          #+#    #+#             */
+/*   Updated: 2020/10/11 13:13:04 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,7 @@
 
 void	ft_putstr_fd(char *s, int fd)
 {
-	size_t	len;
-
-	if (s == NULL)
-	{
+	if (!s)
 		return ;
-	}
-	len = ft_strlen(s);
-	write(fd, s, len);
+	write(fd, s, ft_strlen(s));
 }
