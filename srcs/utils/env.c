@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 19:17:58 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/14 01:16:09 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/14 01:19:23 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,27 @@ void	add_env(t_env **envs, t_env *new_env)
 	{
 		get_last_env(*envs)->next = new_env;
 		new_env->next = NULL;
+	}
+}
+
+void	del_env(t_env **envs, char *name)
+{
+	t_env	*now;
+	t_env	*prev;
+
+	prev = NULL;
+	now = *envs;
+	while (now)
+	{
+		if (ft_strncmp(now->name, name, ft_strlen(name) + 1) == 0)
+		{
+			if (prev)
+				prev->next = now->next;
+			else
+				*envs = now->next;
+			free(now);
+		}
+		prev = now;
+		now = now->next;
 	}
 }
