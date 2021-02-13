@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 17:00:52 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/13 14:04:29 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/13 16:53:00 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,29 +96,49 @@ t_token_state judge_token_state(t_token_state state, t_token_type type)
 		return (STATE_GENERAL);
 }
 
-char *extract_arg_name(char *str)
+size_t calc_val_len(char *str)
 {
-	size_t arg_len;
+	size_t val_len;
+
+	val_len = 0;
+	while (ft_isalnum(str[val_len]) || str[val_len] == '_')
+		val_len++;
+	return (val_len);
+}
+
+char *extract_val_name(char *str)
+{
+	size_t val_len;
 	char *res;
 
-	arg_len = 0;
-	while (ft_isalnum(str[arg_len]) || str[arg_len] == '_')
-		arg_len++;
-	if(!(res = malloc(sizeof(char) * arg_len + 1)))
+	if(*str == '?')
+		return ft_strdup("?");
+	val_len = calc_val_len(str);
+	if(!(res = malloc(sizeof(char) * val_len + 1)))
 		return NULL;
-	ft_strlcpy(res, str, arg_len + 1);
+	ft_strlcpy(res, str, val_len + 1);
 	return res;
 }
 
-size_t	expansion(char **str_p, size_t index)
+char *expansion(char *str, size_t *index)
 {
-	char *val_name;
-	char *str;
+	char *var_name;
+	char *expanded_var;
+	char *expanded_str;
+	char *tmp;
+	char *res;
 
-	str = *str_p;
-	str[index] = '\0';
-	val_name = extract_arg_name(&str[index + 1]);//error
-	printf("%s\n",val_name);
+	str[*index] = '\0';
+	var_name = extract_val_name(&str[*index + 1]);//error
+	printf("var_name:%s\n",var_name);
+	expanded_var = "HELLO WORLD"; //find_environment variable
+	tmp = ft_strjoin(str, expanded_var);//error
+	res = ft_strjoin(tmp, &str[*index + ft_strlen(var_name) + 1]);//error
+	printf("%s\n",res);
+	*index = ft_strlen(tmp);
+	free(var_name);
+	free(tmp);
+	return res;
 }
 
 void	envarg_expansion(char *str)
@@ -146,7 +166,7 @@ void	envarg_expansion(char *str)
 		state = judge_token_state(state, type);
 		if(str[i] == '$' && (state == STATE_GENERAL || state == STATE_IN_DQUOTE))
 		{
-			expansion(&str, i);
+			str = expansion(str, &i);
 		}
 		i++;
 	}
@@ -156,12 +176,19 @@ void	envarg_expansion(char *str)
 
 
 
-int				main(int argc, char **argv)
+int				main()
 {
-	(void)argc;
-	char *str="\'$\'$$\"$\"";
-	printf("input: %s\n", argv[1]);
-	envarg_expansion(argv[1]);
+	char *line;
+	int res;
+
+	res = 1;
+	while (res)
+	{
+		ft_get_next_line(0, &line);
+		envarg_expansion(line);
+		free(line);
+	}
+	
 	// printf("input: %s\n", str);
 	// envarg_expansion(str);
 }
