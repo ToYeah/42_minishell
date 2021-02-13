@@ -18,7 +18,7 @@ LIBFT_DIR	:= libft
 LIBFT		:= $(LIBFT_DIR)/libft.a
 INC			:= -I$(INC_DIR) -I$(LIBFT_DIR)
 
-SRCS		:= srcs/utils/get_next_line.c srcs/utils/error.c srcs/main.c srcs/exec/exec_command.c srcs/builtin/buildin.c
+SRCS		:= srcs/utils/error.c srcs/main.c srcs/exec/exec_command.c srcs/builtin/buildin.c 
 OBJS		:= $(SRCS:%.c=%.o)
 LIBS		:= -lft -L$(LIBFT_DIR)
 
