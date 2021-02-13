@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+         #
+#    By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/10 18:36:52 by nfukada           #+#    #+#              #
-#    Updated: 2021/02/12 14:27:52 by totaisei         ###   ########.fr        #
+#    Updated: 2021/02/14 01:10:28 by nfukada          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ LIBFT_DIR	:= libft
 LIBFT		:= $(LIBFT_DIR)/libft.a
 INC			:= -I$(INC_DIR) -I$(LIBFT_DIR)
 
-SRCS		:= srcs/utils/error.c srcs/main.c srcs/exec/exec_command.c srcs/builtin/buildin.c 
+SRCS		:= srcs/utils/env.c srcs/utils/error.c srcs/main.c srcs/exec/exec_command.c srcs/builtin/buildin.c
 OBJS		:= $(SRCS:%.c=%.o)
 LIBS		:= -lft -L$(LIBFT_DIR)
 

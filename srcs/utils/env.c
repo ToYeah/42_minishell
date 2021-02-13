@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/12 20:13:16 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/14 01:10:45 by nfukada          ###   ########.fr       */
+/*   Created: 2021/02/13 19:17:58 by nfukada           #+#    #+#             */
+/*   Updated: 2021/02/14 01:09:48 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#include "utils.h"
+#include "libft.h"
 
-typedef struct	s_env
+void	print_envs(t_env *envs)
 {
-	char			*name;
-	char			*value;
-	struct s_env	*next;
-}				t_env;
-
-void			error_exit(void);
-
-void			print_envs(t_env *envs);
-
-#endif
+	while (envs)
+	{
+		ft_putstr_fd(envs->name, STDOUT_FILENO);
+		ft_putchar_fd('=', STDOUT_FILENO);
+		ft_putstr_fd(envs->value, STDOUT_FILENO);
+		ft_putchar_fd('\n', STDOUT_FILENO);
+		envs = envs->next;
+	}
+}
