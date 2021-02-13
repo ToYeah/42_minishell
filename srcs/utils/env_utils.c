@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 23:38:53 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/14 01:13:06 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/14 01:16:45 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,19 @@ t_env	*get_last_env(t_env *envs)
 	while (target->next)
 		target = target->next;
 	return (target);
+}
+
+size_t	get_env_size(t_env *envs)
+{
+	size_t	size;
+
+	size = 0;
+	while (envs)
+	{
+		envs = envs->next;
+		size++;
+	}
+	return (size);
 }
 
 t_env	*create_new_env(char *env_str)

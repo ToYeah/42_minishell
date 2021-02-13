@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 19:17:58 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/14 01:12:35 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/14 01:16:09 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,30 @@ void	print_envs(t_env *envs)
 		ft_putchar_fd('\n', STDOUT_FILENO);
 		envs = envs->next;
 	}
+}
+
+char	**generate_environ(t_env *envs)
+{
+	char	**environ;
+	size_t	env_size;
+	size_t	i;
+
+	env_size = get_env_size(envs);
+	environ = (char **)malloc(sizeof(char *) * (env_size + 1));
+	if (!environ)
+		error_exit();
+	i = 0;
+	while (i < env_size)
+	{
+		if (!(environ[i] = ft_strjoin(envs->name, "=")))
+			error_exit();
+		if (!(environ[i] = ft_strjoin(environ[i], envs->value)))
+			error_exit();
+		i++;
+		envs = envs->next;
+	}
+	environ[i] = NULL;
+	return (environ);
 }
 
 void	add_env(t_env **envs, t_env *new_env)
