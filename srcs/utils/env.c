@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 19:17:58 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/14 01:19:23 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/14 13:53:15 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	print_envs(t_env *envs)
 char	**generate_environ(t_env *envs)
 {
 	char	**environ;
+	char	*tmp;
 	size_t	env_size;
 	size_t	i;
 
@@ -58,8 +59,10 @@ char	**generate_environ(t_env *envs)
 	{
 		if (!(environ[i] = ft_strjoin(envs->name, "=")))
 			error_exit();
+		tmp = environ[i];
 		if (!(environ[i] = ft_strjoin(environ[i], envs->value)))
 			error_exit();
+		free(tmp);
 		i++;
 		envs = envs->next;
 	}
