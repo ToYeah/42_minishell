@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 17:00:52 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/13 16:53:00 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/13 17:31:24 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,6 @@ char *expansion(char *str, size_t *index)
 {
 	char *var_name;
 	char *expanded_var;
-	char *expanded_str;
 	char *tmp;
 	char *res;
 
@@ -134,7 +133,7 @@ char *expansion(char *str, size_t *index)
 	expanded_var = "HELLO WORLD"; //find_environment variable
 	tmp = ft_strjoin(str, expanded_var);//error
 	res = ft_strjoin(tmp, &str[*index + ft_strlen(var_name) + 1]);//error
-	printf("%s\n",res);
+	//printf("%s\n",res);
 	*index = ft_strlen(tmp);
 	free(var_name);
 	free(tmp);
@@ -164,17 +163,13 @@ void	envarg_expansion(char *str)
 			continue;
 		}
 		state = judge_token_state(state, type);
-		if(str[i] == '$' && (state == STATE_GENERAL || state == STATE_IN_DQUOTE))
-		{
+		if(str[i] == '$' && str[i + 1]
+		&& (state == STATE_GENERAL || state == STATE_IN_DQUOTE))
 			str = expansion(str, &i);
-		}
 		i++;
 	}
-	
+	printf("%s\n",str);
 }
-
-
-
 
 int				main()
 {
