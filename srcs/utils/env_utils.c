@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 23:38:53 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/14 01:18:45 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/14 15:20:50 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,8 @@ t_env	*create_new_env(char *env_str)
 		error_exit();
 	sep = ft_strchr(env_str, '=');
 	if (!sep)
-	{
-		free(env);
-		return (NULL);
-	}
-	*sep = '\0';
-	env->name = ft_strdup(env_str);
+		error_exit();
+	env->name = ft_substr(env_str, 0, sep - env_str);
 	env->value = ft_strdup(sep + 1);
 	if (!env->name || !env->value)
 		error_exit();
