@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 16:44:34 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/12 18:03:09 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/15 12:05:09 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ struct	s_token
 	char *data;
 	t_token_type type;
 	t_token *next;
+	t_token *prev;
 };
 
 typedef struct	s_token_list
@@ -53,6 +54,14 @@ typedef struct	s_token_list
 	t_token *tokens;
 	size_t	token_count;
 }				t_token_list;
+
+typedef struct s_tokeniser{
+	size_t str_i;
+	size_t tok_i;
+	size_t str_len;
+	t_token_state state;
+	t_token *token;
+}				t_tokeniser;
 
 
 #endif
