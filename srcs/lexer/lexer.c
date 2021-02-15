@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 17:00:52 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/15 15:41:45 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/15 17:15:57 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,23 @@ void	del_token_list(t_token *token)
 		del_token(&now);
 		now = tmp;
 	}
+}
+
+void	shift_quote(char *quote_start, char *end)
+{
+	size_t i;
+	char *cpy_start;
+
+	cpy_start = quote_start + 1;
+
+	i = 0;
+	*end = '\0';
+	while(cpy_start[i] != 0)
+	{
+		quote_start[i] = cpy_start[i];
+		i++;
+	}
+	quote_start[i] = '\0';
 }
 
 t_token_type	judge_token_type(char c)
@@ -125,11 +142,20 @@ void general_state(t_tokeniser *toker, t_token_type type, char *str)
 		else
 			toker->token->data[toker->tok_i++] = str[toker->str_i];
 		if(type == '\'')
+		{
 			toker->state = STATE_IN_QUOTE;
+			toker->quote_start = &toker->token->data[toker->tok_i - 1];
+		}
 		else if(type == '\"')
+		{
 			toker->state = STATE_IN_DQUOTE;
+			toker->quote_start = &toker->token->data[toker->tok_i - 1];
+		}
 		else
+		{
 			toker->state = STATE_GENERAL;
+			toker->quote_start = NULL;
+		}
 	}
 	else
 		general_state_sep(toker, type, str);
@@ -141,7 +167,10 @@ void quote_state(t_tokeniser *toker, t_token_type type, char *str)
 	(void)type;
 	toker->token->data[toker->tok_i++] = str[toker->str_i];
 	if(str[toker->str_i] == CHAR_QOUTE)
+	{
 		toker->state = STATE_GENERAL;
+		shift_quote(toker->quote_start, &toker->token->data[toker->tok_i - 1]);
+	}
 }
 
 void d_quote_state(t_tokeniser *toker, t_token_type type, char *str)
@@ -151,8 +180,11 @@ void d_quote_state(t_tokeniser *toker, t_token_type type, char *str)
 	else
 	{
 		toker->token->data[toker->tok_i++] = str[toker->str_i];
-		if( str[toker->str_i] == CHAR_DQUOTE)
+		if(str[toker->str_i] == CHAR_DQUOTE)
+		{
 			toker->state = STATE_GENERAL;
+			shift_quote(toker->quote_start, &toker->token->data[toker->tok_i - 1]);
+		}
 	}
 }
 
@@ -174,6 +206,7 @@ void tokenise_input(char *str,t_token *start_token, size_t len)
 	toker.str_i = 0;
 	toker.tok_i = 0;
 	toker.str_len = len;
+	toker.quote_start = NULL;
 	if(len == 0)
 		return ;
 	while (str[toker.str_i] != '\0')
@@ -323,7 +356,7 @@ void	print_tokens_line(t_token *token)
 	{
 		if(now != token)
 			printf(" -> ");
-		printf("%s",now->data);
+		printf("[%s]",now->data);
 		now = now->next;
 	}
 	printf("\n");
@@ -336,7 +369,6 @@ int				main()
 	int res;
 	char *res_line;
 	t_token *tokens;
-	size_t len;
 
 	g_envs = create_envs_from_environ();
 	res = 1;
