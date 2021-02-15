@@ -104,4 +104,4 @@ Temporary Items
 
 minishell
 *.bak
-/vscode
+.vscode/*
