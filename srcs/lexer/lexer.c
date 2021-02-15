@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 17:00:52 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/15 12:29:57 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/15 15:41:45 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 #include "utils.h"
 
 t_env *g_envs;
-
 
 char *search_env(t_env **envs, char *name)
 {
@@ -30,7 +29,6 @@ char *search_env(t_env **envs, char *name)
 	}
 	return ("");
 }
-
 
 void	del_token(t_token **token_p)
 {
@@ -62,7 +60,6 @@ void	del_token_list(t_token *token)
 		now = tmp;
 	}
 }
-
 
 t_token_type	judge_token_type(char c)
 {
@@ -147,7 +144,6 @@ void quote_state(t_tokeniser *toker, t_token_type type, char *str)
 		toker->state = STATE_GENERAL;
 }
 
-
 void d_quote_state(t_tokeniser *toker, t_token_type type, char *str)
 {
 	if(type == CHAR_ESCAPESEQUENCE && str[toker->str_i + 1] != '\0')
@@ -178,6 +174,8 @@ void tokenise_input(char *str,t_token *start_token, size_t len)
 	toker.str_i = 0;
 	toker.tok_i = 0;
 	toker.str_len = len;
+	if(len == 0)
+		return ;
 	while (str[toker.str_i] != '\0')
 	{
 		type = judge_token_type(str[toker.str_i]);
@@ -192,7 +190,7 @@ void tokenise_input(char *str,t_token *start_token, size_t len)
 	close_token_list(toker.token, toker.tok_i);
 }
 
-void tokenise(char *input)
+t_token *tokenise(char *input)
 {
 	size_t		input_len;
 	t_token		*start_token;
@@ -200,6 +198,7 @@ void tokenise(char *input)
 	input_len = ft_strlen(input);
 	start_token = token_init(input_len, NULL);
 	tokenise_input(input, start_token, input_len);
+	return start_token;
 }
 
 //environ
@@ -345,12 +344,10 @@ int				main()
 	{
 		res = ft_get_next_line(0, &line);
 		res_line = envarg_expansion(line);
-		len = ft_strlen(res_line);
-		tokens = token_init(len, NULL);
-		tokenise_input(res_line, tokens, len);
+		tokens = tokenise(res_line);
 		printf("\nexpanded :\n%s\n",res_line);
 		//print_tokens_detail(tokens);
-		printf("\ntoknised :\n");
+		printf("\ntokenised :\n");
 		print_tokens_line(tokens);
 		free(line);
 		free(res_line);
