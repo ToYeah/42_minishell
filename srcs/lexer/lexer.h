@@ -6,14 +6,14 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 16:44:34 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/15 16:08:53 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/15 18:21:23 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
 # define LEXER_H
 
-#include "../../libft/libft.h"
+# include "../../libft/libft.h"
 
 typedef enum	e_tokentype{
 	CHAR_GENERAL = -1,
@@ -49,12 +49,6 @@ struct	s_token
 	t_token *prev;
 };
 
-typedef struct	s_token_list
-{
-	t_token *tokens;
-	size_t	token_count;
-}				t_token_list;
-
 typedef struct s_tokeniser{
 	size_t str_i;
 	size_t tok_i;
@@ -64,5 +58,20 @@ typedef struct s_tokeniser{
 	char *quote_start;
 }				t_tokeniser;
 
+char			*envarg_expansion(char *str);
+t_token_type	judge_token_type(char c);
+
+void	del_token(t_token **token_p);
+void	del_token_list(t_token *token);
+t_token_type	judge_token_type(char c);
+t_token *token_init(size_t len, t_token *prev);
+void token_add_front(t_tokeniser *toker);
+
+t_token *tokenise(char *input);
+
+void general_state_sep(t_tokeniser *toker, t_token_type type, char *str);
+void general_state(t_tokeniser *toker, t_token_type type, char *str);
+void quote_state(t_tokeniser *toker, t_token_type type, char *str);
+void d_quote_state(t_tokeniser *toker, t_token_type type, char *str);
 
 #endif

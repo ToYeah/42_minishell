@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 23:38:53 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/14 15:20:50 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/15 17:23:45 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,20 @@ void	free_env(t_env *env)
 	env->name = NULL;
 	env->value = NULL;
 	free(env);
+}
+
+char	*search_env(t_env *envs, char *name)
+{
+	t_env	*now;
+
+	if(!envs || !name)
+		return (NULL);
+	now = envs;
+	while (now)
+	{
+		if (ft_strncmp(now->name, name, ft_strlen(name) + 1) == 0)
+			return (now->value);
+		now = now->next;
+	}
+	return ("");
 }
