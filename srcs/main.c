@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 18:50:22 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/12 22:37:07 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/14 00:57:55 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	free_array(char **array)
 	array = NULL;
 }
 
-void	loop_shell(char **envp)
+void	loop_shell(t_env *envs)
 {
 	int		status;
 	char	*line;
@@ -44,14 +44,17 @@ void	loop_shell(char **envp)
 		if ((args = ft_split(line, ' ')) == NULL)
 			error_exit();
 		free(line);
-		exec_command(args, envp);
+		exec_command(args, envs);
 		free_array(args);
 	}
 }
 
-int		main(int argc, char *argv[], char *envp[])
+int		main(int argc, char *argv[])
 {
+	t_env	*envs;
+
 	(void)argc;
 	(void)argv;
-	loop_shell(envp);
+	envs = create_envs_from_environ();
+	loop_shell(envs);
 }
