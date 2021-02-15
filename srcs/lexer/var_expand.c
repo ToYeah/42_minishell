@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 17:19:26 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/15 17:41:01 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/15 19:14:01 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ char			*envarg_expansion(char *str)
 		type = judge_token_type(editable_str[i]);
 		if (type == CHAR_ESCAPESEQUENCE && ft_strchr("\'\"$", editable_str[i + 1]) != NULL)
 		{
+			if(!editable_str[i + 1])
+				return editable_str;
 			i += 2;
 			continue;
 		}

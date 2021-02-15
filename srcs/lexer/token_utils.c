@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 17:42:00 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/15 18:26:34 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/15 18:59:20 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,13 @@ void			del_token_list(t_token *token)
 t_token_type	judge_token_type(char c)
 {
 	int			command_count;
+	//  const char	commands[] = {
+	//  	'|', '&', '\'', '\"', ' ', ';', '\\', '\t', '\n', '>', '<', '\0'};
+	
 	const char	commands[] = {
-		'|', '&', '\'', '\"', ' ', ';', '\\', '\t', '\n', '>', '<', '\0'};
+		'|', '\'', '\"', ' ', ';', '\\', '>', '<', '\0'};
 
-	command_count = 12;
+	command_count = 9;
 	while (command_count--)
 	{
 		if (commands[command_count] == c)

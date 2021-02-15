@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 18:20:15 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/15 18:25:07 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/15 19:09:48 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	general_state(t_tokeniser *toker, t_token_type type, char *str)
 			toker->state = STATE_GENERAL;
 			toker->quote_start = NULL;
 		}
+		toker->token->type = TOKEN;
 	}
 	else
 		general_state_sep(toker, type, str);
