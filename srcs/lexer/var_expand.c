@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 17:19:26 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/16 14:18:28 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/16 16:54:02 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char			*expansion_var_esc(char *str,  t_token_state state)
 	size_t index;
 	char *esc_chars;
 
-	esc_chars = "\'\"\\$";
+	esc_chars = "\"\\$";
 	if(state == STATE_GENERAL)
 		esc_chars = "\'\"\\$|;><";
 	res_index = 0;
@@ -90,6 +90,8 @@ char			*expansion_var_esc(char *str,  t_token_state state)
 	return res;
 }
 
+#include <stdio.h>
+
 char			*expansion(char *str, size_t *index, t_token_state state)
 {
 	char *var_name;
@@ -98,9 +100,12 @@ char			*expansion(char *str, size_t *index, t_token_state state)
 	char *res;
 	extern t_env *g_envs;
 
-	str[*index] = '\0';
 	if (!(var_name = extract_val_name(&str[*index + 1])))
 		error_exit();
+	printf("%s\n",var_name);
+	if(ft_strncmp(var_name, "", 1))
+		return str;
+	str[*index] = '\0';
 	if(!(value = expansion_var_esc(search_env(g_envs, var_name), state)))
 		error_exit();
 	if(!(tmp = ft_strjoin(str, value)))
@@ -141,7 +146,8 @@ char			*envarg_expansion(char *str)
 			continue;
 		}
 		state = judge_token_state(state, type);
-		if (editable_str[i] == '$' && editable_str[i + 1]
+		if (editable_str[i] == '$' 
+		&& ft_strchr("\'\"$; ", editable_str[i + 1]) != NULL
 		&& (state == STATE_GENERAL || state == STATE_IN_DQUOTE))
 			editable_str = expansion(editable_str, &i, state);
 		i++;

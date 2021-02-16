@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 16:44:34 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/15 18:21:23 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/16 14:29:39 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,6 @@ void general_state_sep(t_tokeniser *toker, t_token_type type, char *str);
 void general_state(t_tokeniser *toker, t_token_type type, char *str);
 void quote_state(t_tokeniser *toker, t_token_type type, char *str);
 void d_quote_state(t_tokeniser *toker, t_token_type type, char *str);
+t_bool	is_escape_char(char c, t_token_state state);
 
 #endif
