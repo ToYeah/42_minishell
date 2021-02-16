@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 17:19:26 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/16 18:04:39 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/16 18:12:55 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ char			*envarg_expansion(char *str)
 	t_token_state state;
 	t_token_type type;
 	char *editable_str;
+	char *tmp;
 
 	editable_str = ft_strdup(str);
 	i = 0;
@@ -150,7 +151,9 @@ char			*envarg_expansion(char *str)
 			if (ft_strchr("\'\"", editable_str[i + 1]) != NULL)
 			{
 				editable_str[i] = '\0';
-				editable_str =  ft_strjoin(editable_str, &editable_str[i + 1]); //error
+				tmp =  ft_strjoin(editable_str, &editable_str[i + 1]); //error
+				editable_str = tmp;
+				free(tmp);
 			}
 			else if (state == STATE_GENERAL || state == STATE_IN_DQUOTE)
 				editable_str = expansion(editable_str, &i, state);
