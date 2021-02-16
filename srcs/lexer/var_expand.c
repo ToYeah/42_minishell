@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 17:19:26 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/16 16:54:02 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/16 18:04:39 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,7 @@ char			*expansion(char *str, size_t *index, t_token_state state)
 
 	if (!(var_name = extract_val_name(&str[*index + 1])))
 		error_exit();
-	printf("%s\n",var_name);
-	if(ft_strncmp(var_name, "", 1))
+	if(ft_strlen(var_name) == 0)
 		return str;
 	str[*index] = '\0';
 	if(!(value = expansion_var_esc(search_env(g_envs, var_name), state)))
@@ -146,10 +145,16 @@ char			*envarg_expansion(char *str)
 			continue;
 		}
 		state = judge_token_state(state, type);
-		if (editable_str[i] == '$' 
-		&& ft_strchr("\'\"$; ", editable_str[i + 1]) != NULL
-		&& (state == STATE_GENERAL || state == STATE_IN_DQUOTE))
-			editable_str = expansion(editable_str, &i, state);
+		if (editable_str[i] == '$' )
+		{
+			if (ft_strchr("\'\"", editable_str[i + 1]) != NULL)
+			{
+				editable_str[i] = '\0';
+				editable_str =  ft_strjoin(editable_str, &editable_str[i + 1]); //error
+			}
+			else if (state == STATE_GENERAL || state == STATE_IN_DQUOTE)
+				editable_str = expansion(editable_str, &i, state);
+		}
 		i++;
 	}
 	return (editable_str);
