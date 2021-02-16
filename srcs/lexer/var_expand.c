@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 17:19:26 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/16 09:24:22 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/16 10:40:21 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,39 @@ char			*extract_val_name(char *str)
 	return (res);
 }
 
+char			*expansion_var_esc(char *str)
+{
+	char *res;
+	size_t res_index;
+	size_t index;
+
+	res_index = 0;
+	index = 0;
+	while(str[index] != 0)
+	{
+		if (ft_strchr("\'\"\\$", str[index]) != NULL)
+			res_index++;
+		res_index++;
+		index++;
+	}
+	res = malloc(sizeof(char *) * (res_index + 1));//error
+	index = 0;
+	res_index = 0;
+	while(str[index] != 0)
+	{
+		if (ft_strchr("\'\"\\$", str[index]) != NULL)// escape?
+		{
+			res[res_index] = '\\';
+			res_index++;
+		}
+		res[res_index] = str[index];
+		res_index++;
+		index++;
+	}
+	res[res_index] = '\0';
+	return res;
+}
+
 char			*expansion(char *str, size_t *index)
 {
 	char *var_name;
@@ -64,7 +97,7 @@ char			*expansion(char *str, size_t *index)
 	str[*index] = '\0';
 	if (!(var_name = extract_val_name(&str[*index + 1])))
 		error_exit();
-	if(!(value = ft_strdup(search_env(g_envs, var_name))))
+	if(!(value = expansion_var_esc((search_env(g_envs, var_name)))))
 		error_exit();
 	if(!(tmp = ft_strjoin(str, value)))
 		error_exit();

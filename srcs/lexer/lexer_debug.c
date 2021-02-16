@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 18:01:20 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/15 19:10:37 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/16 09:33:20 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ int				main()
 		res = ft_get_next_line(0, &line);
 		res_line = envarg_expansion(line);
 		tokens = tokenise(res_line);
-		//printf("\nexpanded :\n%s\n",res_line);
-		//print_tokens_detail(tokens);
+		printf("\nexpanded :\n%s\n",res_line);
+		print_tokens_detail(tokens);
 		printf("\ntokenised :\n");
 		print_tokens_line(tokens);
 		free(line);
