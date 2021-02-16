@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 17:19:26 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/16 18:12:55 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/16 18:49:49 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,8 @@ char			*expansion_var_esc(char *str,  t_token_state state)
 		res_index++;
 		index++;
 	}
-	res = malloc(sizeof(char *) * (res_index + 1));//error
+	if(!(res = malloc(sizeof(char *) * (res_index + 1))))
+		error_exit();
 	index = 0;
 	res_index = 0;
 	while(str[index] != 0)
@@ -151,7 +152,8 @@ char			*envarg_expansion(char *str)
 			if (ft_strchr("\'\"", editable_str[i + 1]) != NULL)
 			{
 				editable_str[i] = '\0';
-				tmp =  ft_strjoin(editable_str, &editable_str[i + 1]); //error
+				if(!(tmp =  ft_strjoin(editable_str, &editable_str[i + 1])))
+					error_exit();
 				editable_str = tmp;
 				free(tmp);
 			}

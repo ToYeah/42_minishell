@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 18:20:15 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/16 14:59:00 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/16 18:41:06 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,14 @@ void	shift_quote(char *quote_start, char *end, t_tokeniser *toker)
 
 void	general_state_sep(t_tokeniser *toker, t_token_type type, char *str)
 {
+	char token_char;
+
+	token_char = str[toker->str_i];
 	token_add_front(toker);
 	if (type != CHAR_WHITESPACE)
 	{
 		toker->token->data[toker->tok_i++] = str[toker->str_i];
-		if(str[toker->str_i] == '>' && str[toker->str_i + 1] == '>')
+		while(str[toker->str_i + 1] == token_char)
 			toker->token->data[toker->tok_i++] = str[++toker->str_i];
 		toker->token->type = type;
 		token_add_front(toker);
