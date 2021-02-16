@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 18:01:20 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/16 17:00:03 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/16 19:41:20 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@ t_env *g_envs;
 void	print_tokens_detail(t_token *token)
 {
 	t_token *now;
+
+	if(!token)
+		return;
 	now = token;
 		printf("////////////////////////////\n");
 	while(now)
@@ -34,6 +37,8 @@ void	print_tokens_detail(t_token *token)
 void	print_tokens_line(t_token *token)
 {
 	t_token *now;
+	if(!token)
+		return;
 	now = token;
 	while(now)
 	{
@@ -69,7 +74,7 @@ int				main()
 		print_tokens_line(tokens);
 		free(line);
 		free(res_line);
-		del_token_list(tokens);
+		del_token_list(&tokens);
 	}
 	
 	// printf("input: %s\n", str);

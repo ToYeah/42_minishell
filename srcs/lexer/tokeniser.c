@@ -6,17 +6,29 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 09:30:46 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/16 19:23:54 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/16 19:49:50 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 #include "utils.h"
 
+#include <stdio.h>
 void close_token_list(t_tokeniser *toker)
 {
+	if(toker->state != STATE_GENERAL)
+	{
+		ft_putstr_fd("Quote does not exist.",STDOUT_FILENO);//error [echo aa"]
+		del_token_list(&toker->tokens_start);
+		return ;
+	}
 	if(toker->tok_i == 0)
-		del_token(&toker->token);
+	{
+		if(toker->tokens_start == toker->token)
+			del_token(&toker->tokens_start);
+		else
+			del_token(&toker->token);
+	}
 	else
 		toker->token->data[toker->tok_i] = '\0';
 }
@@ -60,7 +72,6 @@ t_token *tokenise_input(char *str)
 
 t_token *tokenise(char *input)
 {
-	size_t		input_len;
 	t_token		*tokens_start;
 	tokens_start = tokenise_input(input);
 	return tokens_start;

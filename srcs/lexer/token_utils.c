@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 17:42:00 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/16 09:20:28 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/16 19:40:58 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,15 @@ void			del_token(t_token **token_p)
 	*token_p = NULL;
 }
 
-void			del_token_list(t_token *token)
+void			del_token_list(t_token **token_p)
 {
 	t_token *now;
 	t_token *tmp;
+	t_token *token;
 
+	if(!token_p || !*token_p)
+		return ;
+	token = *token_p;
 	now = token;
 	while (now)
 	{
@@ -42,6 +46,7 @@ void			del_token_list(t_token *token)
 		del_token(&now);
 		now = tmp;
 	}
+	*token_p = NULL;
 }
 
 t_token_type	judge_token_type(char c)
