@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 17:42:00 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/15 18:59:20 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/16 09:20:28 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ t_token			*token_init(size_t len, t_token *prev)
 	t_token *res;
 
 	if (!(res = malloc(sizeof(t_token))))
-		return (NULL);
+		error_exit();
 	if (!(res->data = malloc(sizeof(char) * (len + 1))))
-		return (NULL);
+		error_exit();
 	res->data[0] = '\0';
 	res->type = CHAR_NULL;
 	res->next = NULL;
@@ -85,7 +85,7 @@ void			token_add_front(t_tokeniser *toker)
 	{
 		toker->token->data[toker->tok_i] = '\0';
 		tmp_token =
-		token_init(toker->str_len - toker->str_i, toker->token); //error
+		token_init(toker->str_len - toker->str_i, toker->token);
 		toker->token->next = tmp_token;
 		toker->token = tmp_token;
 		toker->tok_i = 0;

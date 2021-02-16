@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 17:19:26 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/15 19:14:01 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/16 09:24:22 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,18 +56,22 @@ char			*extract_val_name(char *str)
 char			*expansion(char *str, size_t *index)
 {
 	char *var_name;
-	char *expanded_var;
+	char *value;
 	char *tmp;
 	char *res;
 	extern t_env *g_envs;
 
 	str[*index] = '\0';
-	var_name = extract_val_name(&str[*index + 1]); //error
-	expanded_var = ft_strdup(search_env(g_envs, var_name));						   //error
-	tmp = ft_strjoin(str, expanded_var);						   //error
-	res = ft_strjoin(tmp, &str[*index + ft_strlen(var_name) + 1]); //error
+	if (!(var_name = extract_val_name(&str[*index + 1])))
+		error_exit();
+	if(!(value = ft_strdup(search_env(g_envs, var_name))))
+		error_exit();
+	if(!(tmp = ft_strjoin(str, value)))
+		error_exit();
+	if(!(res = ft_strjoin(tmp, &str[*index + ft_strlen(var_name) + 1])))
+		error_exit();
 	*index = ft_strlen(tmp) - 1;
-	free(expanded_var);
+	free(value);
 	free(var_name);
 	free(tmp);
 	free(str);
