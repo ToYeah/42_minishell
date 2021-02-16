@@ -6,25 +6,30 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 09:30:46 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/16 09:30:56 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/16 19:23:54 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 #include "utils.h"
 
-
-void close_token_list(t_token *last_token, size_t token_index)
+void close_token_list(t_tokeniser *toker)
 {
-	if(token_index == 0)
-		del_token(&last_token);
+	if(toker->tok_i == 0)
+		del_token(&toker->token);
 	else
-		last_token->data[token_index] = '\0';
+		toker->token->data[toker->tok_i] = '\0';
 }
 
-void tokeniser_init(t_tokeniser *toker,t_token *start_token, size_t len)
+void tokeniser_init(t_tokeniser *toker, char *str)
 {
+	size_t len;
+	t_token *start_token;
+
+	len = ft_strlen(str);
+	start_token = token_init(len, NULL);
 	toker->token = start_token;
+	toker->tokens_start = start_token;
 	toker->state = STATE_GENERAL;
 	toker->str_i = 0;
 	toker->tok_i = 0;
@@ -32,12 +37,12 @@ void tokeniser_init(t_tokeniser *toker,t_token *start_token, size_t len)
 	toker->quote_start = NULL;
 }
 
-void tokenise_input(char *str, t_token *start_token, size_t len)
+t_token *tokenise_input(char *str)
 {
 	t_tokeniser toker;
 	t_token_type type;
 
-	tokeniser_init(&toker, start_token, len);
+	tokeniser_init(&toker, str);
 	while (str[toker.str_i] != '\0')
 	{
 		type = judge_token_type(str[toker.str_i]);
@@ -49,18 +54,14 @@ void tokenise_input(char *str, t_token *start_token, size_t len)
 			d_quote_state(&toker, type, str);
 		toker.str_i++;
 	}
-	close_token_list(toker.token, toker.tok_i);
+	close_token_list(&toker);
+	return toker.tokens_start;
 }
 
 t_token *tokenise(char *input)
 {
 	size_t		input_len;
-	t_token		*start_token;
-
-	input_len = ft_strlen(input);
-	start_token = token_init(input_len, NULL);
-	if(input_len == 0)
-		return start_token;
-	tokenise_input(input, start_token, input_len);
-	return start_token;
+	t_token		*tokens_start;
+	tokens_start = tokenise_input(input);
+	return tokens_start;
 }

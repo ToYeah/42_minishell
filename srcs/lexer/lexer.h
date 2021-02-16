@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 16:44:34 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/16 14:29:39 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/16 19:19:29 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_tokeniser{
 	t_token_state state;
 	t_token *token;
 	char *quote_start;
+	t_token *tokens_start;
 }				t_tokeniser;
 
 char			*envarg_expansion(char *str);
