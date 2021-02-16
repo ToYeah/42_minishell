@@ -6,22 +6,12 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 18:20:15 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/16 18:41:06 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/16 18:57:17 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 #include "utils.h"
-
-t_bool	is_escape_char(char c, t_token_state state)
-{
-	char *esc_chars;
-
-	esc_chars = "\"\\$";
-	if (ft_strchr(esc_chars, c) != NULL)
-		return (TRUE);
-	return (FALSE);
-}
 
 void	shift_quote(char *quote_start, char *end, t_tokeniser *toker)
 {
