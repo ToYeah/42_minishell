@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 10:55:56 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/18 15:47:19 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/18 15:49:11 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ typedef struct	s_node
 	struct s_node	*left;
 	struct s_node	*right;
 }				t_node;
+
+t_node			*parse_complete_command(t_token **tokens);
 
 t_node			*add_parent_node(t_node_type type, t_node *left, t_node *right);
 t_node			*create_command_node(t_token **tokens);
