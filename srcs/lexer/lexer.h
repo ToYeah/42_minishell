@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 16:44:34 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/16 19:34:11 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/18 12:57:11 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,5 @@ void general_state_sep(t_tokeniser *toker, t_token_type type, char *str);
 void general_state(t_tokeniser *toker, t_token_type type, char *str);
 void quote_state(t_tokeniser *toker, t_token_type type, char *str);
 void d_quote_state(t_tokeniser *toker, t_token_type type, char *str);
-
+char **cmdline_split(char *str, int depth, int *depth_res);
 #endif
