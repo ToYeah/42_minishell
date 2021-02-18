@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 18:20:15 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/18 15:06:33 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/18 15:55:51 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,14 @@ void	general_state_sep(t_tokeniser *toker, t_token_type type, char *str)
 	char token_char;
 
 	token_char = str[toker->str_i];
-	token_add_front(toker);
+	tokeniser_add_front(toker);
 	if (type != CHAR_WHITESPACE)
 	{
 		toker->token->data[toker->tok_i++] = str[toker->str_i];
 		while(str[toker->str_i + 1] == token_char)
 			toker->token->data[toker->tok_i++] = str[++toker->str_i];
 		toker->token->type = type;
-		token_add_front(toker);
+		tokeniser_add_front(toker);
 	}
 }
 
@@ -80,7 +80,6 @@ void	quote_state(t_tokeniser *toker, t_token_type type, char *str)
 	if (str[toker->str_i] == CHAR_QOUTE)
 	{
 		toker->state = STATE_GENERAL;
-		// shift_quote(toker->quote_start,&toker->token->data[toker->tok_i - 1], toker);
 	}
 }
 
@@ -95,7 +94,21 @@ void	d_quote_state(t_tokeniser *toker, t_token_type type, char *str)
 		if (str[toker->str_i] == CHAR_DQUOTE)
 		{
 			toker->state = STATE_GENERAL;
-			// shift_quote(toker->quote_start,&toker->token->data[toker->tok_i - 1], toker);
 		}
+	}
+}
+
+void			tokeniser_add_front(t_tokeniser *toker)
+{
+	t_token *tmp_token;
+
+	if (toker->tok_i > 0)
+	{
+		toker->token->data[toker->tok_i] = '\0';
+		tmp_token =
+		token_init(toker->str_len - toker->str_i, toker->token);
+		toker->token->next = tmp_token;
+		toker->token = tmp_token;
+		toker->tok_i = 0;
 	}
 }
