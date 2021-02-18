@@ -6,27 +6,12 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 18:20:15 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/18 15:55:51 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/18 17:20:49 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 #include "utils.h"
-
-void	shift_quote(char *quote_start, char *end, t_tokeniser *toker)
-{
-	size_t	i;
-	char	*cpy_start;
-
-	i = 0;
-	cpy_start = quote_start + 1;
-	while (&cpy_start[i] != end)
-	{
-		quote_start[i] = cpy_start[i];
-		i++;
-	}
-	toker->tok_i -= 2;
-}
 
 void	general_state_sep(t_tokeniser *toker, t_token_type type, char *str)
 {
@@ -48,7 +33,7 @@ void	general_state(t_tokeniser *toker, t_token_type type, char *str)
 {
 	if (type == '\'' || type == '\"' || type == '\\' || type == CHAR_GENERAL)
 	{
-		if (type == CHAR_ESCAPESEQUENCE && str[toker->str_i + 1] != '\0')
+		if (type == CHAR_ESCAPE && str[toker->str_i + 1] != '\0')
 			toker->token->data[toker->tok_i++] = str[++toker->str_i];
 		else
 			toker->token->data[toker->tok_i++] = str[toker->str_i];
@@ -85,7 +70,7 @@ void	quote_state(t_tokeniser *toker, t_token_type type, char *str)
 
 void	d_quote_state(t_tokeniser *toker, t_token_type type, char *str)
 {
-	if (type == CHAR_ESCAPESEQUENCE && str[toker->str_i + 1] != '\0' &&
+	if (type == CHAR_ESCAPE && str[toker->str_i + 1] != '\0' &&
 	ft_strchr("\"\\$", str[toker->str_i + 1]) != NULL)
 		toker->token->data[toker->tok_i++] = str[++toker->str_i];
 	else

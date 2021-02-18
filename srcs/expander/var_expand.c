@@ -6,12 +6,29 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 17:19:26 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/18 12:20:16 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/18 17:20:49 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 #include "utils.h"
+
+
+void	shift_quote(char *quote_start, char *end, t_tokeniser *toker)
+{
+	size_t	i;
+	char	*cpy_start;
+
+	i = 0;
+	cpy_start = quote_start + 1;
+	while (&cpy_start[i] != end)
+	{
+		quote_start[i] = cpy_start[i];
+		i++;
+	}
+	toker->tok_i -= 2;
+}
+
 
 t_token_state	judge_token_state(t_token_state state, t_token_type type)
 {
@@ -139,7 +156,7 @@ char			*envarg_expansion(char *str)
 			continue;
 		}
 		type = judge_token_type(editable_str[i]);
-		if (type == CHAR_ESCAPESEQUENCE && ft_strchr("\'\"$", editable_str[i + 1]) != NULL)
+		if (type == CHAR_ESCAPE && ft_strchr("\'\"$", editable_str[i + 1]) != NULL)
 		{
 			if(!editable_str[i + 1])
 				return editable_str;
