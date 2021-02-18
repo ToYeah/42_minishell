@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokeniser.c                                        :+:      :+:    :+:   */
+/*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/16 09:30:46 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/18 18:41:16 by totaisei         ###   ########.fr       */
+/*   Created: 2021/02/18 20:01:44 by totaisei          #+#    #+#             */
+/*   Updated: 2021/02/18 20:01:46 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ void	tokeniser_init(t_tokeniser *toker, char *str, t_bool esc_flag)
 	toker->str_i = 0;
 	toker->tok_i = 0;
 	toker->str_len = len;
-	toker->quote_start = NULL;
 	toker->esc_flag = esc_flag;
 }
 
