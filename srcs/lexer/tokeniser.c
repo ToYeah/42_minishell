@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 09:30:46 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/18 14:25:00 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/18 17:46:56 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void close_token_list(t_tokeniser *toker)
 		toker->token->data[toker->tok_i] = '\0';
 }
 
-void tokeniser_init(t_tokeniser *toker, char *str)
+void tokeniser_init(t_tokeniser *toker, char *str, t_bool esc_flag)
 {
 	size_t len;
 	t_token *start_token;
@@ -47,14 +47,15 @@ void tokeniser_init(t_tokeniser *toker, char *str)
 	toker->tok_i = 0;
 	toker->str_len = len;
 	toker->quote_start = NULL;
+	toker->esc_flag = esc_flag;
 }
 
-t_token *tokenise_input(char *str)
+t_token *tokenise_input(char *str, t_bool esc_flag)
 {
 	t_tokeniser toker;
 	t_token_type type;
 
-	tokeniser_init(&toker, str);
+	tokeniser_init(&toker, str, esc_flag);
 	while (str[toker.str_i] != '\0')
 	{
 		type = judge_token_type(str[toker.str_i]);
@@ -70,9 +71,9 @@ t_token *tokenise_input(char *str)
 	return toker.tokens_start;
 }
 
-t_token *tokenise(char *input)
+t_token *tokenise(char *input, t_bool esc_flag)
 {
 	t_token		*tokens_start;
-	tokens_start = tokenise_input(input);
+	tokens_start = tokenise_input(input, esc_flag);
 	return tokens_start;
 }
