@@ -6,15 +6,15 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 15:25:56 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/18 18:09:51 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/18 19:07:22 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOKEN_H
 # define TOKEN_H
 
-#include "utils.h"
-#include "libft.h"
+# include "utils.h"
+# include "libft.h"
 
 typedef enum	e_tokentype{
 	CHAR_GENERAL = -1,
@@ -27,7 +27,7 @@ typedef enum	e_tokentype{
 	CHAR_GREATER = '>',
 	CHAR_LESSER = '<',
 	CHAR_NULL = 0,
-	TOKEN	= -1,
+	TOKEN = -1,
 }				t_token_type;
 
 typedef enum	e_token_state{
@@ -36,14 +36,14 @@ typedef enum	e_token_state{
 	STATE_GENERAL,
 }				t_token_state;
 
-typedef struct s_token t_token;
+typedef struct s_token	t_token;
 
-struct	s_token
+struct			s_token
 {
-	char *data;
-	t_token_type type;
-	t_token *next;
-	t_token *prev;
+	t_token			*next;
+	t_token			*prev;
+	t_token_type	type;
+	char			*data;
 };
 void			del_token(t_token **token_p);
 void			del_token_list(t_token **token_p);

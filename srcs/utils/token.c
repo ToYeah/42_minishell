@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 18:05:44 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/18 18:08:40 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/18 19:03:34 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void			del_token_list(t_token **token_p)
 	t_token *tmp;
 	t_token *token;
 
-	if(!token_p || !*token_p)
+	if (!token_p || !*token_p)
 		return ;
 	token = *token_p;
 	now = token;
