@@ -6,15 +6,15 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 15:25:56 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/18 17:20:49 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/18 18:09:51 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOKEN_H
 # define TOKEN_H
 
-# include "utils.h"
-# include "libft.h"
+#include "utils.h"
+#include "libft.h"
 
 typedef enum	e_tokentype{
 	CHAR_GENERAL = -1,

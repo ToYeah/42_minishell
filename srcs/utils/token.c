@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token_utils.c                                      :+:      :+:    :+:   */
+/*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/15 17:42:00 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/18 15:55:46 by totaisei         ###   ########.fr       */
+/*   Created: 2021/02/18 18:05:44 by totaisei          #+#    #+#             */
+/*   Updated: 2021/02/18 18:08:40 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
-#include "utils.h"
+#include "token.h"
 
 void			del_token(t_token **token_p)
 {
@@ -52,9 +51,6 @@ void			del_token_list(t_token **token_p)
 t_token_type	judge_token_type(char c)
 {
 	int			command_count;
-	//  const char	commands[] = {
-	//  	'|', '&', '\'', '\"', ' ', ';', '\\', '\t', '\n', '>', '<', '\0'};
-	
 	const char	commands[] = {
 		'|', '\'', '\"', ' ', ';', '\\', '>', '<', '\0'};
 
