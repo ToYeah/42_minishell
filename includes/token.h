@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 15:25:56 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/18 19:07:22 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/19 18:37:28 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef enum	e_tokentype{
 	CHAR_GREATER = '>',
 	CHAR_LESSER = '<',
 	CHAR_NULL = 0,
+	IO_NUMBER = -2,
 	TOKEN = -1,
 }				t_token_type;
 
