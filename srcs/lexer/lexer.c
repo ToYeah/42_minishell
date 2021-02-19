@@ -6,14 +6,14 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 20:01:44 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/18 20:01:46 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/19 11:34:19 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 #include "utils.h"
 
-void	tokeniser_add_front(t_tokeniser *toker)
+void	tokeniser_add_new_token(t_tokeniser *toker)
 {
 	t_token *tmp_token;
 
