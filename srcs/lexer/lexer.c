@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 20:01:44 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/19 11:45:27 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/19 12:41:10 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ t_token	*tokenise(char *str, t_bool esc_flag)
 	t_tokeniser		toker;
 	t_token_type	type;
 
+	if (!str)
+		return (NULL);
 	tokeniser_init(&toker, str, esc_flag);
 	while (str[toker.str_i] != '\0')
 	{
