@@ -6,12 +6,29 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 17:19:26 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/16 09:24:22 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/18 17:20:49 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 #include "utils.h"
+
+
+void	shift_quote(char *quote_start, char *end, t_tokeniser *toker)
+{
+	size_t	i;
+	char	*cpy_start;
+
+	i = 0;
+	cpy_start = quote_start + 1;
+	while (&cpy_start[i] != end)
+	{
+		quote_start[i] = cpy_start[i];
+		i++;
+	}
+	toker->tok_i -= 2;
+}
+
 
 t_token_state	judge_token_state(t_token_state state, t_token_type type)
 {
@@ -53,7 +70,47 @@ char			*extract_val_name(char *str)
 	return (res);
 }
 
-char			*expansion(char *str, size_t *index)
+char			*expansion_var_esc(char *str,  t_token_state state)
+{
+	char *res;
+	size_t res_index;
+	size_t index;
+	char *esc_chars;
+
+	esc_chars = "\"\\$";
+	if(state == STATE_GENERAL)
+		esc_chars = "\'\"\\$|;><";
+	res_index = 0;
+	index = 0;
+	while(str[index] != 0)
+	{
+		if (ft_strchr(esc_chars, str[index]) != NULL)
+			res_index++;
+		res_index++;
+		index++;
+	}
+	if(!(res = malloc(sizeof(char *) * (res_index + 1))))
+		error_exit();
+	index = 0;
+	res_index = 0;
+	while(str[index] != 0)
+	{
+		if (ft_strchr(esc_chars, str[index]) != NULL)// escape?
+		{
+			res[res_index] = '\\';
+			res_index++;
+		}
+		res[res_index] = str[index];
+		res_index++;
+		index++;
+	}
+	res[res_index] = '\0';
+	return res;
+}
+
+#include <stdio.h>
+
+char			*expansion(char *str, size_t *index, t_token_state state)
 {
 	char *var_name;
 	char *value;
@@ -61,10 +118,12 @@ char			*expansion(char *str, size_t *index)
 	char *res;
 	extern t_env *g_envs;
 
-	str[*index] = '\0';
 	if (!(var_name = extract_val_name(&str[*index + 1])))
 		error_exit();
-	if(!(value = ft_strdup(search_env(g_envs, var_name))))
+	if(ft_strlen(var_name) == 0)
+		return str;
+	str[*index] = '\0';
+	if(!(value = expansion_var_esc(search_env(g_envs, var_name), state)))
 		error_exit();
 	if(!(tmp = ft_strjoin(str, value)))
 		error_exit();
@@ -84,6 +143,7 @@ char			*envarg_expansion(char *str)
 	t_token_state state;
 	t_token_type type;
 	char *editable_str;
+	char *tmp;
 
 	editable_str = ft_strdup(str);
 	i = 0;
@@ -96,7 +156,7 @@ char			*envarg_expansion(char *str)
 			continue;
 		}
 		type = judge_token_type(editable_str[i]);
-		if (type == CHAR_ESCAPESEQUENCE && ft_strchr("\'\"$", editable_str[i + 1]) != NULL)
+		if (type == CHAR_ESCAPE && ft_strchr("\'\"$", editable_str[i + 1]) != NULL)
 		{
 			if(!editable_str[i + 1])
 				return editable_str;
@@ -104,9 +164,19 @@ char			*envarg_expansion(char *str)
 			continue;
 		}
 		state = judge_token_state(state, type);
-		if (editable_str[i] == '$' && editable_str[i + 1]
-		&& (state == STATE_GENERAL || state == STATE_IN_DQUOTE))
-			editable_str = expansion(editable_str, &i);
+		if (editable_str[i] == '$' )
+		{
+			if (ft_strchr("\'\"", editable_str[i + 1]) != NULL)
+			{
+				editable_str[i] = '\0';
+				if(!(tmp =  ft_strjoin(editable_str, &editable_str[i + 1])))
+					error_exit();
+				editable_str = tmp;
+				free(tmp);
+			}
+			else if (state == STATE_GENERAL || state == STATE_IN_DQUOTE)
+				editable_str = expansion(editable_str, &i, state);
+		}
 		i++;
 	}
 	return (editable_str);
