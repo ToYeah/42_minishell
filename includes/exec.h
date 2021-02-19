@@ -19,7 +19,6 @@
 typedef struct	s_command
 {
 	t_token				*args;
-	struct s_command	*next;
 }				t_command;
 
 void			exec_command(char **args, t_env *envs);
