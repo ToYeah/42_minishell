@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 20:01:44 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/19 11:34:19 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/19 11:45:27 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	tokeniser_add_new_token(t_tokeniser *toker)
 	{
 		toker->token->data[toker->tok_i] = '\0';
 		tmp_token =
-		token_init(toker->str_len - toker->str_i, toker->token);
+			token_init(toker->str_len - toker->str_i, toker->token);
 		toker->token->next = tmp_token;
 		toker->token = tmp_token;
 		toker->tok_i = 0;
