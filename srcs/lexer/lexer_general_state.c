@@ -1,17 +1,52 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer_utils.c                                      :+:      :+:    :+:   */
+/*   lexer_general_state.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/18 20:01:50 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/19 18:29:31 by totaisei         ###   ########.fr       */
+/*   Created: 2021/02/19 18:59:13 by totaisei          #+#    #+#             */
+/*   Updated: 2021/02/19 19:03:57 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 #include "utils.h"
+
+void	tokeniser_add_new_token(t_tokeniser *toker)
+{
+	t_token *tmp_token;
+
+	if (toker->tok_i > 0)
+	{
+		toker->token->data[toker->tok_i] = '\0';
+		tmp_token =
+			token_init(toker->str_len - toker->str_i, toker->token);
+		toker->token->next = tmp_token;
+		toker->token = tmp_token;
+		toker->tok_i = 0;
+	}
+}
+
+t_bool	is_nums_token(t_tokeniser *toker)
+{
+	size_t i;
+
+	if (!toker || !toker->token || !toker->token->data)
+	{
+		return (FALSE);
+	}
+	i = toker->tok_i;
+	while (i && ft_isdigit(toker->token->data[i - 1]))
+	{
+		i--;
+	}
+	if (i == 0)
+	{
+		return (TRUE);
+	}
+	return (FALSE);
+}
 
 void	general_sep_process(t_tokeniser *toker, t_token_type type, char *str)
 {
@@ -74,37 +109,4 @@ void	general_state(t_tokeniser *toker, t_token_type type, char *str)
 	}
 	else
 		general_sep_process(toker, type, str);
-}
-
-void	quote_state(t_tokeniser *toker, t_token_type type, char *str)
-{
-	(void)type;
-	toker->token->data[toker->tok_i++] = str[toker->str_i];
-	if (str[toker->str_i] == CHAR_QOUTE)
-	{
-		toker->state = STATE_GENERAL;
-	}
-}
-
-void	d_quote_state(t_tokeniser *toker, t_token_type type, char *str)
-{
-	if (type == CHAR_ESCAPE && str[toker->str_i + 1] != '\0' &&
-		ft_strchr("\"\\$", str[toker->str_i + 1]) != NULL)
-	{
-		if (toker->esc_flag)
-			toker->token->data[toker->tok_i++] = str[++toker->str_i];
-		else
-		{
-			toker->token->data[toker->tok_i++] = str[toker->str_i++];
-			toker->token->data[toker->tok_i++] = str[toker->str_i];
-		}
-	}
-	else
-	{
-		toker->token->data[toker->tok_i++] = str[toker->str_i];
-		if (str[toker->str_i] == CHAR_DQUOTE)
-		{
-			toker->state = STATE_GENERAL;
-		}
-	}
 }
