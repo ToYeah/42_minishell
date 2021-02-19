@@ -6,14 +6,14 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 23:38:53 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/15 17:23:45 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/19 11:20:05 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 #include "libft.h"
 
-t_env	*get_last_env(t_env *envs)
+t_env		*get_last_env(t_env *envs)
 {
 	t_env	*target;
 
@@ -25,7 +25,7 @@ t_env	*get_last_env(t_env *envs)
 	return (target);
 }
 
-size_t	get_env_size(t_env *envs)
+size_t		get_env_size(t_env *envs)
 {
 	size_t	size;
 
@@ -38,7 +38,7 @@ size_t	get_env_size(t_env *envs)
 	return (size);
 }
 
-t_env	*create_new_env(char *env_str)
+t_env		*create_new_env(char *env_str)
 {
 	t_env	*env;
 	char	*sep;
@@ -56,7 +56,7 @@ t_env	*create_new_env(char *env_str)
 	return (env);
 }
 
-void	free_env(t_env *env)
+void		free_env(t_env *env)
 {
 	free(env->name);
 	free(env->value);
@@ -65,11 +65,11 @@ void	free_env(t_env *env)
 	free(env);
 }
 
-char	*search_env(t_env *envs, char *name)
+const char	*search_env(t_env *envs, char *name)
 {
 	t_env	*now;
 
-	if(!envs || !name)
+	if (!envs || !name)
 		return (NULL);
 	now = envs;
 	while (now)
