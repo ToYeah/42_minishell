@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 18:59:13 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/19 19:03:57 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/19 19:29:12 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,17 @@ void	tokeniser_add_new_token(t_tokeniser *toker)
 	}
 }
 
-t_bool	is_nums_token(t_tokeniser *toker)
+t_bool	is_io_number_token(t_tokeniser *toker)
 {
 	size_t i;
 
-	if (!toker || !toker->token || !toker->token->data)
+	if (!toker || !toker->token || !toker->token->data ||
+		toker->tok_i == 0)
 	{
 		return (FALSE);
 	}
 	i = toker->tok_i;
-	while (i && ft_isdigit(toker->token->data[i - 1]))
+	while (i != 0 && ft_isdigit(toker->token->data[i - 1]))
 	{
 		i--;
 	}
@@ -54,7 +55,7 @@ void	general_sep_process(t_tokeniser *toker, t_token_type type, char *str)
 
 	token_char = str[toker->str_i];
 	if ((token_char == CHAR_GREATER || token_char == CHAR_LESSER) &&
-		toker->tok_i != 0 && is_nums_token(toker))
+		is_io_number_token(toker))
 	{
 		toker->token->type = IO_NUMBER;
 	}
