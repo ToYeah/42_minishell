@@ -104,3 +104,5 @@ Temporary Items
 
 minishell
 *.bak
+.vscode/*
+*debug_.c
