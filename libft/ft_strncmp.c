@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/08 22:02:56 by totaisei          #+#    #+#             */
-/*   Updated: 2021/01/04 14:18:14 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/20 08:37:26 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,28 @@ int	ft_strrncmp(const char *s1, const char *s2, size_t n)
 		casted_s1--;
 		casted_s2--;
 		n--;
+	}
+	return (0);
+}
+
+int	ft_strcmp(char *s1, char *s2)
+{
+	int i;
+
+	i = 0;
+	while (1)
+	{
+		if ((s1[i] - s2[i]) > 0)
+		{
+			return (s1[i] - s2[i]);
+		}
+		else if ((s1[i] - s2[i]) < 0)
+		{
+			return (s1[i] - s2[i]);
+		}
+		i++;
+		if (!(s1[i]) && !(s2[i]))
+			break ;
 	}
 	return (0);
 }
