@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 12:06:22 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/18 15:43:08 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/20 20:12:26 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	set_command_args(t_command *command, t_token **tokens)
 {
 	t_token	*now_token;
 
-	command->args = NULL;
 	while (*tokens && (*tokens)->type == TOKEN)
 	{
 		if (!command->args)
@@ -53,7 +52,7 @@ void	set_command_args(t_command *command, t_token **tokens)
 	}
 }
 
-t_node	*create_command_node(t_token **tokens)
+t_node	*create_command_node(void)
 {
 	t_node	*node;
 
@@ -62,8 +61,9 @@ t_node	*create_command_node(t_token **tokens)
 	if (!(node->command = (t_command *)malloc(sizeof(t_command))))
 		error_exit();
 	node->type = NODE_COMMAND;
-	set_command_args(node->command, tokens);
 	node->left = NULL;
 	node->right = NULL;
+	node->command->args = NULL;
+	node->command->redirects = NULL;
 	return (node);
 }
