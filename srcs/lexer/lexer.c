@@ -6,27 +6,12 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 20:01:44 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/19 12:41:10 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/19 19:00:31 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 #include "utils.h"
-
-void	tokeniser_add_new_token(t_tokeniser *toker)
-{
-	t_token *tmp_token;
-
-	if (toker->tok_i > 0)
-	{
-		toker->token->data[toker->tok_i] = '\0';
-		tmp_token =
-			token_init(toker->str_len - toker->str_i, toker->token);
-		toker->token->next = tmp_token;
-		toker->token = tmp_token;
-		toker->tok_i = 0;
-	}
-}
 
 void	close_token_list(t_tokeniser *toker)
 {
