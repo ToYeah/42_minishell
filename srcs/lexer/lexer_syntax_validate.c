@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/20 08:07:01 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/20 10:32:49 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/20 10:50:22 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ t_bool	is_normal_token(t_token *token)
 
 	if (!token)
 		return (FALSE);
-	if (token->type == TOKEN)
-		return (TRUE);
 	pattern_count = 0;
 	while (pattern_count < 5)
 	{
