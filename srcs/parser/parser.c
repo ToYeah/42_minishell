@@ -66,7 +66,7 @@ t_node	*parse_pipeline(t_token **tokens)
 		}
 		else
 		{
-			break;
+			break ;
 		}
 	}
 	return (node);
@@ -86,7 +86,7 @@ t_node	*parse_complete_command(t_token **tokens)
 		}
 		else
 		{
-			break;
+			break ;
 		}
 	}
 	print_nodes(node);
