@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 18:59:13 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/20 09:32:17 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/20 09:42:21 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,13 @@ void	tokeniser_add_new_token(t_tokeniser *toker)
 	}
 }
 
-t_bool	is_io_number_token(t_tokeniser *toker)
+t_bool	is_io_number_token(t_tokeniser *toker, t_token_type type)
 {
 	size_t i;
 
 	if (!toker || !toker->token || !toker->token->data ||
-		toker->tok_i == 0)
+		toker->tok_i == 0 ||
+		(type != CHAR_GREATER && type != CHAR_LESSER))
 	{
 		return (FALSE);
 	}
@@ -54,11 +55,8 @@ void	general_sep_process(t_tokeniser *toker, t_token_type type, char *str)
 	char token_char;
 
 	token_char = str[toker->str_i];
-	if ((token_char == CHAR_GREATER || token_char == CHAR_LESSER) &&
-		is_io_number_token(toker))
-	{
+	if (is_io_number_token(toker, type))
 		toker->token->type = IO_NUMBER;
-	}
 	tokeniser_add_new_token(toker);
 	if (type != CHAR_WHITESPACE)
 	{
