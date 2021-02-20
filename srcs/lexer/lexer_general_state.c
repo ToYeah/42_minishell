@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 18:59:13 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/19 19:29:12 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/20 09:32:17 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,16 @@ void	general_sep_process(t_tokeniser *toker, t_token_type type, char *str)
 		toker->token->data[toker->tok_i++] = str[toker->str_i];
 		while (str[toker->str_i + 1] == token_char)
 			toker->token->data[toker->tok_i++] = str[++toker->str_i];
+		toker->token->data[toker->tok_i] = '\0';
+		if (is_normal_token(toker->token) == FALSE)
+		{
+			ft_putendl_fd("Commandline contains unknown token.", STDERR_FILENO);
+			del_token_list(&(toker->tokens_start));
+			return ;
+		}
 		toker->token->type = type;
+		if (type == CHAR_GREATER && ft_strcmp(toker->token->data, ">>") == 0)
+			toker->token->type = D_GREATER;
 		tokeniser_add_new_token(toker);
 	}
 }
