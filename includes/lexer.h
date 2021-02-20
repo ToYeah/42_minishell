@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 16:44:34 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/20 09:13:49 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/20 09:53:38 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct	s_tokeniser{
 
 t_token			*tokenise(char *input, t_bool esc_flag);
 t_bool			is_normal_token(t_token *token);
+t_bool			is_io_number_token(t_tokeniser *toker, t_token_type type);
 void			general_state(t_tokeniser *t, t_token_type y, char *s);
 void			quote_state(t_tokeniser *t, t_token_type y, char *s);
 void			d_quote_state(t_tokeniser *t, t_token_type y, char *s);

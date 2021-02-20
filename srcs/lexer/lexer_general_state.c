@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 18:59:13 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/20 09:42:21 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/20 09:53:14 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,40 +28,15 @@ void	tokeniser_add_new_token(t_tokeniser *toker)
 	}
 }
 
-t_bool	is_io_number_token(t_tokeniser *toker, t_token_type type)
-{
-	size_t i;
-
-	if (!toker || !toker->token || !toker->token->data ||
-		toker->tok_i == 0 ||
-		(type != CHAR_GREATER && type != CHAR_LESSER))
-	{
-		return (FALSE);
-	}
-	i = toker->tok_i;
-	while (i != 0 && ft_isdigit(toker->token->data[i - 1]))
-	{
-		i--;
-	}
-	if (i == 0)
-	{
-		return (TRUE);
-	}
-	return (FALSE);
-}
-
 void	general_sep_process(t_tokeniser *toker, t_token_type type, char *str)
 {
-	char token_char;
-
-	token_char = str[toker->str_i];
 	if (is_io_number_token(toker, type))
 		toker->token->type = IO_NUMBER;
 	tokeniser_add_new_token(toker);
 	if (type != CHAR_WHITESPACE)
 	{
 		toker->token->data[toker->tok_i++] = str[toker->str_i];
-		while (str[toker->str_i + 1] == token_char)
+		while (str[toker->str_i + 1] == str[toker->str_i])
 			toker->token->data[toker->tok_i++] = str[++toker->str_i];
 		toker->token->data[toker->tok_i] = '\0';
 		if (is_normal_token(toker->token) == FALSE)
