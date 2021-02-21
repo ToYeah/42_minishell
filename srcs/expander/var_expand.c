@@ -6,13 +6,13 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 17:19:26 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/18 17:20:49 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/21 09:48:40 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 #include "utils.h"
-
+#include "token.h"
 
 void	shift_quote(char *quote_start, char *end, t_tokeniser *toker)
 {
@@ -70,7 +70,7 @@ char			*extract_val_name(char *str)
 	return (res);
 }
 
-char			*expansion_var_esc(char *str,  t_token_state state)
+char			*expansion_var_esc(const char *str,  t_token_state state)
 {
 	char *res;
 	size_t res_index;
@@ -145,7 +145,9 @@ char			*envarg_expansion(char *str)
 	char *editable_str;
 	char *tmp;
 
-	editable_str = ft_strdup(str);
+	if (!str)
+		return (NULL);
+	editable_str = ft_strdup(str);//error
 	i = 0;
 	state = STATE_GENERAL;
 	while (editable_str[i] != '\0')
@@ -166,18 +168,40 @@ char			*envarg_expansion(char *str)
 		state = judge_token_state(state, type);
 		if (editable_str[i] == '$' )
 		{
-			if (ft_strchr("\'\"", editable_str[i + 1]) != NULL)
-			{
-				editable_str[i] = '\0';
-				if(!(tmp =  ft_strjoin(editable_str, &editable_str[i + 1])))
-					error_exit();
-				editable_str = tmp;
-				free(tmp);
-			}
-			else if (state == STATE_GENERAL || state == STATE_IN_DQUOTE)
+			if (state == STATE_GENERAL || state == STATE_IN_DQUOTE)
 				editable_str = expansion(editable_str, &i, state);
 		}
 		i++;
 	}
 	return (editable_str);
+}
+
+
+void *expander(t_token **tokens)
+{
+	t_token *now_token;
+	t_token *last_token;
+	t_token *res_tokens;
+	t_token *expanded_token;
+	char *expanded_str;
+
+	if (!tokens || !*tokens)
+		return (NULL);
+	last_token = NULL;
+	res_tokens = NULL;
+	now_token = *tokens;
+	while (now_token != NULL)
+	{
+		expanded_str = envarg_expansion(now_token->data);
+		expanded_token = tokenise(expanded_str, TRUE);
+		free(expanded_str);
+		if (res_tokens == NULL)
+			res_tokens = expanded_token;
+		token_join(last_token, expanded_token);
+		printf("%s\n",find_last_token(expanded_token)->data);
+		last_token = find_last_token(expanded_token);
+		now_token = now_token->next;
+	}
+	del_token_list(tokens);
+	*tokens = res_tokens;
 }

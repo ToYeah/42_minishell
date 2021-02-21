@@ -6,11 +6,12 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 18:05:44 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/19 11:24:25 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/21 09:28:37 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "token.h"
+#include "utils.h"
 
 void			del_token(t_token **token_p)
 {
