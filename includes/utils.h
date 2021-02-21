@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 20:13:16 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/19 11:17:05 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/21 14:53:27 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define UTILS_H
 
 # include <stddef.h>
+# include "token.h"
 
 typedef struct	s_env
 {
@@ -23,6 +24,7 @@ typedef struct	s_env
 }				t_env;
 
 void			error_exit(void);
+void			print_unexpected_token_error(t_token *token);
 
 t_env			*create_envs_from_environ(void);
 void			print_envs(t_env *envs);
