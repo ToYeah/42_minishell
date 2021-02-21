@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 10:55:56 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/20 20:14:49 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/21 14:04:53 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ t_node			*create_command_node(void);
 void			set_command_args(t_command *command, t_token **tokens);
 
 void			print_nodes(t_node *node);
+void			print_command_args(t_token *args, int fd);
+void			print_node_label(t_node *node, int fd);
 
 t_redirect		*create_redirect(void);
 void			add_redirect(t_redirect **list, t_redirect *new);
