@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 16:58:32 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/21 16:59:21 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/21 18:31:46 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,5 @@ t_bool			has_token_type(t_token **token, t_token_type type)
 t_bool			is_redirect_token(t_token *token)
 {
 	return (token->type == CHAR_GREATER || token->type == CHAR_LESSER ||
-		token->type == IO_NUMBER);
+		token->type == D_GREATER || token->type == IO_NUMBER);
 }
