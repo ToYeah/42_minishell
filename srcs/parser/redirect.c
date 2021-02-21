@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 13:24:58 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/21 16:55:46 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/21 17:34:12 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_redirect	*create_redirect(void)
 	return (redirect);
 }
 
-void		set_redirect_type(t_token *token, t_redirect *redirect)
+t_bool		set_redirect_type(t_token *token, t_redirect *redirect)
 {
 	if (token->type == CHAR_LESSER)
 	{
@@ -59,8 +59,7 @@ void		set_redirect_type(t_token *token, t_redirect *redirect)
 	}
 	else
 	{
-		// TODO: error handling
-		print_unexpected_token_error(token);
-		error_exit();
+		return (FALSE);
 	}
+	return (TRUE);
 }

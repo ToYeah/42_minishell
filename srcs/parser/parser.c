@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 01:11:20 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/21 17:00:36 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/21 17:46:56 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "parser.h"
 #include "utils.h"
 
-static void		parse_io_redirect(t_token **tokens, t_node *command_node)
+static t_bool	parse_io_redirect(t_token **tokens, t_node *command_node)
 {
 	t_redirect	*redirect;
 
@@ -24,88 +24,98 @@ static void		parse_io_redirect(t_token **tokens, t_node *command_node)
 		redirect->fd = ft_atoi((*tokens)->data);
 		*tokens = (*tokens)->next;
 	}
-	set_redirect_type(*tokens, redirect);
+	if (set_redirect_type(*tokens, redirect) == FALSE)
+	{
+		return (FALSE);
+	}
 	*tokens = (*tokens)->next;
 	if (!*tokens || (*tokens)->type != TOKEN)
 	{
-		// TODO: error handling
-		print_unexpected_token_error(*tokens);
-		error_exit();
+		return (FALSE);
 	}
 	add_copied_token(&redirect->filename, *tokens);
 	add_redirect(&command_node->command->redirects, redirect);
 	*tokens = (*tokens)->next;
+	return (TRUE);
 }
 
-static t_node	*parse_command(t_token **tokens)
+static t_bool	parse_command(t_node **node, t_token **tokens)
 {
-	t_node	*command_node;
-
 	if (!*tokens)
 	{
-		// TODO: error handling
-		print_unexpected_token_error(*tokens);
-		error_exit();
+		return (FALSE);
 	}
-	command_node = create_command_node();
+	*node = create_command_node();
 	while (*tokens)
 	{
 		if ((*tokens)->type == TOKEN)
 		{
-			set_command_args(command_node->command, tokens);
+			set_command_args((*node)->command, tokens);
 		}
 		else if (is_redirect_token(*tokens))
 		{
-			parse_io_redirect(tokens, command_node);
+			if (parse_io_redirect(tokens, *node) == FALSE)
+			{
+				return (FALSE);
+			}
 		}
 		else
 		{
 			break ;
 		}
 	}
-	return (command_node);
+	return (TRUE);
 }
 
-static t_node	*parse_pipeline(t_token **tokens)
+static t_bool	parse_pipeline(t_node **node, t_token **tokens)
 {
-	t_node	*node;
+	t_node	*child;
 
-	node = parse_command(tokens);
+	if (parse_command(node, tokens) == FALSE)
+	{
+		return (FALSE);
+	}
 	while (*tokens)
 	{
 		if (has_token_type(tokens, CHAR_PIPE))
 		{
-			node = add_parent_node(NODE_PIPE, node, parse_command(tokens));
+			if (parse_command(&child, tokens) == FALSE)
+			{
+				return (FALSE);
+			}
+			*node = add_parent_node(NODE_PIPE, *node, child);
 		}
 		else
 		{
 			break ;
 		}
 	}
-	return (node);
+	return (TRUE);
 }
 
-t_node			*parse_complete_command(t_token **tokens)
+t_bool			parse_complete_command(t_node **nodes, t_token **tokens)
 {
-	t_node	*node;
+	t_node	*child;
 
-	node = NULL;
+	*nodes = NULL;
 	if (*tokens)
 	{
-		node = parse_pipeline(tokens);
+		if (parse_pipeline(nodes, tokens) == FALSE)
+			return (FALSE);
 	}
 	while (*tokens)
 	{
 		if (has_token_type(tokens, CHAR_SEMICOLON))
 		{
-			node = add_parent_node(
-				NODE_SEMICOLON, node, parse_pipeline(tokens));
+			if (parse_pipeline(&child, tokens) == FALSE)
+				return (FALSE);
+			*nodes = add_parent_node(NODE_SEMICOLON, *nodes, child);
 		}
 		else
-		{
 			break ;
-		}
 	}
-	print_nodes(node);
-	return (node);
+	if (*tokens)
+		return (FALSE);
+	print_nodes(*nodes);
+	return (TRUE);
 }
