@@ -106,3 +106,4 @@ minishell
 *.bak
 .vscode/*
 *debug_.c
+ast.dot
