@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 18:59:13 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/20 09:53:14 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/21 07:07:32 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,20 @@ void	general_sep_process(t_tokeniser *toker, t_token_type type, char *str)
 	if (type != CHAR_WHITESPACE)
 	{
 		toker->token->data[toker->tok_i++] = str[toker->str_i];
-		while (str[toker->str_i + 1] == str[toker->str_i])
-			toker->token->data[toker->tok_i++] = str[++toker->str_i];
-		toker->token->data[toker->tok_i] = '\0';
-		if (is_normal_token(toker->token) == FALSE)
+		if (str[toker->str_i + 1] == str[toker->str_i])
 		{
-			ft_putendl_fd("Commandline contains unknown token.", STDERR_FILENO);
-			del_token_list(&(toker->tokens_start));
-			return ;
+			if(type == CHAR_GREATER)
+			{
+				toker->token->data[toker->tok_i++] = str[++toker->str_i];
+				toker->token->type = D_GREATER;
+			}
+			else if (type == CHAR_SEMICOLON)
+			{
+				toker->token->data[toker->tok_i++] = str[++toker->str_i];
+				toker->token->type = D_SEMICOLON;
+			}
 		}
 		toker->token->type = type;
-		if (type == CHAR_GREATER && ft_strcmp(toker->token->data, ">>") == 0)
-			toker->token->type = D_GREATER;
 		tokeniser_add_new_token(toker);
 	}
 }
