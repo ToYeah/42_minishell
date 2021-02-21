@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 13:42:30 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/21 13:57:27 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/21 15:13:21 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	print_command_args(t_token *args, int fd)
 		if (args)
 			ft_putstr_fd(", ", fd);
 	}
-	ft_putchar_fd('\n', fd);
+	ft_putstr_fd("\\n", fd);
 }
 
 void	print_redirect(t_redirect *redirect, int fd)
