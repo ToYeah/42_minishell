@@ -36,19 +36,15 @@ t_bool	is_redirect_token(t_token *token)
 
 void	set_redirect_type(t_token *token, t_redirect *redirect)
 {
-	if (token->type == CHAR_LESSER && ft_strncmp(
-		REDIR_INPUT_STR, token->data, ft_strlen(REDIR_INPUT_STR) + 1))
+	if (token->type == CHAR_LESSER)
 	{
 		redirect->type = REDIR_INPUT;
 	}
-	else if (token->type == CHAR_GREATER && ft_strncmp(
-		REDIR_OUTPUT_STR, token->data, ft_strlen(REDIR_OUTPUT_STR) + 1))
+	else if (token->type == CHAR_GREATER)
 	{
 		redirect->type = REDIR_OUTPUT;
 	}
-	else if (token->type == CHAR_GREATER && ft_strncmp(
-		REDIR_APPEND_OUTPUT_STR, token->data,
-		ft_strlen(REDIR_APPEND_OUTPUT_STR) + 1))
+	else if (token->type == D_GREATER)
 	{
 		redirect->type = REDIR_APPEND_OUTPUT;
 	}
