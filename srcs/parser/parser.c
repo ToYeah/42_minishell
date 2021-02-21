@@ -6,83 +6,15 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 01:11:20 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/21 16:47:46 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/21 17:00:36 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+#include "token.h"
 #include "parser.h"
 #include "utils.h"
 
-t_token	*copy_token(t_token *token)
-{
-	t_token	*new;
-	size_t	data_len;
-
-	data_len = ft_strlen(token->data);
-	new = token_init(data_len, NULL);
-	ft_strlcpy(new->data, token->data, data_len + 1);
-	new->type = token->type;
-	return (new);
-}
-
-void	add_copied_token(t_token **list, t_token *original_token)
-{
-	t_token	*now;
-	t_token	*copied_token;
-
-	copied_token = copy_token(original_token);
-	if (!*list)
-		*list = copied_token;
-	else
-	{
-		now = *list;
-		while (now->next)
-			now = now->next;
-		now->next = copied_token;
-		copied_token->prev = now->next;
-	}
-}
-
-t_bool	has_token_type(t_token **token, t_token_type type)
-{
-	if ((*token)->type == type)
-	{
-		*token = (*token)->next;
-		return (TRUE);
-	}
-	return (FALSE);
-}
-
-t_bool	is_redirect_token(t_token *token)
-{
-	return (token->type == CHAR_GREATER || token->type == CHAR_LESSER ||
-		token->type == IO_NUMBER);
-}
-
-void	set_redirect_type(t_token *token, t_redirect *redirect)
-{
-	if (token->type == CHAR_LESSER)
-	{
-		redirect->type = REDIR_INPUT;
-	}
-	else if (token->type == CHAR_GREATER)
-	{
-		redirect->type = REDIR_OUTPUT;
-	}
-	else if (token->type == D_GREATER)
-	{
-		redirect->type = REDIR_APPEND_OUTPUT;
-	}
-	else
-	{
-		// TODO: error handling
-		print_unexpected_token_error(token);
-		error_exit();
-	}
-}
-
-void	parse_io_redirect(t_token **tokens, t_node *command_node)
+static void		parse_io_redirect(t_token **tokens, t_node *command_node)
 {
 	t_redirect	*redirect;
 
@@ -105,7 +37,7 @@ void	parse_io_redirect(t_token **tokens, t_node *command_node)
 	*tokens = (*tokens)->next;
 }
 
-t_node	*parse_command(t_token **tokens)
+static t_node	*parse_command(t_token **tokens)
 {
 	t_node	*command_node;
 
@@ -134,7 +66,7 @@ t_node	*parse_command(t_token **tokens)
 	return (command_node);
 }
 
-t_node	*parse_pipeline(t_token **tokens)
+static t_node	*parse_pipeline(t_token **tokens)
 {
 	t_node	*node;
 
@@ -153,7 +85,7 @@ t_node	*parse_pipeline(t_token **tokens)
 	return (node);
 }
 
-t_node	*parse_complete_command(t_token **tokens)
+t_node			*parse_complete_command(t_token **tokens)
 {
 	t_node	*node;
 
