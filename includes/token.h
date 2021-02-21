@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 15:25:56 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/21 14:47:12 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/21 16:28:35 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ typedef enum	e_tokentype{
 	CHAR_GREATER = '>',
 	CHAR_LESSER = '<',
 	CHAR_NULL = 0,
+	D_SEMICOLON = -4,
+	D_GREATER = -3,
 	IO_NUMBER = -2,
 	TOKEN = -1,
 }				t_token_type;

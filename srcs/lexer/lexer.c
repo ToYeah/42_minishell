@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 20:01:44 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/19 19:00:31 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/20 10:26:35 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,18 @@
 
 void	close_token_list(t_tokeniser *toker)
 {
+	if (!toker->tokens_start)
+		return ;
 	if (toker->state != STATE_GENERAL)
 	{
 		ft_putstr_fd("Quote does not exist.", STDOUT_FILENO);
-		error_exit();
+		del_token_list(&(toker->tokens_start));
 		return ;
 	}
 	if (toker->tok_i == 0)
 	{
 		if (toker->tokens_start == toker->token)
-			del_token(&toker->tokens_start);
+			del_token_list(&toker->tokens_start);
 		else
 			del_token(&toker->token);
 	}
@@ -56,7 +58,7 @@ t_token	*tokenise(char *str, t_bool esc_flag)
 	if (!str)
 		return (NULL);
 	tokeniser_init(&toker, str, esc_flag);
-	while (str[toker.str_i] != '\0')
+	while (str[toker.str_i] != '\0' && toker.tokens_start)
 	{
 		type = judge_token_type(str[toker.str_i]);
 		if (toker.state == STATE_GENERAL)
