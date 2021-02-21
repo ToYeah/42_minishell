@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 01:11:20 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/22 00:31:05 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/22 00:39:32 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,12 @@ static t_bool	parse_io_redirect(t_token **tokens, t_node *command_node)
 static t_bool	parse_command(t_node **node, t_token **tokens)
 {
 	if (!*tokens)
-	{
 		return (FALSE);
-	}
 	*node = create_command_node();
 	while (*tokens)
 	{
 		if ((*tokens)->type == TOKEN)
-		{
 			set_command_args((*node)->command, tokens);
-		}
 		else if (is_redirect_token(*tokens))
 		{
 			if (parse_io_redirect(tokens, *node) == FALSE)
@@ -65,9 +61,7 @@ static t_bool	parse_command(t_node **node, t_token **tokens)
 			}
 		}
 		else
-		{
 			break ;
-		}
 	}
 	return (TRUE);
 }
