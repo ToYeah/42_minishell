@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   token.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 15:25:56 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/19 18:37:28 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/21 14:47:12 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOKEN_H
 # define TOKEN_H
 
-# include "utils.h"
 # include "libft.h"
 
 typedef enum	e_tokentype{
