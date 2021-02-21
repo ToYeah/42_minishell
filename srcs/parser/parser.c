@@ -64,9 +64,7 @@ void	parse_io_redirect(t_token **tokens, t_node *command_node)
 {
 	t_redirect	*redirect;
 
-	redirect = (t_redirect *)malloc(sizeof(t_redirect));
-	if (!redirect)
-		error_exit();
+	redirect = create_redirect();
 	if ((*tokens)->type == IO_NUMBER)
 	{
 		redirect->fd = ft_atoi((*tokens)->data);
@@ -81,7 +79,7 @@ void	parse_io_redirect(t_token **tokens, t_node *command_node)
 		error_exit();
 	}
 	redirect->filename = *tokens;
-	command_node->command->redirects = redirect;
+	add_redirect(&command_node->command->redirects, redirect);
 	*tokens = (*tokens)->next;
 }
 
