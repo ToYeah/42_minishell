@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 20:07:01 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/20 20:18:13 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/21 23:01:51 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 # include "utils.h"
 # include "lexer.h"
+
+# define REDIR_FD_NOT_SPECIFIED		-1
+# define REDIR_FD_OUT_OF_RANGE		-2
 
 typedef enum	e_redirect_type
 {
