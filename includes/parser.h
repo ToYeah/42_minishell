@@ -38,4 +38,7 @@ void			set_command_args(t_command *command, t_token **tokens);
 
 void			print_nodes(t_node *node);
 
+t_redirect		*create_redirect(void);
+void			add_redirect(t_redirect **list, t_redirect *new);
+
 #endif
