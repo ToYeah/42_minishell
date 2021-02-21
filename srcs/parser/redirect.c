@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 13:24:58 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/21 17:34:12 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/21 18:07:50 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,22 @@ t_bool		set_redirect_type(t_token *token, t_redirect *redirect)
 		return (FALSE);
 	}
 	return (TRUE);
+}
+
+void		del_redirect_list(t_redirect **redirect_p)
+{
+	t_redirect	*now;
+	t_redirect	*tmp;
+
+	if (!redirect_p)
+		return ;
+	now = *redirect_p;
+	while (now)
+	{
+		tmp = now->next;
+		del_token_list(&now->filename);
+		free(now);
+		now = tmp;
+	}
+	*redirect_p = NULL;
 }

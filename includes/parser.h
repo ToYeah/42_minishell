@@ -46,5 +46,6 @@ void			print_node_label(t_node *node, int fd);
 t_redirect		*create_redirect(void);
 void			add_redirect(t_redirect **list, t_redirect *new);
 t_bool			set_redirect_type(t_token *token, t_redirect *redirect);
+void			del_redirect_list(t_redirect **redirect_p);
 
 #endif
