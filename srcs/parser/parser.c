@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 01:11:20 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/21 17:46:56 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/21 22:35:06 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,13 @@ static t_bool	parse_io_redirect(t_token **tokens, t_node *command_node)
 	}
 	if (set_redirect_type(*tokens, redirect) == FALSE)
 	{
+		del_redirect_list(&redirect);
 		return (FALSE);
 	}
 	*tokens = (*tokens)->next;
 	if (!*tokens || (*tokens)->type != TOKEN)
 	{
+		del_redirect_list(&redirect);
 		return (FALSE);
 	}
 	add_copied_token(&redirect->filename, *tokens);
@@ -56,6 +58,8 @@ static t_bool	parse_command(t_node **node, t_token **tokens)
 		{
 			if (parse_io_redirect(tokens, *node) == FALSE)
 			{
+				del_node_list(*node);
+				*node = NULL;
 				return (FALSE);
 			}
 		}
