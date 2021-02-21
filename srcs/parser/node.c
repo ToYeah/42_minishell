@@ -57,7 +57,7 @@ void	del_node_list(t_node *node)
 {
 	if (!node)
 		return ;
-	if (node->command)
+	if (node->type == NODE_COMMAND && node->command)
 	{
 		del_token_list(&node->command->args);
 		del_redirect_list(&node->command->redirects);
