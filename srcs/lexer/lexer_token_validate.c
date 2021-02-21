@@ -1,36 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer_syntax_validate.c                            :+:      :+:    :+:   */
+/*   lexer_token_validate.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/20 08:07:01 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/20 10:50:22 by totaisei         ###   ########.fr       */
+/*   Created: 2021/02/21 07:16:47 by totaisei          #+#    #+#             */
+/*   Updated: 2021/02/21 07:17:12 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 #include "utils.h"
-
-t_bool	is_normal_token(t_token *token)
-{
-	int			pattern_count;
-	const char	*patterns[] = {
-		"|", ">", ">>", "<", ";"
-	};
-
-	if (!token)
-		return (FALSE);
-	pattern_count = 0;
-	while (pattern_count < 5)
-	{
-		if (ft_strcmp(token->data, (char *)patterns[pattern_count]) == 0)
-			return (TRUE);
-		pattern_count++;
-	}
-	return (FALSE);
-}
 
 t_bool	is_io_number_token(t_tokeniser *toker, t_token_type type)
 {
