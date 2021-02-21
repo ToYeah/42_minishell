@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 17:19:26 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/21 09:48:40 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/21 10:03:45 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,25 +48,25 @@ t_token_state	judge_token_state(t_token_state state, t_token_type type)
 
 size_t			calc_val_len(char *str)
 {
-	size_t val_len;
+	size_t var_len;
 
-	val_len = 0;
-	while (ft_isalnum(str[val_len]) || str[val_len] == '_')
-		val_len++;
-	return (val_len);
+	var_len = 0;
+	while (ft_isalnum(str[var_len]) || str[var_len] == '_')
+		var_len++;
+	return (var_len);
 }
 
-char			*extract_val_name(char *str)
+char			*extract_var_name(char *str)
 {
-	size_t	val_len;
+	size_t	var_len;
 	char	*res;
 
 	if (*str == '?')
 		return (ft_strdup("?"));
-	val_len = calc_val_len(str);
-	if (!(res = malloc(sizeof(char) * val_len + 1)))
+	var_len = calc_val_len(str);
+	if (!(res = malloc(sizeof(char) * var_len + 1)))
 		return (NULL);
-	ft_strlcpy(res, str, val_len + 1);
+	ft_strlcpy(res, str, var_len + 1);
 	return (res);
 }
 
@@ -118,7 +118,7 @@ char			*expansion(char *str, size_t *index, t_token_state state)
 	char *res;
 	extern t_env *g_envs;
 
-	if (!(var_name = extract_val_name(&str[*index + 1])))
+	if (!(var_name = extract_var_name(&str[*index + 1])))
 		error_exit();
 	if(ft_strlen(var_name) == 0)
 		return str;
@@ -137,13 +137,12 @@ char			*expansion(char *str, size_t *index, t_token_state state)
 	return res;
 }
 
-char			*envarg_expansion(char *str)
+char			*envvar_expansion(char *str)
 {
 	size_t i;
 	t_token_state state;
 	t_token_type type;
 	char *editable_str;
-	char *tmp;
 
 	if (!str)
 		return (NULL);
@@ -177,7 +176,7 @@ char			*envarg_expansion(char *str)
 }
 
 
-void *expander(t_token **tokens)
+void *expande_tokens(t_token **tokens)
 {
 	t_token *now_token;
 	t_token *last_token;
@@ -192,7 +191,7 @@ void *expander(t_token **tokens)
 	now_token = *tokens;
 	while (now_token != NULL)
 	{
-		expanded_str = envarg_expansion(now_token->data);
+		expanded_str = envvar_expansion(now_token->data);
 		expanded_token = tokenise(expanded_str, TRUE);
 		free(expanded_str);
 		if (res_tokens == NULL)
