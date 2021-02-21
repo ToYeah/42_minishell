@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 01:11:20 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/22 00:39:32 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/22 01:00:40 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ static t_bool	parse_command(t_node **node, t_token **tokens)
 		else
 			break ;
 	}
+	if (!(*node)->command->args && !(*node)->command->redirects)
+		return (FALSE);
 	return (TRUE);
 }
 
@@ -104,7 +106,7 @@ t_bool			parse_complete_command(t_node **nodes, t_token **tokens)
 	}
 	while (*tokens)
 	{
-		if (has_token_type(tokens, CHAR_SEMICOLON))
+		if (has_token_type(tokens, CHAR_SEMICOLON) && *tokens)
 		{
 			if (parse_pipeline(&child, tokens) == FALSE)
 				return (FALSE);
