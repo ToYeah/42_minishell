@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 01:11:20 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/21 00:45:21 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/21 16:47:46 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,35 @@
 #include "parser.h"
 #include "utils.h"
 
-#define REDIR_INPUT_STR			"<"
-#define REDIR_OUTPUT_STR		">"
-#define REDIR_APPEND_OUTPUT_STR	">>"
+t_token	*copy_token(t_token *token)
+{
+	t_token	*new;
+	size_t	data_len;
+
+	data_len = ft_strlen(token->data);
+	new = token_init(data_len, NULL);
+	ft_strlcpy(new->data, token->data, data_len + 1);
+	new->type = token->type;
+	return (new);
+}
+
+void	add_copied_token(t_token **list, t_token *original_token)
+{
+	t_token	*now;
+	t_token	*copied_token;
+
+	copied_token = copy_token(original_token);
+	if (!*list)
+		*list = copied_token;
+	else
+	{
+		now = *list;
+		while (now->next)
+			now = now->next;
+		now->next = copied_token;
+		copied_token->prev = now->next;
+	}
+}
 
 t_bool	has_token_type(t_token **token, t_token_type type)
 {
@@ -74,7 +100,7 @@ void	parse_io_redirect(t_token **tokens, t_node *command_node)
 		print_unexpected_token_error(*tokens);
 		error_exit();
 	}
-	redirect->filename = *tokens;
+	add_copied_token(&redirect->filename, *tokens);
 	add_redirect(&command_node->command->redirects, redirect);
 	*tokens = (*tokens)->next;
 }

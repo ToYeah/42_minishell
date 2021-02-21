@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 12:06:22 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/20 20:12:26 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/21 16:42:11 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,26 +29,10 @@ t_node	*add_parent_node(t_node_type type, t_node *left, t_node *right)
 
 void	set_command_args(t_command *command, t_token **tokens)
 {
-	t_token	*now_token;
-
 	while (*tokens && (*tokens)->type == TOKEN)
 	{
-		if (!command->args)
-			command->args = *tokens;
+		add_copied_token(&command->args, *tokens);
 		*tokens = (*tokens)->next;
-	}
-	if (command->args)
-	{
-		now_token = command->args;
-		while (now_token)
-		{
-			if (!now_token->next || now_token->next->type != TOKEN)
-			{
-				now_token->next = NULL;
-				break ;
-			}
-			now_token = now_token->next;
-		}
 	}
 }
 

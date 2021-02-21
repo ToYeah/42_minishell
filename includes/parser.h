@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 10:55:56 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/21 14:04:53 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/21 16:39:35 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct	s_node
 }				t_node;
 
 t_node			*parse_complete_command(t_token **tokens);
+void			add_copied_token(t_token **list, t_token *original_token);
 
 t_node			*add_parent_node(t_node_type type, t_node *left, t_node *right);
 t_node			*create_command_node(void);
