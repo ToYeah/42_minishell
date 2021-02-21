@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 12:06:22 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/21 18:05:29 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/21 22:29:39 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_node	*add_parent_node(t_node_type type, t_node *left, t_node *right)
 	node->type = type;
 	node->left = left;
 	node->right = right;
+	node->command = NULL;
 	return (node);
 }
 
