@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 18:59:13 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/21 07:42:36 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/21 12:18:21 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,12 @@ void	general_sep_process(t_tokeniser *toker, t_token_type type, char *str)
 			if (type == CHAR_GREATER)
 			{
 				toker->token->data[toker->tok_i++] = str[++toker->str_i];
-				toker->token->type = D_GREATER;
+				type = D_GREATER;
 			}
 			else if (type == CHAR_SEMICOLON)
 			{
 				toker->token->data[toker->tok_i++] = str[++toker->str_i];
-				toker->token->type = D_SEMICOLON;
+				type = D_SEMICOLON;
 			}
 		}
 		toker->token->type = type;
