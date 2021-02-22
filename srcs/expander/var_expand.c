@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 17:19:26 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/22 11:22:54 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/22 11:45:44 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 #define VALUE 1
 #define TMP 2
 #define RES 3
-
 
 t_token_state	judge_token_state(t_token_state state, t_token_type type)
 {
@@ -55,7 +54,7 @@ char			*extract_var_name(char *str)
 		return (ft_strdup("?"));
 	var_len = calc_val_len(str);
 	if (!(res = malloc(sizeof(char) * var_len + 1)))
-		return (NULL);
+		error_exit();
 	ft_strlcpy(res, str, var_len + 1);
 	return (res);
 }
@@ -191,10 +190,10 @@ void expande_tokens(t_token **tokens)
 		if (res_tokens == NULL)
 			res_tokens = expanded_token;
 		token_join(last_token, expanded_token);
-		printf("%s\n",find_last_token(expanded_token)->data);
-		last_token = find_last_token(expanded_token);
+		last_token = find_last_token(res_tokens);
 		now_token = now_token->next;
 	}
 	del_token_list(tokens);
+	
 	*tokens = res_tokens;
 }
