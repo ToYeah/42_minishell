@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 17:19:26 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/22 10:34:37 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/22 11:22:54 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,41 +60,55 @@ char			*extract_var_name(char *str)
 	return (res);
 }
 
-char			*expansion_var_esc(const char *str,  t_token_state state)
+size_t			calc_escaped_value_len(const char *str, const char *esc)
 {
-	char *res;
+	size_t index;
+	size_t res;
+	
+	index = 0;
+	res = 0;
+	while(str[index] != 0)
+	{
+		if (ft_strchr(esc, str[index]) != NULL)
+			res++;
+		res++;
+		index++;
+	}
+	return (res);
+}
+
+void			copy_escaped_value(const char *src, const char *esc, char *dest)
+{
 	size_t res_index;
 	size_t index;
+
+	index = 0;
+	res_index = 0;
+	while(src[index] != 0)
+	{
+		if (ft_strchr(esc, src[index]) != NULL)
+		{
+			dest[res_index] = '\\';
+			res_index++;
+		}
+		dest[res_index] = src[index];
+		res_index++;
+		index++;
+	}
+	dest[res_index] = '\0';
+}
+char			*expansion_var_esc(const char *str,  t_token_state state)
+{
 	char *esc_chars;
+	char *res;
 
 	esc_chars = "\"\\$";
 	if(state == STATE_GENERAL)
 		esc_chars = "\'\"\\$|;><";
-	res_index = 0;
-	index = 0;
-	while(str[index] != 0)
-	{
-		if (ft_strchr(esc_chars, str[index]) != NULL)
-			res_index++;
-		res_index++;
-		index++;
-	}
-	if(!(res = malloc(sizeof(char *) * (res_index + 1))))
+	if(!(res = malloc(sizeof(char *) *
+		(calc_escaped_value_len(str, esc_chars) + 1))))
 		error_exit();
-	index = 0;
-	res_index = 0;
-	while(str[index] != 0)
-	{
-		if (ft_strchr(esc_chars, str[index]) != NULL)// escape?
-		{
-			res[res_index] = '\\';
-			res_index++;
-		}
-		res[res_index] = str[index];
-		res_index++;
-		index++;
-	}
-	res[res_index] = '\0';
+	copy_escaped_value(str, esc_chars, res);
 	return res;
 }
 
