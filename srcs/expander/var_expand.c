@@ -6,13 +6,19 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 17:19:26 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/22 10:15:31 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/22 10:34:37 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander.h"
 #include "lexer.h"
 #include "utils.h"
+
+#define VAR_NAME 0
+#define VALUE 1
+#define TMP 2
+#define RES 3
+
 
 t_token_state	judge_token_state(t_token_state state, t_token_type type)
 {
@@ -94,31 +100,32 @@ char			*expansion_var_esc(const char *str,  t_token_state state)
 
 #include <stdio.h>
 
-char			*expansion(char *str, size_t *index, t_token_state state)
+void		expansion(t_expander *exper)
 {
-	char *var_name;
-	char *value;
-	char *tmp;
-	char *res;
+	char *vars[4];
 	extern t_env *g_envs;
 
-	if (!(var_name = extract_var_name(&str[*index + 1])))
+	if (!(vars[VAR_NAME] =
+		extract_var_name(&exper->str[exper->str_i + 1])))
 		error_exit();
-	if(ft_strlen(var_name) == 0)
-		return str;
-	str[*index] = '\0';
-	if(!(value = expansion_var_esc(search_env(g_envs, var_name), state)))
+	if(ft_strlen(vars[VAR_NAME]) == 0)
+		return ;
+	exper->str[exper->str_i] = '\0';
+	if(!(vars[VALUE] =
+		expansion_var_esc(
+			search_env(g_envs, vars[VAR_NAME]), exper->state)))
 		error_exit();
-	if(!(tmp = ft_strjoin(str, value)))
+	if(!(vars[TMP] = ft_strjoin(exper->str, vars[VALUE])))
 		error_exit();
-	if(!(res = ft_strjoin(tmp, &str[*index + ft_strlen(var_name) + 1])))
+	if(!(vars[RES] = ft_strjoin(vars[TMP],
+		&exper->str[exper->str_i + ft_strlen(vars[VAR_NAME]) + 1])))
 		error_exit();
-	*index = ft_strlen(tmp) - 1;
-	free(value);
-	free(var_name);
-	free(tmp);
-	free(str);
-	return res;
+	exper->str_i = ft_strlen(vars[TMP]) - 1;
+	free(vars[VALUE]);
+	free(vars[VAR_NAME]);
+	free(vars[TMP]);
+	free(exper->str);
+	exper->str = vars[RES];
 }
 
 char			*envvar_expansion(char *input)
@@ -142,7 +149,7 @@ char			*envvar_expansion(char *input)
 		else if (exper.str[exper.str_i] == '$' &&
 			(exper.state == STATE_GENERAL || exper.state == STATE_IN_DQUOTE))
 		{
-			exper.str = expansion(exper.str, &exper.str_i, exper.state);
+			expansion(&exper);
 		}
 		exper.str_i++;
 	}
