@@ -40,6 +40,6 @@ typedef struct	s_command
 	t_redirect			*redirects;
 }				t_command;
 
-void			exec_command(char **args, t_env *envs);
+char					**convert_args(t_command *command);
 
 #endif
