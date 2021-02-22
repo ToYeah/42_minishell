@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 18:50:22 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/22 17:23:16 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/22 17:50:34 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	loop_shell(t_env *envs)
 	t_token	*start_token;
 	t_node	*nodes;
 
-	(void)envs;
 	status = 1;
 	while (status)
 	{
@@ -50,7 +49,7 @@ void	loop_shell(t_env *envs)
 		start_token = tokens;
 		if (parse_complete_command(&nodes, &tokens) == FALSE)
 			print_unexpected_token_error(tokens);
-		exec_nodes(nodes);
+		exec_nodes(nodes, envs);
 		free(line);
 		del_token_list(&start_token);
 		del_node_list(nodes);
