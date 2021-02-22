@@ -42,7 +42,7 @@ typedef struct			s_command
 	t_redirect			*redirects;
 }						t_command;
 
-}				t_command;
+void					exec_nodes(t_node *nodes);
 
 char					**convert_args(t_command *command);
 
