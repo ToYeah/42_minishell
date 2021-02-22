@@ -6,28 +6,13 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 17:19:26 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/21 10:03:45 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/21 20:11:28 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 #include "utils.h"
 #include "token.h"
-
-void	shift_quote(char *quote_start, char *end, t_tokeniser *toker)
-{
-	size_t	i;
-	char	*cpy_start;
-
-	i = 0;
-	cpy_start = quote_start + 1;
-	while (&cpy_start[i] != end)
-	{
-		quote_start[i] = cpy_start[i];
-		i++;
-	}
-	toker->tok_i -= 2;
-}
 
 
 t_token_state	judge_token_state(t_token_state state, t_token_type type)
@@ -176,7 +161,7 @@ char			*envvar_expansion(char *str)
 }
 
 
-void *expande_tokens(t_token **tokens)
+void expande_tokens(t_token **tokens)
 {
 	t_token *now_token;
 	t_token *last_token;
@@ -185,7 +170,7 @@ void *expande_tokens(t_token **tokens)
 	char *expanded_str;
 
 	if (!tokens || !*tokens)
-		return (NULL);
+		return ;
 	last_token = NULL;
 	res_tokens = NULL;
 	now_token = *tokens;
