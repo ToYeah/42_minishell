@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 08:24:01 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/22 09:03:15 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/22 10:16:13 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,15 @@
 
 #include "token.h"
 
-void expande_tokens(t_token **tokens);
+typedef struct	s_expander
+{
+	size_t str_i;
+	t_token_state state;
+	t_token_type type;
+	char *str;
+}				t_expander;
 
+
+void expande_tokens(t_token **tokens);
+void expander_init(t_expander *exper, char *input);
 #endif

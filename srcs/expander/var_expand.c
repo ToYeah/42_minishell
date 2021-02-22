@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 17:19:26 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/22 09:12:20 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/22 10:15:31 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,38 +121,33 @@ char			*expansion(char *str, size_t *index, t_token_state state)
 	return res;
 }
 
-char			*envvar_expansion(char *str)
+char			*envvar_expansion(char *input)
 {
-	size_t i;
-	t_token_state state;
-	t_token_type type;
-	char *editable_str;
+	t_expander exper;
 
-	if (!str)
+	if (!input)
 		return (NULL);
-	editable_str = ft_strdup(str);//error
-	i = 0;
-	state = STATE_GENERAL;
-	while (editable_str[i] != '\0')
+	expander_init(&exper, input);
+	while (exper.str[exper.str_i] != '\0')
 	{
-		type = judge_token_type(editable_str[i]);
-		state = judge_token_state(state, type);
-		if (type == CHAR_ESCAPE && ft_strchr("\'\"$", editable_str[i + 1]) != NULL)
+		exper.type = judge_token_type(exper.str[exper.str_i]);
+		exper.state = judge_token_state(exper.state, exper.type);
+		if (exper.type == CHAR_ESCAPE &&
+			ft_strchr("\'\"$", exper.str[exper.str_i + 1]) != NULL)
 		{
-			if (editable_str[i + 1] == '\0')
-				return editable_str;
-			i += 2;
-			continue;
+			if (exper.str[exper.str_i + 1] == '\0')
+				return (exper.str);
+			exper.str_i++;
 		}
-		else if (editable_str[i] == '$' && (state == STATE_GENERAL || state == STATE_IN_DQUOTE) )
+		else if (exper.str[exper.str_i] == '$' &&
+			(exper.state == STATE_GENERAL || exper.state == STATE_IN_DQUOTE))
 		{
-			editable_str = expansion(editable_str, &i, state);
+			exper.str = expansion(exper.str, &exper.str_i, exper.state);
 		}
-		i++;
+		exper.str_i++;
 	}
-	return (editable_str);
+	return (exper.str);
 }
-
 
 void expande_tokens(t_token **tokens)
 {
