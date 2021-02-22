@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 17:59:52 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/22 17:52:30 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/22 18:48:47 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ static void	exec_command_node(t_node *node, t_env *envs)
 	}
 	else
 	{
-		waitpid(pid, &status, WUNTRACED);
+		if (pid != waitpid(pid, &status, 0))
+			error_exit();
 	}
 }
 
