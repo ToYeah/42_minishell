@@ -6,12 +6,11 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 12:11:37 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/22 12:11:43 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/22 12:19:09 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander.h"
-#include "lexer.h"
 #include "utils.h"
 #include "libft.h"
 
@@ -20,7 +19,7 @@
 #define TMP 2
 #define RES 3
 
-void expander_init(t_expander *exper, char *input)
+void			expander_init(t_expander *exper, char *input)
 {
 	exper->str = ft_strdup(input);
 	if (exper->str == NULL)
@@ -28,7 +27,6 @@ void expander_init(t_expander *exper, char *input)
 	exper->str_i = 0;
 	exper->state = STATE_GENERAL;
 }
-
 
 t_token_state	judge_token_state(t_token_state state, t_token_type type)
 {
@@ -62,24 +60,24 @@ char			*extract_var_name(char *str)
 	return (res);
 }
 
-void		expand_var_in_str(t_expander *exper)
+void			expand_var_in_str(t_expander *exper)
 {
-	char *vars[4];
-	extern t_env *g_envs;
+	char			*vars[4];
+	extern t_env	*g_envs;
 
 	if (!(vars[VAR_NAME] =
 		extract_var_name(&exper->str[exper->str_i + 1])))
 		error_exit();
-	if(ft_strlen(vars[VAR_NAME]) == 0)
+	if (ft_strlen(vars[VAR_NAME]) == 0)
 		return ;
 	exper->str[exper->str_i] = '\0';
-	if(!(vars[VALUE] =
+	if (!(vars[VALUE] =
 		create_expanded_str(
 			search_env(g_envs, vars[VAR_NAME]), exper->state)))
 		error_exit();
-	if(!(vars[TMP] = ft_strjoin(exper->str, vars[VALUE])))
+	if (!(vars[TMP] = ft_strjoin(exper->str, vars[VALUE])))
 		error_exit();
-	if(!(vars[RES] = ft_strjoin(vars[TMP],
+	if (!(vars[RES] = ft_strjoin(vars[TMP],
 		&exper->str[exper->str_i + ft_strlen(vars[VAR_NAME]) + 1])))
 		error_exit();
 	exper->str_i = ft_strlen(vars[TMP]) - 1;

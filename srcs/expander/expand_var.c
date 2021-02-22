@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 12:03:39 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/22 12:04:49 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/22 12:21:53 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 #include "utils.h"
 #include "libft.h"
 
-size_t			calc_escaped_value_len(const char *str, const char *esc)
+size_t	calc_escaped_value_len(const char *str, const char *esc)
 {
 	size_t index;
 	size_t res;
-	
+
 	index = 0;
 	res = 0;
-	while(str[index] != 0)
+	while (str[index] != 0)
 	{
 		if (ft_strchr(esc, str[index]) != NULL)
 			res++;
@@ -31,14 +31,14 @@ size_t			calc_escaped_value_len(const char *str, const char *esc)
 	return (res);
 }
 
-void			copy_escaped_value(const char *src, const char *esc, char *dest)
+void	copy_escaped_value(const char *src, const char *esc, char *dest)
 {
 	size_t res_index;
 	size_t index;
 
 	index = 0;
 	res_index = 0;
-	while(src[index] != 0)
+	while (src[index] != 0)
 	{
 		if (ft_strchr(esc, src[index]) != NULL)
 		{
@@ -51,17 +51,18 @@ void			copy_escaped_value(const char *src, const char *esc, char *dest)
 	}
 	dest[res_index] = '\0';
 }
-char			*create_expanded_str(const char *str,  t_token_state state)
+
+char	*create_expanded_str(const char *str, t_token_state state)
 {
 	char *esc_chars;
 	char *res;
 
 	esc_chars = "\"\\$";
-	if(state == STATE_GENERAL)
+	if (state == STATE_GENERAL)
 		esc_chars = "\'\"\\$|;><";
-	if(!(res = malloc(sizeof(char *) *
+	if (!(res = malloc(sizeof(char *) *
 		(calc_escaped_value_len(str, esc_chars) + 1))))
 		error_exit();
 	copy_escaped_value(str, esc_chars, res);
-	return res;
+	return (res);
 }
