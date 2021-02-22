@@ -6,14 +6,13 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 17:19:26 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/21 20:11:28 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/22 09:12:20 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "expander.h"
 #include "lexer.h"
 #include "utils.h"
-#include "token.h"
-
 
 t_token_state	judge_token_state(t_token_state state, t_token_type type)
 {
@@ -136,24 +135,18 @@ char			*envvar_expansion(char *str)
 	state = STATE_GENERAL;
 	while (editable_str[i] != '\0')
 	{
-		if (ft_strchr("\'\"\\$", editable_str[i]) == NULL)
-		{
-			i++;
-			continue;
-		}
 		type = judge_token_type(editable_str[i]);
+		state = judge_token_state(state, type);
 		if (type == CHAR_ESCAPE && ft_strchr("\'\"$", editable_str[i + 1]) != NULL)
 		{
-			if(!editable_str[i + 1])
+			if (editable_str[i + 1] == '\0')
 				return editable_str;
 			i += 2;
 			continue;
 		}
-		state = judge_token_state(state, type);
-		if (editable_str[i] == '$' )
+		else if (editable_str[i] == '$' && (state == STATE_GENERAL || state == STATE_IN_DQUOTE) )
 		{
-			if (state == STATE_GENERAL || state == STATE_IN_DQUOTE)
-				editable_str = expansion(editable_str, &i, state);
+			editable_str = expansion(editable_str, &i, state);
 		}
 		i++;
 	}
