@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 12:11:37 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/22 13:17:28 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/22 17:58:36 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,23 +63,23 @@ char			*extract_var_name(char *str)
 void			expand_var_in_str(t_expander *exper)
 {
 	char			*vars[4];
+	const char		*value;
+	size_t			after_var_index;
 	extern t_env	*g_envs;
 
-	if (!(vars[VAR_NAME] =
-			extract_var_name(&exper->str[exper->str_i + 1])))
+	if (!(vars[VAR_NAME] = extract_var_name(&exper->str[exper->str_i + 1])))
 		error_exit();
 	if (ft_strlen(vars[VAR_NAME]) == 0)
 		return ;
 	exper->str[exper->str_i] = '\0';
-	if (!(vars[VALUE] =
-			create_expanded_str(
-				search_env(g_envs, vars[VAR_NAME]), exper->state)))
+	value = search_env(g_envs, vars[VAR_NAME]);
+	after_var_index = exper->str_i + ft_strlen(vars[VAR_NAME]) + 1;
+	if (!(vars[VALUE] = create_expanded_str(value, exper->state)) ||
+		!(vars[TMP] = ft_strjoin(exper->str, vars[VALUE])) ||
+		!(vars[RES] = ft_strjoin(vars[TMP], &exper->str[after_var_index])))
+	{
 		error_exit();
-	if (!(vars[TMP] = ft_strjoin(exper->str, vars[VALUE])))
-		error_exit();
-	if (!(vars[RES] = ft_strjoin(vars[TMP],
-		&exper->str[exper->str_i + ft_strlen(vars[VAR_NAME]) + 1])))
-		error_exit();
+	}
 	exper->str_i = ft_strlen(vars[TMP]) - 1;
 	free(vars[VALUE]);
 	free(vars[VAR_NAME]);
