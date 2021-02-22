@@ -1,23 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   var_expand.c                                       :+:      :+:    :+:   */
+/*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/15 17:19:26 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/22 12:01:37 by totaisei         ###   ########.fr       */
+/*   Created: 2021/02/22 12:11:37 by totaisei          #+#    #+#             */
+/*   Updated: 2021/02/22 12:11:43 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander.h"
 #include "lexer.h"
 #include "utils.h"
+#include "libft.h"
 
 #define VAR_NAME 0
 #define VALUE 1
 #define TMP 2
 #define RES 3
+
+void expander_init(t_expander *exper, char *input)
+{
+	exper->str = ft_strdup(input);
+	if (exper->str == NULL)
+		error_exit();
+	exper->str_i = 0;
+	exper->state = STATE_GENERAL;
+}
+
 
 t_token_state	judge_token_state(t_token_state state, t_token_type type)
 {
@@ -50,60 +61,6 @@ char			*extract_var_name(char *str)
 	ft_strlcpy(res, str, var_len + 1);
 	return (res);
 }
-
-size_t			calc_escaped_value_len(const char *str, const char *esc)
-{
-	size_t index;
-	size_t res;
-	
-	index = 0;
-	res = 0;
-	while(str[index] != 0)
-	{
-		if (ft_strchr(esc, str[index]) != NULL)
-			res++;
-		res++;
-		index++;
-	}
-	return (res);
-}
-
-void			copy_escaped_value(const char *src, const char *esc, char *dest)
-{
-	size_t res_index;
-	size_t index;
-
-	index = 0;
-	res_index = 0;
-	while(src[index] != 0)
-	{
-		if (ft_strchr(esc, src[index]) != NULL)
-		{
-			dest[res_index] = '\\';
-			res_index++;
-		}
-		dest[res_index] = src[index];
-		res_index++;
-		index++;
-	}
-	dest[res_index] = '\0';
-}
-char			*create_expanded_str(const char *str,  t_token_state state)
-{
-	char *esc_chars;
-	char *res;
-
-	esc_chars = "\"\\$";
-	if(state == STATE_GENERAL)
-		esc_chars = "\'\"\\$|;><";
-	if(!(res = malloc(sizeof(char *) *
-		(calc_escaped_value_len(str, esc_chars) + 1))))
-		error_exit();
-	copy_escaped_value(str, esc_chars, res);
-	return res;
-}
-
-#include <stdio.h>
 
 void		expand_var_in_str(t_expander *exper)
 {
@@ -159,33 +116,4 @@ char			*expand_env_var(char *input)
 		exper.str_i++;
 	}
 	return (exper.str);
-}
-
-void expand_tokens(t_token **tokens)
-{
-	t_token *now_token;
-	t_token *last_token;
-	t_token *res_tokens;
-	t_token *expanded_token;
-	char *expanded_str;
-
-	if (!tokens || !*tokens)
-		return ;
-	last_token = NULL;
-	res_tokens = NULL;
-	now_token = *tokens;
-	while (now_token != NULL)
-	{
-		expanded_str = expand_env_var(now_token->data);
-		expanded_token = tokenise(expanded_str, TRUE);
-		free(expanded_str);
-		if (res_tokens == NULL)
-			res_tokens = expanded_token;
-		token_join(last_token, expanded_token);
-		last_token = find_last_token(res_tokens);
-		now_token = now_token->next;
-	}
-	del_token_list(tokens);
-	
-	*tokens = res_tokens;
 }
