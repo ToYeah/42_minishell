@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 17:19:26 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/22 11:48:13 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/22 12:01:37 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void			copy_escaped_value(const char *src, const char *esc, char *dest)
 	}
 	dest[res_index] = '\0';
 }
-char			*expansion_var_esc(const char *str,  t_token_state state)
+char			*create_expanded_str(const char *str,  t_token_state state)
 {
 	char *esc_chars;
 	char *res;
@@ -105,7 +105,7 @@ char			*expansion_var_esc(const char *str,  t_token_state state)
 
 #include <stdio.h>
 
-void		expansion(t_expander *exper)
+void		expand_var_in_str(t_expander *exper)
 {
 	char *vars[4];
 	extern t_env *g_envs;
@@ -117,7 +117,7 @@ void		expansion(t_expander *exper)
 		return ;
 	exper->str[exper->str_i] = '\0';
 	if(!(vars[VALUE] =
-		expansion_var_esc(
+		create_expanded_str(
 			search_env(g_envs, vars[VAR_NAME]), exper->state)))
 		error_exit();
 	if(!(vars[TMP] = ft_strjoin(exper->str, vars[VALUE])))
@@ -133,7 +133,7 @@ void		expansion(t_expander *exper)
 	exper->str = vars[RES];
 }
 
-char			*envvar_expansion(char *input)
+char			*expand_env_var(char *input)
 {
 	t_expander exper;
 
@@ -154,14 +154,14 @@ char			*envvar_expansion(char *input)
 		else if (exper.str[exper.str_i] == '$' &&
 			(exper.state == STATE_GENERAL || exper.state == STATE_IN_DQUOTE))
 		{
-			expansion(&exper);
+			expand_var_in_str(&exper);
 		}
 		exper.str_i++;
 	}
 	return (exper.str);
 }
 
-void expande_tokens(t_token **tokens)
+void expand_tokens(t_token **tokens)
 {
 	t_token *now_token;
 	t_token *last_token;
@@ -176,7 +176,7 @@ void expande_tokens(t_token **tokens)
 	now_token = *tokens;
 	while (now_token != NULL)
 	{
-		expanded_str = envvar_expansion(now_token->data);
+		expanded_str = expand_env_var(now_token->data);
 		expanded_token = tokenise(expanded_str, TRUE);
 		free(expanded_str);
 		if (res_tokens == NULL)

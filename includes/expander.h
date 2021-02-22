@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 08:24:01 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/22 10:16:13 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/22 11:52:50 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,6 @@ typedef struct	s_expander
 }				t_expander;
 
 
-void expande_tokens(t_token **tokens);
+void expand_tokens(t_token **tokens);
 void expander_init(t_expander *exper, char *input);
 #endif
