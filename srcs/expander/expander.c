@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 12:11:37 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/22 12:19:09 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/22 13:17:28 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,14 @@ void			expand_var_in_str(t_expander *exper)
 	extern t_env	*g_envs;
 
 	if (!(vars[VAR_NAME] =
-		extract_var_name(&exper->str[exper->str_i + 1])))
+			extract_var_name(&exper->str[exper->str_i + 1])))
 		error_exit();
 	if (ft_strlen(vars[VAR_NAME]) == 0)
 		return ;
 	exper->str[exper->str_i] = '\0';
 	if (!(vars[VALUE] =
-		create_expanded_str(
-			search_env(g_envs, vars[VAR_NAME]), exper->state)))
+			create_expanded_str(
+				search_env(g_envs, vars[VAR_NAME]), exper->state)))
 		error_exit();
 	if (!(vars[TMP] = ft_strjoin(exper->str, vars[VALUE])))
 		error_exit();
