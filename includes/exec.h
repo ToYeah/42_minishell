@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 20:07:01 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/21 23:01:51 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/22 17:51:14 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,27 +19,31 @@
 # define REDIR_FD_NOT_SPECIFIED		-1
 # define REDIR_FD_OUT_OF_RANGE		-2
 
-typedef enum	e_redirect_type
+typedef struct s_node	t_node;
+
+typedef enum			e_redirect_type
 {
 	REDIR_INPUT,
 	REDIR_OUTPUT,
 	REDIR_APPEND_OUTPUT
-}				t_redirect_type;
+}						t_redirect_type;
 
-typedef struct	s_redirect
+typedef struct			s_redirect
 {
 	int					fd;
 	t_redirect_type		type;
 	t_token				*filename;
 	struct s_redirect	*next;
-}				t_redirect;
+}						t_redirect;
 
-typedef struct	s_command
+typedef struct			s_command
 {
 	t_token				*args;
 	t_redirect			*redirects;
-}				t_command;
+}						t_command;
 
-void			exec_command(char **args, t_env *envs);
+void					exec_nodes(t_node *nodes, t_env *envs);
+
+char					**convert_args(t_command *command);
 
 #endif
