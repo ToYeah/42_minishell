@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 17:19:26 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/22 11:45:44 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/22 11:48:13 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,6 @@ t_token_state	judge_token_state(t_token_state state, t_token_type type)
 	return (STATE_GENERAL);
 }
 
-size_t			calc_val_len(char *str)
-{
-	size_t var_len;
-
-	var_len = 0;
-	while (ft_isalnum(str[var_len]) || str[var_len] == '_')
-		var_len++;
-	return (var_len);
-}
-
 char			*extract_var_name(char *str)
 {
 	size_t	var_len;
@@ -52,7 +42,9 @@ char			*extract_var_name(char *str)
 
 	if (*str == '?')
 		return (ft_strdup("?"));
-	var_len = calc_val_len(str);
+	var_len = 0;
+	while (ft_isalnum(str[var_len]) || str[var_len] == '_')
+		var_len++;
 	if (!(res = malloc(sizeof(char) * var_len + 1)))
 		error_exit();
 	ft_strlcpy(res, str, var_len + 1);
