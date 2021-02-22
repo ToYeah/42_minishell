@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 18:59:05 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/22 13:22:11 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/22 17:21:12 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,6 @@ void	d_quote_state(t_tokeniser *toker, t_token_type type, char *str)
 			toker->token->data[toker->tok_i++] = str[toker->str_i++];
 			toker->token->data[toker->tok_i++] = str[toker->str_i];
 		}
-	}
-	else if (toker->esc_flag && type == CHAR_WHITESPACE)
-	{
-		tokeniser_add_new_token(toker);
 	}
 	else
 	{
