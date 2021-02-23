@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 18:50:22 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/23 18:09:03 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/24 00:15:28 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,13 @@ void	loop_shell(void)
 
 int		main(int argc, char *argv[])
 {
-	(void)argc;
-	(void)argv;
 	g_envs = create_envs_from_environ();
-	loop_shell();
+	if (argc > 2 && ft_strncmp(argv[1], "-c", ft_strlen("-c") + 1) == 0)
+	{
+		run_commandline(argv[2]);
+	}
+	else
+	{
+		loop_shell();
+	}
 }
