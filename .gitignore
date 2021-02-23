@@ -107,3 +107,4 @@ minishell
 .vscode/*
 *debug_.c
 ast.dot
+*.log
