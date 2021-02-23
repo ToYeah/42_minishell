@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 15:25:56 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/21 16:28:35 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/22 13:11:24 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,13 @@ struct			s_token
 	t_token_type	type;
 	char			*data;
 };
+
+size_t			calc_tokens_len(t_token *tokens);
+t_token			*token_init(size_t len, t_token *prev);
+t_token			*find_last_token(t_token *tokens);
+t_token_type	judge_token_type(char c);
 void			del_token(t_token **token_p);
 void			del_token_list(t_token **token_p);
-t_token_type	judge_token_type(char c);
-t_token			*token_init(size_t len, t_token *prev);
+void			token_join(t_token *prev_token, t_token *next_token);
 
 #endif

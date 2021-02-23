@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 18:59:13 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/21 12:18:21 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/22 08:07:34 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,10 +103,14 @@ void	general_state(t_tokeniser *toker, t_token_type type, char *str)
 		if (type == CHAR_QOUTE)
 		{
 			toker->state = STATE_IN_QUOTE;
+			if (toker->esc_flag)
+				toker->tok_i -= 1;
 		}
 		else if (type == CHAR_DQUOTE)
 		{
 			toker->state = STATE_IN_DQUOTE;
+			if (toker->esc_flag)
+				toker->tok_i -= 1;
 		}
 		else
 		{
