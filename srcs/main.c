@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 18:50:22 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/22 18:54:15 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/23 18:09:03 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 #include "lexer.h"
 #include "parser.h"
 #include "exec.h"
+
+t_env	*g_envs;
 
 void	free_array(char **array)
 {
@@ -31,7 +33,7 @@ void	free_array(char **array)
 	array = NULL;
 }
 
-void	loop_shell(t_env *envs)
+void	loop_shell(void)
 {
 	int		status;
 	char	*line;
@@ -50,7 +52,7 @@ void	loop_shell(t_env *envs)
 		if (parse_complete_command(&nodes, &tokens) == FALSE)
 			print_unexpected_token_error(tokens);
 		else
-			exec_nodes(nodes, envs);
+			exec_nodes(nodes);
 		free(line);
 		del_token_list(&start_token);
 		del_node_list(nodes);
@@ -59,10 +61,8 @@ void	loop_shell(t_env *envs)
 
 int		main(int argc, char *argv[])
 {
-	t_env	*envs;
-
 	(void)argc;
 	(void)argv;
-	envs = create_envs_from_environ();
-	loop_shell(envs);
+	g_envs = create_envs_from_environ();
+	loop_shell();
 }

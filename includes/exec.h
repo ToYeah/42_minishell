@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 20:07:01 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/22 17:51:14 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/23 18:05:51 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ typedef struct			s_command
 	t_redirect			*redirects;
 }						t_command;
 
-void					exec_nodes(t_node *nodes, t_env *envs);
+void					exec_nodes(t_node *nodes);
 
 char					**convert_args(t_command *command);
 
