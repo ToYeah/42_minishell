@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 17:59:52 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/22 18:48:47 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/23 18:06:18 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,12 @@
 #include "builtin.h"
 #include "utils.h"
 
-static void	exec_command_node(t_node *node, t_env *envs)
+static void	exec_command_node(t_node *node)
 {
-	pid_t	pid;
-	int		status;
-	char	**args;
+	extern t_env	*g_envs;
+	pid_t			pid;
+	int				status;
+	char			**args;
 
 	args = convert_args(node->command);
 	if (args[0] == NULL)
@@ -34,7 +35,7 @@ static void	exec_command_node(t_node *node, t_env *envs)
 		error_exit();
 	if (pid == 0)
 	{
-		if (execve(args[0], args, generate_environ(envs)) < 0)
+		if (execve(args[0], args, generate_environ(g_envs)) < 0)
 			error_exit();
 	}
 	else
@@ -44,15 +45,15 @@ static void	exec_command_node(t_node *node, t_env *envs)
 	}
 }
 
-static void	exec_command(t_node *nodes, t_env *envs)
+static void	exec_command(t_node *nodes)
 {
 	if (nodes->type == NODE_COMMAND)
 	{
-		exec_command_node(nodes, envs);
+		exec_command_node(nodes);
 	}
 }
 
-static void	exec_pipeline(t_node *nodes, t_env *envs)
+static void	exec_pipeline(t_node *nodes)
 {
 	if (!nodes)
 	{
@@ -60,16 +61,16 @@ static void	exec_pipeline(t_node *nodes, t_env *envs)
 	}
 	if (nodes->type == NODE_PIPE)
 	{
-		exec_pipeline(nodes->left, envs);
-		exec_pipeline(nodes->right, envs);
+		exec_pipeline(nodes->left);
+		exec_pipeline(nodes->right);
 	}
 	else
 	{
-		exec_command(nodes, envs);
+		exec_command(nodes);
 	}
 }
 
-void		exec_nodes(t_node *nodes, t_env *envs)
+void		exec_nodes(t_node *nodes)
 {
 	if (!nodes)
 	{
@@ -77,11 +78,11 @@ void		exec_nodes(t_node *nodes, t_env *envs)
 	}
 	if (nodes->type == NODE_SEMICOLON)
 	{
-		exec_nodes(nodes->left, envs);
-		exec_nodes(nodes->right, envs);
+		exec_nodes(nodes->left);
+		exec_nodes(nodes->right);
 	}
 	else
 	{
-		exec_pipeline(nodes, envs);
+		exec_pipeline(nodes);
 	}
 }
