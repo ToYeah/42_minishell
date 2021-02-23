@@ -37,15 +37,18 @@ void	loop_shell(void)
 {
 	int		status;
 	char	*line;
+	int		gnl_result;
 	t_token	*tokens;
 	t_token	*start_token;
 	t_node	*nodes;
 
 	status = 1;
+	gnl_result = 1;
 	while (status)
 	{
-		ft_putstr_fd(SHELL_PROMPT, STDOUT_FILENO);
-		if (ft_get_next_line(STDIN_FILENO, &line) < 0)
+		if (gnl_result)
+			ft_putstr_fd(SHELL_PROMPT, STDERR_FILENO);
+		if ((gnl_result = ft_get_next_line(STDIN_FILENO, &line)) < 0)
 			error_exit();
 		tokens = tokenise(line, 0);
 		start_token = tokens;
