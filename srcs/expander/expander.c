@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 12:11:37 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/22 17:58:36 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/23 07:29:05 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,6 @@ char			*expand_env_var(char *input)
 		if (exper.type == CHAR_ESCAPE &&
 			ft_strchr("\'\"$", exper.str[exper.str_i + 1]) != NULL)
 		{
-			if (exper.str[exper.str_i + 1] == '\0')
-				return (exper.str);
 			exper.str_i++;
 		}
 		else if (exper.str[exper.str_i] == '$' &&
