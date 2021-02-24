@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 18:50:22 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/23 18:09:03 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/24 10:28:54 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,50 +19,50 @@
 
 t_env	*g_envs;
 
-void	free_array(char **array)
+void	run_commandline(char *line)
 {
-	size_t	i;
+	t_token	*tokens;
+	t_token	*start_token;
+	t_node	*nodes;
 
-	i = 0;
-	while (array[i])
-	{
-		free(array[i]);
-		array[i] = NULL;
-	}
-	free(array);
-	array = NULL;
+	tokens = tokenise(line, FALSE);
+	start_token = tokens;
+	if (parse_complete_command(&nodes, &tokens) == FALSE)
+		print_unexpected_token_error(tokens);
+	else
+		exec_nodes(nodes);
+	del_token_list(&start_token);
+	del_node_list(nodes);
 }
 
 void	loop_shell(void)
 {
 	int		status;
 	char	*line;
-	t_token	*tokens;
-	t_token	*start_token;
-	t_node	*nodes;
+	int		gnl_result;
 
 	status = 1;
+	gnl_result = 1;
 	while (status)
 	{
-		ft_putstr_fd(SHELL_PROMPT, STDOUT_FILENO);
-		if (ft_get_next_line(STDIN_FILENO, &line) < 0)
+		if (gnl_result)
+			ft_putstr_fd(SHELL_PROMPT, STDERR_FILENO);
+		if ((gnl_result = ft_get_next_line(STDIN_FILENO, &line)) < 0)
 			error_exit();
-		tokens = tokenise(line, 0);
-		start_token = tokens;
-		if (parse_complete_command(&nodes, &tokens) == FALSE)
-			print_unexpected_token_error(tokens);
-		else
-			exec_nodes(nodes);
+		run_commandline(line);
 		free(line);
-		del_token_list(&start_token);
-		del_node_list(nodes);
 	}
 }
 
 int		main(int argc, char *argv[])
 {
-	(void)argc;
-	(void)argv;
 	g_envs = create_envs_from_environ();
-	loop_shell();
+	if (argc > 2 && ft_strcmp("-c", argv[1]) == 0)
+	{
+		run_commandline(argv[2]);
+	}
+	else
+	{
+		loop_shell();
+	}
 }
