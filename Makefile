@@ -6,11 +6,16 @@
 #    By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/10 18:36:52 by nfukada           #+#    #+#              #
-#    Updated: 2021/02/22 17:18:22 by nfukada          ###   ########.fr        #
+#    Updated: 2021/02/24 17:09:22 by nfukada          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		:= minishell
+NAME_DEBUG	:= minishell_debug
+
+ifdef DEBUG
+NAME		:= $(NAME_DEBUG)
+endif
 
 SRC_DIR		:= srcs
 INC_DIR		:= includes
@@ -22,10 +27,12 @@ SRCS		:= srcs/lexer/lexer_general_state.c srcs/lexer/lexer.c srcs/lexer/lexer_qu
 OBJS		:= $(SRCS:%.c=%.o)
 LIBS		:= -lft -L$(LIBFT_DIR)
 
-CC			:= gcc
-CFLAGS		:= -Wall -Werror -Wextra $(INC) -g -fsanitize=address
+DEBUG		:= FALSE
 
-.PHONY: all clean fclean re bonus norm srcs
+CC			:= gcc
+CFLAGS		:= -Wall -Werror -Wextra $(INC) -g -fsanitize=address -D DEBUG=$(DEBUG)
+
+.PHONY: all clean fclean re bonus debug norm srcs
 
 all		: $(NAME)
 
@@ -43,15 +50,19 @@ clean	:
 
 fclean	: clean
 	$(MAKE) fclean -C $(LIBFT_DIR)
-	rm -f $(NAME)
+	rm -f $(NAME) $(NAME_DEBUG)
 
 re		: fclean all
 
+debug	: clean
+	$(MAKE) DEBUG=TRUE
+	$(MAKE) clean
+
 norm	:
 ifeq ($(shell which norminette),)
-		~/.norminette/norminette.rb $(SRCS) $(INC_DIR)
+	~/.norminette/norminette.rb $(SRCS) $(INC_DIR)
 else
-		norminette $(SRCS) $(INC_DIR)
+	norminette $(SRCS) $(INC_DIR)
 endif
 
 srcs	:
