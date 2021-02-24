@@ -6,7 +6,7 @@
 #    By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/10 18:36:52 by nfukada           #+#    #+#              #
-#    Updated: 2021/02/24 17:07:52 by nfukada          ###   ########.fr        #
+#    Updated: 2021/02/24 17:09:22 by nfukada          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,9 +60,9 @@ debug	: clean
 
 norm	:
 ifeq ($(shell which norminette),)
-		~/.norminette/norminette.rb $(SRCS) $(INC_DIR)
+	~/.norminette/norminette.rb $(SRCS) $(INC_DIR)
 else
-		norminette $(SRCS) $(INC_DIR)
+	norminette $(SRCS) $(INC_DIR)
 endif
 
 srcs	:
