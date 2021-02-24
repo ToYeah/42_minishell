@@ -6,11 +6,16 @@
 #    By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/10 18:36:52 by nfukada           #+#    #+#              #
-#    Updated: 2021/02/24 14:45:38 by nfukada          ###   ########.fr        #
+#    Updated: 2021/02/24 17:07:52 by nfukada          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		:= minishell
+NAME_DEBUG	:= minishell_debug
+
+ifdef DEBUG
+NAME		:= $(NAME_DEBUG)
+endif
 
 SRC_DIR		:= srcs
 INC_DIR		:= includes
@@ -45,12 +50,13 @@ clean	:
 
 fclean	: clean
 	$(MAKE) fclean -C $(LIBFT_DIR)
-	rm -f $(NAME)
+	rm -f $(NAME) $(NAME_DEBUG)
 
 re		: fclean all
 
-debug	:
+debug	: clean
 	$(MAKE) DEBUG=TRUE
+	$(MAKE) clean
 
 norm	:
 ifeq ($(shell which norminette),)
