@@ -6,7 +6,7 @@
 #    By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/10 18:36:52 by nfukada           #+#    #+#              #
-#    Updated: 2021/02/22 17:18:22 by nfukada          ###   ########.fr        #
+#    Updated: 2021/02/24 14:45:38 by nfukada          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,10 +22,12 @@ SRCS		:= srcs/lexer/lexer_general_state.c srcs/lexer/lexer.c srcs/lexer/lexer_qu
 OBJS		:= $(SRCS:%.c=%.o)
 LIBS		:= -lft -L$(LIBFT_DIR)
 
-CC			:= gcc
-CFLAGS		:= -Wall -Werror -Wextra $(INC) -g -fsanitize=address
+DEBUG		:= FALSE
 
-.PHONY: all clean fclean re bonus norm srcs
+CC			:= gcc
+CFLAGS		:= -Wall -Werror -Wextra $(INC) -g -fsanitize=address -D DEBUG=$(DEBUG)
+
+.PHONY: all clean fclean re bonus debug norm srcs
 
 all		: $(NAME)
 
@@ -46,6 +48,9 @@ fclean	: clean
 	rm -f $(NAME)
 
 re		: fclean all
+
+debug	:
+	$(MAKE) DEBUG=TRUE
 
 norm	:
 ifeq ($(shell which norminette),)

@@ -6,13 +6,14 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 01:11:20 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/22 01:00:40 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/24 14:51:19 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "token.h"
 #include "parser.h"
 #include "utils.h"
+#include "const.h"
 
 static t_bool	parse_io_redirect(t_token **tokens, t_node *command_node)
 {
@@ -117,6 +118,7 @@ t_bool			parse_complete_command(t_node **nodes, t_token **tokens)
 	}
 	if (*tokens)
 		return (FALSE);
-	print_nodes(*nodes);
+	if (DEBUG)
+		print_nodes(*nodes);
 	return (TRUE);
 }
