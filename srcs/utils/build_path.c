@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 11:40:22 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/25 09:15:30 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/25 15:00:11 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ t_bool is_executable_command(char *path)
 	return (TRUE);
 }
 
-t_bool is_command_exist(char *path)
+t_bool is_command_exist(char *path, char **res)
 {
 	t_stat buf;
 
@@ -89,6 +89,9 @@ t_bool is_command_exist(char *path)
 		return (FALSE);
 	if (S_ISDIR(buf.st_mode))
 		return (FALSE);
+	ft_safe_free_char(res);
+	if (!(*res = ft_strdup(path)))
+		error_exit();
 	return (TRUE);
 }
 
@@ -122,33 +125,20 @@ char *search_command_binary(const char *cmd)
 	int		index;
 	char	*res;
 	char	*path;
-	extern t_env	*g_envs;
 
 	index = 0;
 	res = NULL;
-	if (!(split_path = ft_split(search_env(g_envs, "PATH"), ':')))
+	path = build_full_path("", cmd);
+	if (!(split_path = ft_split(search_env("PATH"), ':')))
 		error_exit();
 	if (split_path[0] == NULL)
-	{
-		path = build_full_path("", cmd);
-		if (is_command_exist(path))
-		{
-			if (!(res = ft_strdup(path)))
-				error_exit();
-		}
-	}
+		is_command_exist(path, &res);
 	while (split_path[index])
 	{
-		path = build_full_path(split_path[index], cmd);
-		if (is_command_exist(path))
-		{
-			ft_safe_free_char(&res);
-			if (!(res = ft_strdup(path)))
-				error_exit();
-			if (is_executable_command(path))
-				break;
-		}
 		ft_safe_free_char(&path);
+		path = build_full_path(split_path[index], cmd);
+		if (is_command_exist(path, &res) && is_executable_command(path))
+				break;
 		index++;
 	}
 	ft_safe_free_char(&path);
