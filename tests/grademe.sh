@@ -7,12 +7,15 @@ MINISHELL_DIR="../"
 MINISHELL_EXE="minishell"
 # ------------------------------------------------------------------------------
 
-CASE_DIR="./cases"
+cd `dirname $0`
+PWD=`pwd`
+CASE_DIR="${PWD}/cases"
+OUTPUT_DIR="${PWD}/outputs"
 
-BASH_STDOUT_FILE="bash_stdout.txt"
-BASH_STDERR_FILE="bash_stderr.txt"
-MINISHELL_STDOUT_FILE="minishell_stdout.txt"
-MINISHELL_STDERR_FILE="minishell_stderr.txt"
+BASH_STDOUT_FILE="${OUTPUT_DIR}/bash_stdout.txt"
+BASH_STDERR_FILE="${OUTPUT_DIR}/bash_stderr.txt"
+MINISHELL_STDOUT_FILE="${OUTPUT_DIR}/minishell_stdout.txt"
+MINISHELL_STDERR_FILE="${OUTPUT_DIR}/minishell_stderr.txt"
 
 COLOR_RESET="\033[0m"
 COLOR_GREEN="\033[32m"
