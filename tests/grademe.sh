@@ -32,6 +32,7 @@ cleanup () {
 run_tests () {
 	cleanup
 	run_syntax_tests
+	run_general_tests absolute_path
 }
 
 run_syntax_tests () {
@@ -41,6 +42,14 @@ run_syntax_tests () {
 		assert_equal "$line"
 		cleanup
 	done < "${CASE_DIR}/syntax_test.txt"
+}
+
+run_general_tests () {
+	while read -r line; do
+		execute_shell "$line"
+		assert_equal "$line"
+		cleanup
+	done < "${CASE_DIR}/$1.txt"
 }
 
 execute_shell () {
