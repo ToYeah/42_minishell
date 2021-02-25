@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 12:11:37 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/25 14:43:13 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/25 15:53:06 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ void			expand_var_in_str(t_expander *exper)
 	char			*vars[4];
 	const char		*env_value;
 	size_t			after_var_index;
-	extern t_env	*g_envs;
 
 	if (!(vars[VAR_NAME] = extract_var_name(&exper->str[exper->str_i + 1])))
 		error_exit();
