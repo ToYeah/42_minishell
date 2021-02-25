@@ -30,6 +30,11 @@ typedef struct	s_node
 	struct s_node	*right;
 }				t_node;
 
+typedef struct	s_parse_info
+{
+	t_command		*last_command;
+}				t_parse_info;
+
 t_bool			parse_complete_command(t_node **nodes, t_token **tokens);
 void			add_copied_token(t_token **list, t_token *original_token);
 t_bool			has_token_type(t_token **token, t_token_type type);
