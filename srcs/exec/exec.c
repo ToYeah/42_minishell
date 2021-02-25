@@ -1,76 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_command.c                                     :+:      :+:    :+:   */
+/*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 17:59:52 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/25 23:39:25 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/26 00:15:16 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <sys/wait.h>
-#include "parser.h"
 #include "builtin.h"
+#include "parser.h"
 #include "utils.h"
 
-#define NO_PID		-1
-#define PIPE_IN		0
-#define PIPE_OUT	1
-
-static void		create_pipe(t_pipe_state state, int new_pipe[])
-{
-	if (state == PIPE_WRITE_ONLY || state == PIPE_READ_WRITE)
-	{
-		if (pipe(new_pipe) < 0)
-			error_exit();
-	}
-}
-
-static void		dup_pipe(t_pipe_state state, int old_pipe[], int new_pipe[])
-{
-	if (state == PIPE_READ_ONLY || state == PIPE_READ_WRITE)
-	{
-		if (close(old_pipe[PIPE_OUT]) < 0 ||
-			dup2(old_pipe[PIPE_IN], STDIN_FILENO) < 0 ||
-			close(old_pipe[PIPE_IN] < 0))
-		{
-			error_exit();
-		}
-	}
-	if (state == PIPE_WRITE_ONLY || state == PIPE_READ_WRITE)
-	{
-		if (close(new_pipe[PIPE_IN]) < 0 ||
-			dup2(new_pipe[PIPE_OUT], STDOUT_FILENO) < 0 ||
-			close(new_pipe[PIPE_OUT]) < 0)
-		{
-			error_exit();
-		}
-	}
-}
-
-static void		cleanup_pipe(
-	t_pipe_state state, int old_pipe[], int new_pipe[])
-{
-	if (state == PIPE_READ_ONLY || state == PIPE_READ_WRITE)
-	{
-		if (close(old_pipe[PIPE_IN]) < 0 ||
-			close(old_pipe[PIPE_OUT]))
-		{
-			error_exit();
-		}
-	}
-	if (state == PIPE_WRITE_ONLY || state == PIPE_READ_WRITE)
-	{
-		old_pipe[PIPE_IN] = new_pipe[PIPE_IN];
-		old_pipe[PIPE_OUT] = new_pipe[PIPE_OUT];
-	}
-}
-
-static pid_t	exec_command(
-	t_command *command, t_pipe_state state, int old_pipe[])
+pid_t		exec_command(t_command *command, t_pipe_state state, int old_pipe[])
 {
 	extern t_env	*g_envs;
 	pid_t			pid;

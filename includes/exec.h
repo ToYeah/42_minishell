@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 20:07:01 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/25 22:16:21 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/26 00:14:11 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,10 @@
 
 # define REDIR_FD_NOT_SPECIFIED		-1
 # define REDIR_FD_OUT_OF_RANGE		-2
+
+# define NO_PID						-1
+# define PIPE_IN					0
+# define PIPE_OUT					1
 
 typedef struct s_node	t_node;
 
@@ -52,6 +56,14 @@ typedef enum			e_pipe_state
 }						t_pipe_state;
 
 void					exec_nodes(t_node *nodes);
+pid_t					exec_command(t_command *command, t_pipe_state state,
+							int old_pipe[]);
+
+void					create_pipe(t_pipe_state state, int new_pipe[]);
+void					dup_pipe(t_pipe_state state, int old_pipe[],
+							int new_pipe[]);
+void					cleanup_pipe(t_pipe_state state, int old_pipe[],
+							int new_pipe[]);
 
 char					**convert_args(t_command *command);
 
