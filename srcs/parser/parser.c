@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 01:11:20 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/25 22:54:56 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/25 22:58:00 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,12 +98,11 @@ static t_bool	parse_pipeline(
 	return (TRUE);
 }
 
-t_bool			parse_complete_command(t_node **nodes, t_token **tokens)
+static t_bool	parse_separator(t_node **nodes, t_token **tokens)
 {
 	t_node			*child;
 	t_parse_info	info;
 
-	*nodes = NULL;
 	info.last_command = NULL;
 	if (*tokens)
 	{
@@ -124,7 +123,16 @@ t_bool			parse_complete_command(t_node **nodes, t_token **tokens)
 	}
 	if (*tokens)
 		return (FALSE);
+	return (TRUE);
+}
+
+t_bool			parse_complete_command(t_node **nodes, t_token **tokens)
+{
+	t_bool	result;
+
+	*nodes = NULL;
+	result = parse_separator(nodes, tokens);
 	if (DEBUG)
 		print_nodes(*nodes);
-	return (TRUE);
+	return (result);
 }
