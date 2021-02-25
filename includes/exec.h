@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 20:07:01 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/25 15:57:29 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/25 16:01:58 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,5 @@ void					exec_nodes(t_node *nodes);
 char					**convert_args(t_command *command);
 
 char					*build_full_path(char *path, const char *cmd);
-char					*build_path(const char *cmd);
+char					*build_cmd_path(const char *cmd);
 #endif

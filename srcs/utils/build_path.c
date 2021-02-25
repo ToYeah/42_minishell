@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 11:40:22 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/25 15:56:01 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/25 16:01:58 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ char		*search_command_binary(const char *cmd)
 	return (res);
 }
 
-char		*build_path(const char *cmd)
+char		*build_cmd_path(const char *cmd)
 {
 	t_cmd_type	type;
 	char		*res;
