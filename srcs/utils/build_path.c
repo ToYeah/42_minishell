@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 11:40:22 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/25 15:30:30 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/25 15:34:44 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,6 @@
 #include <sys/stat.h>
 #include <errno.h>
 
-typedef enum	e_cmd_type
-{
-	ABSOLUTE,
-	RELATIVE,
-	COMMAND
-}				t_cmd_type;
-
-typedef struct stat t_stat;
-
 t_cmd_type judge_cmd_type(const char *str)
 {
 	if (*str == '/')
@@ -33,22 +24,6 @@ t_cmd_type judge_cmd_type(const char *str)
 		return (RELATIVE);
 	else
 		return (COMMAND);
-}
-
-char *join_path(const char *prev, const char *next)
-{
-	char *tmp;
-	char *res;
-
-	if (!prev || !next)
-		return (NULL);
-	if (!(tmp = ft_strjoin(prev, "/")) ||
-		!(res = ft_strjoin(tmp, next)))
-	{
-		error_exit();
-	}
-	free(tmp);
-	return res;
 }
 
 t_bool is_executable_command(char *path)
@@ -89,30 +64,6 @@ t_bool is_command_exist(char *path, char **res)
 	if (!(*res = ft_strdup(path)))
 		error_exit();
 	return (TRUE);
-}
-
-char *build_full_path(char *path,const char *cmd)
-{
-	char *cwd;
-	char *res;
-	char *tmp;
-
-	if (*path == '/')
-		return join_path(path, cmd);
-	if (!(cwd = getcwd(NULL, 0)))
-		return (NULL);
-	if (!(tmp = join_path(cwd, path)))
-	{
-		free(cwd);
-		return (NULL);
-	}
-	if (!(res = join_path(tmp, cmd)))
-	{
-		free(cwd);
-		free(tmp);
-		return (NULL);
-	}
-	return (res);
 }
 
 char *search_command_binary(const char *cmd)
