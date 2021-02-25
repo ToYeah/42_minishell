@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 20:07:01 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/23 18:05:51 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/25 22:16:21 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,14 @@ typedef struct			s_command
 	t_redirect			*redirects;
 	struct s_command	*next;
 }						t_command;
+
+typedef enum			e_pipe_state
+{
+	NO_PIPE,
+	PIPE_READ_ONLY,
+	PIPE_WRITE_ONLY,
+	PIPE_READ_WRITE
+}						t_pipe_state;
 
 void					exec_nodes(t_node *nodes);
 
