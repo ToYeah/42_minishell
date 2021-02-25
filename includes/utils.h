@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 20:13:16 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/25 15:34:51 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/25 15:47:20 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef enum	e_cmd_type
 	COMMAND
 }				t_cmd_type;
 
-typedef struct stat t_stat;
+typedef struct stat	t_stat;
 
 void			error_exit(void);
 void			print_unexpected_token_error(t_token *token);
@@ -46,4 +46,6 @@ size_t			get_env_size(t_env *envs);
 t_env			*create_new_env(char *env_str);
 const char		*search_env(char *name);
 
+char			*build_full_path(char *path, const char *cmd);
+char			*build_path(const char *cmd);
 #endif

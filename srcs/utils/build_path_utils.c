@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 15:32:52 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/25 15:34:38 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/25 15:41:44 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <sys/stat.h>
 #include <errno.h>
 
-char *join_path(const char *prev, const char *next)
+char	*join_path(const char *prev, const char *next)
 {
 	char *tmp;
 	char *res;
@@ -29,18 +29,17 @@ char *join_path(const char *prev, const char *next)
 		error_exit();
 	}
 	free(tmp);
-	return res;
+	return (res);
 }
 
-
-char *build_full_path(char *path,const char *cmd)
+char	*build_full_path(char *path, const char *cmd)
 {
 	char *cwd;
 	char *res;
 	char *tmp;
 
 	if (*path == '/')
-		return join_path(path, cmd);
+		return (join_path(path, cmd));
 	if (!(cwd = getcwd(NULL, 0)))
 		return (NULL);
 	if (!(tmp = join_path(cwd, path)))

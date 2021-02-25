@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 11:40:22 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/25 15:34:44 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/25 15:40:28 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <sys/stat.h>
 #include <errno.h>
 
-t_cmd_type judge_cmd_type(const char *str)
+t_cmd_type	judge_cmd_type(const char *str)
 {
 	if (*str == '/')
 		return (ABSOLUTE);
@@ -26,7 +26,7 @@ t_cmd_type judge_cmd_type(const char *str)
 		return (COMMAND);
 }
 
-t_bool is_executable_command(char *path)
+t_bool		is_executable_command(char *path)
 {
 	t_stat buf;
 
@@ -50,7 +50,7 @@ t_bool is_executable_command(char *path)
 	return (TRUE);
 }
 
-t_bool is_command_exist(char *path, char **res)
+t_bool		is_command_exist(char *path, char **res)
 {
 	t_stat buf;
 
@@ -66,7 +66,7 @@ t_bool is_command_exist(char *path, char **res)
 	return (TRUE);
 }
 
-char *search_command_binary(const char *cmd)
+char		*search_command_binary(const char *cmd)
 {
 	char	**split_path;
 	int		index;
@@ -85,7 +85,7 @@ char *search_command_binary(const char *cmd)
 		ft_safe_free_char(&path);
 		path = build_full_path(split_path[index], cmd);
 		if (is_command_exist(path, &res) && is_executable_command(path))
-				break;
+			break ;
 		index++;
 	}
 	ft_safe_free_char(&path);
@@ -93,10 +93,11 @@ char *search_command_binary(const char *cmd)
 	return (res);
 }
 
-char *build_path(const char *cmd)
+char		*build_path(const char *cmd)
 {
-	t_cmd_type type;
-	char *res;
+	t_cmd_type	type;
+	char		*res;
+
 	if (!cmd)
 		return (NULL);
 	type = judge_cmd_type(cmd);
@@ -111,4 +112,3 @@ char *build_path(const char *cmd)
 	}
 	return (res);
 }
-
