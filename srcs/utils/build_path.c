@@ -6,19 +6,15 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 11:40:22 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/25 15:00:11 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/25 15:30:30 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 #include "libft.h"
-#include <stdio.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <dirent.h>
-#include <unistd.h>
 #include <errno.h>
-#include <string.h>
 
 typedef enum	e_cmd_type
 {
