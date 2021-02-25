@@ -6,15 +6,15 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 11:40:22 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/25 15:40:28 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/25 15:56:01 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "exec.h"
 #include "utils.h"
 #include "libft.h"
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <errno.h>
 
 t_cmd_type	judge_cmd_type(const char *str)
 {

@@ -6,10 +6,11 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 15:32:52 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/25 15:41:44 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/25 15:55:13 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "exec.h"
 #include "utils.h"
 #include "libft.h"
 #include <sys/types.h>
