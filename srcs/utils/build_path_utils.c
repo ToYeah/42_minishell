@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 15:32:52 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/25 15:55:13 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/25 18:28:41 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,7 @@ char	*build_full_path(char *path, const char *cmd)
 		free(tmp);
 		return (NULL);
 	}
+	free(cwd);
+	free(tmp);
 	return (res);
 }
