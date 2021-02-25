@@ -40,6 +40,7 @@ typedef struct			s_command
 {
 	t_token				*args;
 	t_redirect			*redirects;
+	struct s_command	*next;
 }						t_command;
 
 void					exec_nodes(t_node *nodes);
