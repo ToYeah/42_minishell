@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 15:32:52 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/25 18:28:41 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/26 11:54:45 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ char	*join_path(const char *prev, const char *next)
 
 	if (!prev || !next)
 		return (NULL);
+	tmp = NULL;
+	res = NULL;
 	if (!(tmp = ft_strjoin(prev, "/")) ||
 		!(res = ft_strjoin(tmp, next)))
 	{
