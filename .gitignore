@@ -103,6 +103,7 @@ Temporary Items
 # End of https://www.toptal.com/developers/gitignore/api/c,linux,macos
 
 minishell
+minishell_debug
 *.bak
 .vscode/*
 *debug_.c
