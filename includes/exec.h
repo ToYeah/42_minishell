@@ -44,6 +44,7 @@ typedef struct			s_command
 {
 	t_token				*args;
 	t_redirect			*redirects;
+	pid_t				pid;
 	struct s_command	*next;
 }						t_command;
 
