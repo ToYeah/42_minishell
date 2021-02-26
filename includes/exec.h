@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 20:07:01 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/26 00:14:11 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/27 00:45:12 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,6 @@ typedef enum			e_pipe_state
 }						t_pipe_state;
 
 void					exec_nodes(t_node *nodes);
-pid_t					exec_command(t_command *command, t_pipe_state state,
-							int old_pipe[]);
 
 void					create_pipe(t_pipe_state state, int new_pipe[]);
 void					dup_pipe(t_pipe_state state, int old_pipe[],

@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 17:59:52 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/26 00:15:16 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/27 00:49:10 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,22 @@
 #include "parser.h"
 #include "utils.h"
 
-pid_t		exec_command(t_command *command, t_pipe_state state, int old_pipe[])
+static void		wait_commands(t_command *command)
+{
+	int	status;
+
+	while (command)
+	{
+		if (command->pid != NO_PID && waitpid(command->pid, &status, 0) < 0)
+		{
+			error_exit();
+		}
+		command = command->next;
+	}
+}
+
+static void		exec_command(
+	t_command *command, t_pipe_state state, int old_pipe[])
 {
 	extern t_env	*g_envs;
 	pid_t			pid;
@@ -25,11 +40,11 @@ pid_t		exec_command(t_command *command, t_pipe_state state, int old_pipe[])
 
 	args = convert_args(command);
 	if (args[0] == NULL)
-		return (NO_PID);
+		return ;
 	if (is_builtin(args))
 	{
 		exec_builtin(args);
-		return (NO_PID);
+		return ;
 	}
 	create_pipe(state, new_pipe);
 	if ((pid = fork()) < 0)
@@ -41,15 +56,13 @@ pid_t		exec_command(t_command *command, t_pipe_state state, int old_pipe[])
 			error_exit();
 	}
 	cleanup_pipe(state, old_pipe, new_pipe);
-	return (pid);
+	command->pid = pid;
 }
 
 static void		exec_pipeline(t_node *nodes)
 {
 	t_command	*command;
-	pid_t		pid;
 	int			pipe[2];
-	int			status;
 
 	while (nodes->type == NODE_PIPE)
 		nodes = nodes->left;
@@ -60,18 +73,12 @@ static void		exec_pipeline(t_node *nodes)
 		exec_command(command, PIPE_READ_WRITE, pipe);
 		command = command->next;
 	}
-	pid = exec_command(command, PIPE_READ_ONLY, pipe);
-	if (waitpid(pid, &status, 0) < 0)
-	{
-		error_exit();
-	}
+	exec_command(command, PIPE_READ_ONLY, pipe);
+	wait_commands(nodes->command);
 }
 
 static void		exec_list(t_node *nodes)
 {
-	pid_t	pid;
-	int		status;
-
 	if (!nodes)
 	{
 		return ;
@@ -82,11 +89,8 @@ static void		exec_list(t_node *nodes)
 	}
 	else
 	{
-		pid = exec_command(nodes->command, NO_PIPE, NULL);
-		if (pid >= 0 && waitpid(pid, &status, 0) < 0)
-		{
-			error_exit();
-		}
+		exec_command(nodes->command, NO_PIPE, NULL);
+		wait_commands(nodes->command);
 	}
 }
 
