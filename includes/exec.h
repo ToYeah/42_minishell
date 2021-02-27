@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 20:07:01 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/25 16:01:58 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/27 12:15:48 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,10 @@
 
 # define REDIR_FD_NOT_SPECIFIED		-1
 # define REDIR_FD_OUT_OF_RANGE		-2
+
+# define NO_PID						-1
+# define PIPE_IN					1
+# define PIPE_OUT					0
 
 typedef struct s_node	t_node;
 
@@ -40,7 +44,17 @@ typedef struct			s_command
 {
 	t_token				*args;
 	t_redirect			*redirects;
+	pid_t				pid;
+	struct s_command	*next;
 }						t_command;
+
+typedef enum			e_pipe_state
+{
+	NO_PIPE,
+	PIPE_READ_ONLY,
+	PIPE_WRITE_ONLY,
+	PIPE_READ_WRITE
+}						t_pipe_state;
 
 typedef enum			e_cmd_type
 {
@@ -52,6 +66,12 @@ typedef enum			e_cmd_type
 typedef struct stat		t_stat;
 
 void					exec_nodes(t_node *nodes);
+
+void					create_pipe(t_pipe_state state, int new_pipe[]);
+void					dup_pipe(t_pipe_state state, int old_pipe[],
+							int new_pipe[]);
+void					cleanup_pipe(t_pipe_state state, int old_pipe[],
+							int new_pipe[]);
 
 char					**convert_args(t_command *command);
 

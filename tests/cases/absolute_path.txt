@@ -1,0 +1,4 @@
+/bin/ls
+/bin/ls -a
+/bin/ls | /usr/bin/grep a
+/bin/ls | /usr/bin/grep a | /usr/bin/grep c

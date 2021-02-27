@@ -7,12 +7,15 @@ MINISHELL_DIR="../"
 MINISHELL_EXE="minishell"
 # ------------------------------------------------------------------------------
 
-CASE_DIR="./cases"
+cd `dirname $0`
+PWD=`pwd`
+CASE_DIR="${PWD}/cases"
+OUTPUT_DIR="${PWD}/outputs"
 
-BASH_STDOUT_FILE="bash_stdout.txt"
-BASH_STDERR_FILE="bash_stderr.txt"
-MINISHELL_STDOUT_FILE="minishell_stdout.txt"
-MINISHELL_STDERR_FILE="minishell_stderr.txt"
+BASH_STDOUT_FILE="${OUTPUT_DIR}/bash_stdout.txt"
+BASH_STDERR_FILE="${OUTPUT_DIR}/bash_stderr.txt"
+MINISHELL_STDOUT_FILE="${OUTPUT_DIR}/minishell_stdout.txt"
+MINISHELL_STDERR_FILE="${OUTPUT_DIR}/minishell_stderr.txt"
 
 COLOR_RESET="\033[0m"
 COLOR_GREEN="\033[32m"
@@ -29,6 +32,7 @@ cleanup () {
 run_tests () {
 	cleanup
 	run_syntax_tests
+	run_general_tests absolute_path
 }
 
 run_syntax_tests () {
@@ -38,6 +42,14 @@ run_syntax_tests () {
 		assert_equal "$line"
 		cleanup
 	done < "${CASE_DIR}/syntax_test.txt"
+}
+
+run_general_tests () {
+	while read -r line; do
+		execute_shell "$line"
+		assert_equal "$line"
+		cleanup
+	done < "${CASE_DIR}/$1.txt"
 }
 
 execute_shell () {
