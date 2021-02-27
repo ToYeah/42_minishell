@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 17:59:52 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/27 00:49:10 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/27 17:14:29 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "builtin.h"
 #include "parser.h"
 #include "utils.h"
+#include "expander.h"
 
 static void		wait_commands(t_command *command)
 {
@@ -37,7 +38,9 @@ static void		exec_command(
 	pid_t			pid;
 	char			**args;
 	int				new_pipe[2];
+	char			*tmp;
 
+	expand_tokens(&command->args);
 	args = convert_args(command);
 	if (args[0] == NULL)
 		return ;
@@ -46,6 +49,8 @@ static void		exec_command(
 		exec_builtin(args);
 		return ;
 	}
+	tmp = args[0];
+	args[0] = build_cmd_path(args[0]);
 	create_pipe(state, new_pipe);
 	if ((pid = fork()) < 0)
 		error_exit();
@@ -57,6 +62,8 @@ static void		exec_command(
 	}
 	cleanup_pipe(state, old_pipe, new_pipe);
 	command->pid = pid;
+	free(tmp);
+	ft_safe_free_split(&args);
 }
 
 static void		exec_pipeline(t_node *nodes)
