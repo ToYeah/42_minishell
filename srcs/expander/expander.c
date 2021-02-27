@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 12:11:37 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/23 07:32:14 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/25 15:53:06 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,13 @@ void			expand_var_in_str(t_expander *exper)
 	char			*vars[4];
 	const char		*env_value;
 	size_t			after_var_index;
-	extern t_env	*g_envs;
 
 	if (!(vars[VAR_NAME] = extract_var_name(&exper->str[exper->str_i + 1])))
 		error_exit();
 	if (ft_strlen(vars[VAR_NAME]) == 0)
 		return ;
 	exper->str[exper->str_i] = '\0';
-	env_value = search_env(g_envs, vars[VAR_NAME]);
+	env_value = search_env(vars[VAR_NAME]);
 	after_var_index = exper->str_i + ft_strlen(vars[VAR_NAME]) + 1;
 	if (!(vars[VALUE] = create_expanded_str(env_value, exper->state)) ||
 		!(vars[TMP] = ft_strjoin(exper->str, vars[VALUE])) ||

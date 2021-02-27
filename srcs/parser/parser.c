@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 01:11:20 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/24 14:51:19 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/25 22:58:00 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,13 @@ static t_bool	parse_io_redirect(t_token **tokens, t_node *command_node)
 	return (TRUE);
 }
 
-static t_bool	parse_command(t_node **node, t_token **tokens)
+static t_bool	parse_command(
+	t_parse_info *info, t_node **node, t_token **tokens)
 {
 	if (!*tokens)
 		return (FALSE);
-	*node = create_command_node();
+	*node = create_command_node(info);
+	info->last_command = (*node)->command;
 	while (*tokens)
 	{
 		if ((*tokens)->type == TOKEN)
@@ -69,11 +71,12 @@ static t_bool	parse_command(t_node **node, t_token **tokens)
 	return (TRUE);
 }
 
-static t_bool	parse_pipeline(t_node **node, t_token **tokens)
+static t_bool	parse_pipeline(
+	t_parse_info *info, t_node **node, t_token **tokens)
 {
 	t_node	*child;
 
-	if (parse_command(node, tokens) == FALSE)
+	if (parse_command(info, node, tokens) == FALSE)
 	{
 		return (FALSE);
 	}
@@ -81,7 +84,7 @@ static t_bool	parse_pipeline(t_node **node, t_token **tokens)
 	{
 		if (has_token_type(tokens, CHAR_PIPE))
 		{
-			if (parse_command(&child, tokens) == FALSE)
+			if (parse_command(info, &child, tokens) == FALSE)
 			{
 				return (FALSE);
 			}
@@ -95,21 +98,23 @@ static t_bool	parse_pipeline(t_node **node, t_token **tokens)
 	return (TRUE);
 }
 
-t_bool			parse_complete_command(t_node **nodes, t_token **tokens)
+static t_bool	parse_separator(t_node **nodes, t_token **tokens)
 {
-	t_node	*child;
+	t_node			*child;
+	t_parse_info	info;
 
-	*nodes = NULL;
+	info.last_command = NULL;
 	if (*tokens)
 	{
-		if (parse_pipeline(nodes, tokens) == FALSE)
+		if (parse_pipeline(&info, nodes, tokens) == FALSE)
 			return (FALSE);
 	}
 	while (*tokens)
 	{
 		if (has_token_type(tokens, CHAR_SEMICOLON) && *tokens)
 		{
-			if (parse_pipeline(&child, tokens) == FALSE)
+			info.last_command = NULL;
+			if (parse_pipeline(&info, &child, tokens) == FALSE)
 				return (FALSE);
 			*nodes = add_parent_node(NODE_SEMICOLON, *nodes, child);
 		}
@@ -118,7 +123,16 @@ t_bool			parse_complete_command(t_node **nodes, t_token **tokens)
 	}
 	if (*tokens)
 		return (FALSE);
+	return (TRUE);
+}
+
+t_bool			parse_complete_command(t_node **nodes, t_token **tokens)
+{
+	t_bool	result;
+
+	*nodes = NULL;
+	result = parse_separator(nodes, tokens);
 	if (DEBUG)
 		print_nodes(*nodes);
-	return (TRUE);
+	return (result);
 }

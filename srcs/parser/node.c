@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 12:06:22 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/21 22:29:39 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/27 00:43:55 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	set_command_args(t_command *command, t_token **tokens)
 	}
 }
 
-t_node	*create_command_node(void)
+t_node	*create_command_node(t_parse_info *info)
 {
 	t_node	*node;
 
@@ -50,6 +50,11 @@ t_node	*create_command_node(void)
 	node->right = NULL;
 	node->command->args = NULL;
 	node->command->redirects = NULL;
+	node->command->pid = NO_PID;
+	node->command->next = NULL;
+	if (info->last_command)
+		info->last_command->next = node->command;
+	info->last_command = node->command;
 	return (node);
 }
 

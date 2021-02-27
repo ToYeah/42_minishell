@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 20:13:16 by nfukada           #+#    #+#             */
 /*   Updated: 2021/02/27 12:39:41 by nfukada          ###   ########.fr       */
@@ -35,6 +35,6 @@ void			del_env(t_env **envs, char *name);
 t_env			*get_last_env(t_env *envs);
 size_t			get_env_size(t_env *envs);
 t_env			*create_new_env(char *env_str);
-const char		*search_env(t_env *envs, char *name);
+const char		*search_env(char *name);
 
 #endif
