@@ -2,3 +2,8 @@
 /bin/ls -a
 /bin/ls | /usr/bin/grep a
 /bin/ls | /usr/bin/grep a | /usr/bin/grep c
+ls
+ls -a
+ls | grep a
+ls | grep a | grep c
+no_such_file

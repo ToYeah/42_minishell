@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_path_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 15:32:52 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/26 11:54:45 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/27 23:27:09 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*join_path(const char *prev, const char *next)
 	if (!(tmp = ft_strjoin(prev, "/")) ||
 		!(res = ft_strjoin(tmp, next)))
 	{
-		error_exit();
+		error_exit(NULL);
 	}
 	free(tmp);
 	return (res);

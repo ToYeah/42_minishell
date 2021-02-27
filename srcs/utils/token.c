@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 18:05:44 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/22 08:29:04 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/27 23:28:40 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ t_token			*token_init(size_t len, t_token *prev)
 	t_token *res;
 
 	if (!(res = malloc(sizeof(t_token))))
-		error_exit();
+		error_exit(NULL);
 	if (!(res->data = malloc(sizeof(char) * (len + 1))))
-		error_exit();
+		error_exit(NULL);
 	res->data[0] = '\0';
 	res->type = TOKEN;
 	res->next = NULL;

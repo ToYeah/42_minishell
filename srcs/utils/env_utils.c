@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 23:38:53 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/25 14:42:49 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/27 23:28:38 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,14 @@ t_env		*create_new_env(char *env_str)
 	char	*sep;
 
 	if (!(env = malloc(sizeof(t_env))))
-		error_exit();
+		error_exit(NULL);
 	sep = ft_strchr(env_str, '=');
 	if (!sep)
-		error_exit();
+		error_exit(NULL);
 	env->name = ft_substr(env_str, 0, sep - env_str);
 	env->value = ft_strdup(sep + 1);
 	if (!env->name || !env->value)
-		error_exit();
+		error_exit(NULL);
 	env->next = NULL;
 	return (env);
 }
