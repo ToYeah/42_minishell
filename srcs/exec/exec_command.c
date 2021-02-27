@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 20:16:45 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/27 21:15:07 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/27 21:30:14 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,22 @@ static void		ft_free_set(char **dest, char *src)
 	*dest = src;
 }
 
+static void		exec_binary(
+	char **args, t_pipe_state state, int old_pipe[], int new_pipe[])
+{
+	extern t_env	*g_envs;
+	char			**envs;
+
+	dup_pipe(state, old_pipe, new_pipe);
+	envs = generate_environ(g_envs);
+	if (execve(args[0], args, generate_environ(g_envs)) < 0)
+		error_exit();
+	ft_safe_free_split(&envs);
+}
+
 void			exec_command(
 	t_command *command, t_pipe_state state, int old_pipe[])
 {
-	extern t_env	*g_envs;
 	pid_t			pid;
 	char			**args;
 	int				new_pipe[2];
@@ -49,11 +61,7 @@ void			exec_command(
 	if ((pid = fork()) < 0)
 		error_exit();
 	if (pid == 0)
-	{
-		dup_pipe(state, old_pipe, new_pipe);
-		if (execve(args[0], args, generate_environ(g_envs)) < 0)
-			error_exit();
-	}
+		exec_binary(args, state, old_pipe, new_pipe);
 	cleanup_pipe(state, old_pipe, new_pipe);
 	command->pid = pid;
 	ft_safe_free_split(&args);
