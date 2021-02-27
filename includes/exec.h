@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 20:07:01 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/27 00:45:12 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/27 12:15:48 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 # define REDIR_FD_OUT_OF_RANGE		-2
 
 # define NO_PID						-1
-# define PIPE_IN					0
-# define PIPE_OUT					1
+# define PIPE_IN					1
+# define PIPE_OUT					0
 
 typedef struct s_node	t_node;
 
