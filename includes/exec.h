@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 20:07:01 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/23 18:05:51 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/25 16:01:58 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,19 @@ typedef struct			s_command
 	t_redirect			*redirects;
 }						t_command;
 
+typedef enum			e_cmd_type
+{
+	ABSOLUTE,
+	RELATIVE,
+	COMMAND
+}						t_cmd_type;
+
+typedef struct stat		t_stat;
+
 void					exec_nodes(t_node *nodes);
 
 char					**convert_args(t_command *command);
 
+char					*build_full_path(char *path, const char *cmd);
+char					*build_cmd_path(const char *cmd);
 #endif

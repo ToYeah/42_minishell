@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   buildin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 23:55:20 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/12 21:04:45 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/25 18:00:37 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int		is_builtin(char **args)
 	i = 0;
 	while (commands[i])
 	{
-		if (ft_strncmp(args[0], commands[i], ft_strlen(commands[i] + 1)) == 0)
+		if (ft_strcmp(args[0], (char *)commands[i]) == 0)
 			return (1);
 		i++;
 	}
