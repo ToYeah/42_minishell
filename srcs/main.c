@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 18:50:22 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/24 10:28:54 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/27 12:33:18 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include "exec.h"
 
 t_env	*g_envs;
+int		g_status;
 
 void	run_commandline(char *line)
 {
@@ -65,4 +66,5 @@ int		main(int argc, char *argv[])
 	{
 		loop_shell();
 	}
+	return (g_status);
 }
