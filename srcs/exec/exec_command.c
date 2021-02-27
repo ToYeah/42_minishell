@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 20:16:45 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/27 21:30:14 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/27 23:04:27 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,23 @@ static t_bool	convert_tokens(t_command *command, char ***args)
 	return (TRUE);
 }
 
-static void		ft_free_set(char **dest, char *src)
-{
-	free(*dest);
-	*dest = src;
-}
-
 static void		exec_binary(
 	char **args, t_pipe_state state, int old_pipe[], int new_pipe[])
 {
 	extern t_env	*g_envs;
 	char			**envs;
+	char			*path;
 
 	dup_pipe(state, old_pipe, new_pipe);
 	envs = generate_environ(g_envs);
-	if (execve(args[0], args, generate_environ(g_envs)) < 0)
+	path = build_cmd_path(args[0]);
+	if (path == NULL)
+	{
+		print_error("command not found", args[0]);
+	}
+	if (execve(path, args, generate_environ(g_envs)) < 0)
 		error_exit();
+	free(path);
 	ft_safe_free_split(&envs);
 }
 
@@ -56,7 +57,6 @@ void			exec_command(
 		exec_builtin(args);
 		return ;
 	}
-	ft_free_set(&args[0], build_cmd_path(args[0]));
 	create_pipe(state, new_pipe);
 	if ((pid = fork()) < 0)
 		error_exit();
