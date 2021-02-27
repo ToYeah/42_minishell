@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 11:11:48 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/27 15:04:44 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/27 16:50:05 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,18 @@ t_bool	is_option_str(char *str)
 	return (FALSE);
 }
 
+void	skip_option(char **args, t_bool *flag, size_t *index)
+{
+	while (args[*index])
+	{
+		if (is_option_str(args[*index]))
+			*flag = TRUE;
+		else
+			break ;
+		*index += 1;
+	}
+}
+
 int		exec_echo(char **args, t_bool pipe_flag)
 {
 	size_t index;
@@ -38,14 +50,7 @@ int		exec_echo(char **args, t_bool pipe_flag)
 
 	index = 1;
 	option_flag = FALSE;
-	while (args[index])
-	{
-		if (is_option_str(args[index]))
-			option_flag = TRUE;
-		else
-			break ;
-		index++;
-	}
+	skip_option(args, &option_flag, &index);
 	while (args[index])
 	{
 		ft_putstr_fd(args[index], STDOUT_FILENO);
@@ -58,5 +63,5 @@ int		exec_echo(char **args, t_bool pipe_flag)
 	if (pipe_flag == FALSE)
 		return (0);
 	else
-		exit (0);
+		exit(0);
 }
