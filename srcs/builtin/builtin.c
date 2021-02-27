@@ -6,10 +6,11 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 10:58:17 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/27 10:58:24 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/27 11:23:39 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "builtin.h"
 #include "libft.h"
 
 /*
@@ -40,12 +41,14 @@ void	exec_builtin(char **args)
 		exec_exit(args);
 	if (ft_strncmp(args[0], "cd", ft_strlen("cd") + 1) == 0)
 		exec_cd(args);
+	if (ft_strncmp(args[0], "echo", ft_strlen("echo") + 1) == 0)
+		exec_echo(args);
 }
 
 int		is_builtin(char **args)
 {
 	const char	*commands[] = {
-		"exit", "cd", NULL
+		"exit", "cd", "echo", NULL
 	};
 	int			i;
 

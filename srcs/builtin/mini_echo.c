@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin.h                                          :+:      :+:    :+:   */
+/*   mini_echo.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/12 20:07:55 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/27 11:23:27 by totaisei         ###   ########.fr       */
+/*   Created: 2021/02/27 11:11:48 by totaisei          #+#    #+#             */
+/*   Updated: 2021/02/27 11:23:57 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_H
-# define BUILTIN_H
+#include "builtin.h"
+#include "libft.h"
 
-int		is_builtin(char **args);
-void	exec_echo(char **args);
-void	exec_builtin(char **args);
-
-#endif
+void exec_echo(char **args)
+{
+	(void)args;
+	ft_putstr_fd("ECHO", STDERR_FILENO);
+}
