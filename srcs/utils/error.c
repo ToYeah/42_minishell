@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 20:12:22 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/27 12:39:54 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/27 23:26:33 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,20 @@
 #include "libft.h"
 #include "token.h"
 
-void	error_exit(void)
+void	print_error(char *message, char *command)
 {
-	ft_putstr_fd(strerror(errno), STDERR_FILENO);
-	ft_putstr_fd("\n", STDERR_FILENO);
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	if (command)
+	{
+		ft_putstr_fd(command, STDERR_FILENO);
+		ft_putstr_fd(": ", STDERR_FILENO);
+	}
+	ft_putendl_fd(message, STDERR_FILENO);
+}
+
+void	error_exit(char *command)
+{
+	print_error(strerror(errno), command);
 	exit(1);
 }
 

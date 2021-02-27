@@ -34,12 +34,13 @@ run_tests () {
 	run_syntax_tests
 	run_general_tests absolute_path
 	run_general_tests echo_test
+	run_general_tests simple_command
 }
 
 run_syntax_tests () {
 	while read -r line; do
 		execute_shell "$line"
-		replace_bash_error ${BASH_STDERR_FILE}
+		replace_bash_error
 		assert_equal "$line"
 		cleanup
 	done < "${CASE_DIR}/syntax_test.txt"
@@ -48,6 +49,7 @@ run_syntax_tests () {
 run_general_tests () {
 	while read -r line; do
 		execute_shell "$line"
+		replace_bash_error
 		assert_equal "$line"
 		cleanup
 	done < "${CASE_DIR}/$1.txt"
@@ -82,6 +84,8 @@ replace_bash_error () {
 	grep "bash: -c" ${BASH_STDERR_FILE} > /dev/null
 	if [ $? -eq 0 ]; then
 		sed -i "" -e 's/bash: -c: line 0:/minishell:/' -e '2d' ${BASH_STDERR_FILE}
+	else
+		sed -i "" -e 's/bash:/minishell:/' ${BASH_STDERR_FILE}
 	fi
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_var.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 12:03:39 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/22 12:21:53 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/27 23:28:22 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	*create_expanded_str(const char *str, t_token_state state)
 		esc_chars = "\'\"\\$|;><";
 	if (!(res = malloc(sizeof(char *) *
 		(calc_escaped_value_len(str, esc_chars) + 1))))
-		error_exit();
+		error_exit(NULL);
 	copy_escaped_value(str, esc_chars, res);
 	return (res);
 }

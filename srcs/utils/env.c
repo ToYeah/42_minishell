@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 19:17:58 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/14 13:53:15 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/27 23:28:39 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,15 @@ char	**generate_environ(t_env *envs)
 	env_size = get_env_size(envs);
 	environ = (char **)malloc(sizeof(char *) * (env_size + 1));
 	if (!environ)
-		error_exit();
+		error_exit(NULL);
 	i = 0;
 	while (i < env_size)
 	{
 		if (!(environ[i] = ft_strjoin(envs->name, "=")))
-			error_exit();
+			error_exit(NULL);
 		tmp = environ[i];
 		if (!(environ[i] = ft_strjoin(environ[i], envs->value)))
-			error_exit();
+			error_exit(NULL);
 		free(tmp);
 		i++;
 		envs = envs->next;

@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 17:08:55 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/22 17:30:49 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/27 23:29:46 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ char	**convert_args(t_command *command)
 		len++;
 	}
 	if (!(args = (char **)malloc(sizeof(char *) * (len + 1))))
-		error_exit();
+		error_exit(NULL);
 	now_token = command->args;
 	i = 0;
 	while (now_token)
 	{
 		if (!(args[i] = ft_strdup(now_token->data)))
-			error_exit();
+			error_exit(NULL);
 		now_token = now_token->next;
 		i++;
 	}

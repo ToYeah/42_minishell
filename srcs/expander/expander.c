@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 12:11:37 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/25 15:53:06 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/27 23:28:26 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void			expander_init(t_expander *exper, char *input)
 {
 	exper->str = ft_strdup(input);
 	if (exper->str == NULL)
-		error_exit();
+		error_exit(NULL);
 	exper->str_i = 0;
 	exper->state = STATE_GENERAL;
 }
@@ -55,7 +55,7 @@ char			*extract_var_name(char *str)
 	while (ft_isalnum(str[var_len]) || str[var_len] == '_')
 		var_len++;
 	if (!(res = malloc(sizeof(char) * var_len + 1)))
-		error_exit();
+		error_exit(NULL);
 	ft_strlcpy(res, str, var_len + 1);
 	return (res);
 }
@@ -67,7 +67,7 @@ void			expand_var_in_str(t_expander *exper)
 	size_t			after_var_index;
 
 	if (!(vars[VAR_NAME] = extract_var_name(&exper->str[exper->str_i + 1])))
-		error_exit();
+		error_exit(NULL);
 	if (ft_strlen(vars[VAR_NAME]) == 0)
 		return ;
 	exper->str[exper->str_i] = '\0';
@@ -77,7 +77,7 @@ void			expand_var_in_str(t_expander *exper)
 		!(vars[TMP] = ft_strjoin(exper->str, vars[VALUE])) ||
 		!(vars[RES] = ft_strjoin(vars[TMP], &exper->str[after_var_index])))
 	{
-		error_exit();
+		error_exit(NULL);
 	}
 	exper->str_i = ft_strlen(vars[TMP]) - 1;
 	free(vars[VALUE]);

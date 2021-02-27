@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 20:13:16 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/27 12:39:41 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/27 23:26:49 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ typedef struct	s_env
 	struct s_env	*next;
 }				t_env;
 
-void			error_exit(void);
+void			error_exit(char *command);
+void			print_error(char *message, char *command);
 void			print_syntax_error(t_token *token);
 
 t_env			*create_envs_from_environ(void);

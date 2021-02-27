@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 13:24:58 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/21 23:02:26 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/27 23:28:34 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_redirect	*create_redirect(void)
 	redirect = (t_redirect *)malloc(sizeof(t_redirect));
 	if (!redirect)
 	{
-		error_exit();
+		error_exit(NULL);
 	}
 	redirect->fd = REDIR_FD_NOT_SPECIFIED;
 	redirect->next = NULL;
