@@ -6,10 +6,11 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 20:16:45 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/27 23:04:27 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/27 23:17:06 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "const.h"
 #include "builtin.h"
 #include "exec.h"
 #include "expander.h"
@@ -36,6 +37,8 @@ static void		exec_binary(
 	if (path == NULL)
 	{
 		print_error("command not found", args[0]);
+		ft_safe_free_split(&envs);
+		exit(STATUS_CMD_NOT_FOUND);
 	}
 	if (execve(path, args, generate_environ(g_envs)) < 0)
 		error_exit();
