@@ -6,11 +6,12 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 11:11:48 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/27 12:38:56 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/27 15:04:44 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
+#include <stdlib.h>
 #include "libft.h"
 
 t_bool	is_option_str(char *str)
@@ -30,7 +31,7 @@ t_bool	is_option_str(char *str)
 	return (FALSE);
 }
 
-int		exec_echo(char **args)
+int		exec_echo(char **args, t_bool pipe_flag)
 {
 	size_t index;
 	t_bool option_flag;
@@ -54,5 +55,8 @@ int		exec_echo(char **args)
 	}
 	if (option_flag == FALSE)
 		ft_putstr_fd("\n", STDOUT_FILENO);
-	return (0);
+	if (pipe_flag == FALSE)
+		return (0);
+	else
+		exit (0);
 }
