@@ -1,0 +1,24 @@
+echo
+echo a
+echo hello world
+echo -n 
+echo -n a
+echo -n hello world
+echo -nnnnnnnn 
+echo -nnnnnnnn a
+echo -nnnnnnnn hello world
+echo -nnnnnnnn -nnnnnnnn
+echo -nnnnnnnn -nnnnnnnn a
+echo -nnnnnnnn -nnnnnnnn hello world
+echo -nk hello
+echo -nnnnnnnnnnk hello
+echo -nknknknk hello
+echo hello -n
+echo hello -nnnnnnn
+echo hello -nknknknknk
+echo hello -nnnnnnnnn -nnnnnnnnn
+echo \-n hello
+echo "-n" hello
+echo '-n' hello
+echo "-n" "hello"
+echo '-n' 'hello'
