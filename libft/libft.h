@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/08 22:20:01 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/20 08:38:51 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/24 10:48:38 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void			ft_puthex_fd(unsigned int n, t_bool format, int fd);
 void			ft_puthex_ul_fd(unsigned long n, t_bool format, int fd);
 void			ft_putstr_limit(char *str, int limit);
 void			ft_safe_free_char(char **target);
+void			ft_safe_free_split(char ***target);
 char			**ft_split(char const *s, char c);
 char			*ft_strchr(const char *s, int c);
 char			*ft_strrchr(const char *s, int c);

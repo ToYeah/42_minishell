@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 23:38:53 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/19 11:20:05 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/25 14:42:49 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,14 @@ void		free_env(t_env *env)
 	free(env);
 }
 
-const char	*search_env(t_env *envs, char *name)
+const char	*search_env(char *name)
 {
-	t_env	*now;
+	t_env			*now;
+	extern t_env	*g_envs;
 
-	if (!envs || !name)
+	if (!g_envs || !name)
 		return (NULL);
-	now = envs;
+	now = g_envs;
 	while (now)
 	{
 		if (ft_strncmp(now->name, name, ft_strlen(name) + 1) == 0)

@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 20:07:01 by nfukada           #+#    #+#             */
 /*   Updated: 2021/02/27 12:15:48 by nfukada          ###   ########.fr       */
@@ -56,6 +56,15 @@ typedef enum			e_pipe_state
 	PIPE_READ_WRITE
 }						t_pipe_state;
 
+typedef enum			e_cmd_type
+{
+	ABSOLUTE,
+	RELATIVE,
+	COMMAND
+}						t_cmd_type;
+
+typedef struct stat		t_stat;
+
 void					exec_nodes(t_node *nodes);
 
 void					create_pipe(t_pipe_state state, int new_pipe[]);
@@ -66,4 +75,6 @@ void					cleanup_pipe(t_pipe_state state, int old_pipe[],
 
 char					**convert_args(t_command *command);
 
+char					*build_full_path(char *path, const char *cmd);
+char					*build_cmd_path(const char *cmd);
 #endif
