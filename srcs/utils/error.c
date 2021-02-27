@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 20:12:22 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/27 12:35:06 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/27 12:39:54 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	error_exit(void)
 	exit(1);
 }
 
-void	print_unexpected_token_error(t_token *token)
+void	print_syntax_error(t_token *token)
 {
 	extern int	g_status;
 
