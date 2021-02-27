@@ -22,3 +22,12 @@ echo "-n" hello
 echo '-n' hello
 echo "-n" "hello"
 echo '-n' 'hello'
+echo \-\n \h\e\l\l\o
+echo '\-\n' '\h\e\l\l\o'
+echo "\-\n" "\h\e\l\l\o"
+echo $PATH
+echo "$PATH"
+echo '$PATH'
+echo \$PATH
+echo "\$PATH"
+echo '\$PATH'
