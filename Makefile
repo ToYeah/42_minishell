@@ -23,7 +23,7 @@ LIBFT_DIR	:= libft
 LIBFT		:= $(LIBFT_DIR)/libft.a
 INC			:= -I$(INC_DIR) -I$(LIBFT_DIR)
 
-SRCS		:= srcs/lexer/lexer_quote_state.c srcs/lexer/lexer.c srcs/lexer/lexer_general_state.c srcs/expander/expander.c srcs/expander/expand_var.c srcs/expander/expand_tokens.c srcs/main.c srcs/builtin/buildin.c srcs/utils/env.c srcs/utils/error.c srcs/utils/token.c srcs/utils/token_utils.c srcs/utils/env_utils.c srcs/exec/build_path.c srcs/exec/build_path_utils.c srcs/exec/exec_command.c srcs/exec/command.c srcs/parser/print_node_label.c srcs/parser/node.c srcs/parser/print_node.c srcs/parser/redirect.c srcs/parser/parser_utils.c srcs/parser/parser.c 
+SRCS		:= srcs/lexer/lexer_general_state.c srcs/lexer/lexer.c srcs/lexer/lexer_quote_state.c srcs/utils/token_utils.c srcs/utils/token.c srcs/utils/env.c srcs/utils/error.c srcs/utils/env_utils.c srcs/parser/parser_utils.c srcs/parser/redirect.c srcs/parser/print_node_label.c srcs/parser/parser.c srcs/parser/node.c srcs/parser/print_node.c srcs/expander/expander.c srcs/expander/expand_tokens.c srcs/expander/expand_var.c srcs/main.c srcs/exec/exec.c srcs/exec/command.c srcs/exec/build_path.c srcs/exec/exec_pipe.c srcs/exec/build_path_utils.c srcs/builtin/buildin.c
 OBJS		:= $(SRCS:%.c=%.o)
 LIBS		:= -lft -L$(LIBFT_DIR)
 
