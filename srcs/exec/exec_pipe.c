@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 00:08:56 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/27 01:50:42 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/27 23:29:36 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void			create_pipe(t_pipe_state state, int new_pipe[])
 	{
 		if (pipe(new_pipe) < 0)
 		{
-			error_exit();
+			error_exit(NULL);
 		}
 	}
 }
@@ -48,7 +48,7 @@ void			dup_pipe(t_pipe_state state, int old_pipe[], int new_pipe[])
 		close(old_pipe[PIPE_IN]);
 		if (dup2(old_pipe[PIPE_OUT], STDIN_FILENO) < 0)
 		{
-			error_exit();
+			error_exit(NULL);
 		}
 		close(old_pipe[PIPE_OUT]);
 	}
@@ -57,7 +57,7 @@ void			dup_pipe(t_pipe_state state, int old_pipe[], int new_pipe[])
 		close(new_pipe[PIPE_OUT]);
 		if (dup2(new_pipe[PIPE_IN], STDOUT_FILENO) < 0)
 		{
-			error_exit();
+			error_exit(NULL);
 		}
 		close(new_pipe[PIPE_IN]);
 	}

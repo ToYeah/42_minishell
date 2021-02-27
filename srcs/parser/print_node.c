@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 15:36:06 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/21 14:09:11 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/27 23:28:32 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	print_nodes(t_node *node)
 
 	fd = open(DOT_FILE_NAME, O_TRUNC | O_CREAT | O_WRONLY, 0755);
 	if (fd < 0)
-		error_exit();
+		error_exit(NULL);
 	ft_putstr_fd("digraph AST {\n", fd);
 	print_nodes_rec(node, fd);
 	ft_putstr_fd("}\n", fd);

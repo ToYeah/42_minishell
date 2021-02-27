@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 18:50:22 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/27 12:39:23 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/27 23:27:40 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	loop_shell(void)
 		if (gnl_result)
 			ft_putstr_fd(SHELL_PROMPT, STDERR_FILENO);
 		if ((gnl_result = ft_get_next_line(STDIN_FILENO, &line)) < 0)
-			error_exit();
+			error_exit(NULL);
 		run_commandline(line);
 		free(line);
 	}

@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 20:12:22 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/27 23:11:41 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/27 23:26:33 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ void	print_error(char *message, char *command)
 	ft_putendl_fd(message, STDERR_FILENO);
 }
 
-void	error_exit(void)
+void	error_exit(char *command)
 {
-	print_error(strerror(errno), NULL);
+	print_error(strerror(errno), command);
 	exit(1);
 }
 

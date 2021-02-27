@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 17:59:52 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/27 21:15:15 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/27 23:29:19 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void		wait_commands(t_command *command)
 	{
 		if (command->pid != NO_PID && waitpid(command->pid, &status, 0) < 0)
 		{
-			error_exit();
+			error_exit(NULL);
 		}
 		command = command->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 20:16:45 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/27 23:17:06 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/27 23:30:03 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void		exec_binary(
 		exit(STATUS_CMD_NOT_FOUND);
 	}
 	if (execve(path, args, generate_environ(g_envs)) < 0)
-		error_exit();
+		error_exit(path);
 	free(path);
 	ft_safe_free_split(&envs);
 }
@@ -62,7 +62,7 @@ void			exec_command(
 	}
 	create_pipe(state, new_pipe);
 	if ((pid = fork()) < 0)
-		error_exit();
+		error_exit(NULL);
 	if (pid == 0)
 		exec_binary(args, state, old_pipe, new_pipe);
 	cleanup_pipe(state, old_pipe, new_pipe);

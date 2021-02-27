@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 12:06:22 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/27 00:43:55 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/27 23:28:29 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_node	*add_parent_node(t_node_type type, t_node *left, t_node *right)
 
 	node = (t_node *)malloc(sizeof(t_node));
 	if (!node)
-		error_exit();
+		error_exit(NULL);
 	node->type = type;
 	node->left = left;
 	node->right = right;
@@ -42,9 +42,9 @@ t_node	*create_command_node(t_parse_info *info)
 	t_node	*node;
 
 	if (!(node = (t_node *)malloc(sizeof(t_node))))
-		error_exit();
+		error_exit(NULL);
 	if (!(node->command = (t_command *)malloc(sizeof(t_command))))
-		error_exit();
+		error_exit(NULL);
 	node->type = NODE_COMMAND;
 	node->left = NULL;
 	node->right = NULL;
