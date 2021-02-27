@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 11:11:48 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/27 12:21:59 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/27 12:38:56 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int		exec_echo(char **args)
 	t_bool option_flag;
 
 	index = 1;
+	option_flag = FALSE;
 	while (args[index])
 	{
 		if (is_option_str(args[index]))
