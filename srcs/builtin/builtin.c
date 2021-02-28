@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 10:58:17 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/28 18:44:28 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/28 18:44:35 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int		exec_builtin(char **args)
 	if (ft_strcmp(args[0], "cd") == 0)
 		return (exec_cd(args));
 	if (ft_strcmp(args[0], "echo") == 0)
-		return (exec_echo(args, FALSE));
+		return (exec_echo(args));
 	return (1);
 }
 
