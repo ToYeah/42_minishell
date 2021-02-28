@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 11:07:08 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/28 17:41:44 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/28 18:23:43 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 #include <stdio.h>
 
-t_bool is_digit_str(char *str)
+t_bool	is_digit_str(char *str)
 {
 	size_t index;
 
@@ -31,7 +31,7 @@ t_bool is_digit_str(char *str)
 	while (str[index])
 	{
 		if (!ft_isdigit(str[index]))
-			break;
+			break ;
 		index++;
 	}
 	if (str[index] == '\0')
@@ -40,11 +40,27 @@ t_bool is_digit_str(char *str)
 		return (FALSE);
 }
 
+void	put_shvl_warning(int num)
+{
+	char	*str_num;
+	char	*tmp;
+	char	*msg;
+
+	if (!(str_num = ft_itoa(num)) ||
+		!(tmp = ft_strjoin("shell level (", str_num)) ||
+		!(msg = ft_strjoin(tmp, ") too high, resetting to 1")))
+	{
+		error_exit(NULL);
+	}
+	print_error(msg, "warning");
+	free(str_num);
+	free(tmp);
+	free(msg);
+}
+
 char	*calc_shlvl(char *shlvl)
 {
 	char	*res;
-	char	*tmp;
-	char	*msg;
 	int		num;
 
 	num = ft_atoi_overflow_zero(shlvl);
@@ -59,17 +75,7 @@ char	*calc_shlvl(char *shlvl)
 		res = ft_itoa(num);
 	else
 	{
-		if (!(res = ft_itoa(num)) ||
-			!(tmp = ft_strjoin("shell level (", res)) ||
-			!(msg = ft_strjoin(tmp, ") too high, resetting to 1"))
-		)
-		{
-			error_exit(NULL);
-		}
-		print_error(msg,"warning");
-		free(res);
-		free(tmp);
-		free(msg);
+		put_shvl_warning(num);
 		res = ft_strdup("1");
 	}
 	return (res);
@@ -91,7 +97,7 @@ void	shlvl_init(void)
 		}
 		shlvl_env->next = NULL;
 		add_env(&g_envs, shlvl_env);
-		return;
+		return ;
 	}
 	else
 	{
@@ -99,7 +105,6 @@ void	shlvl_init(void)
 			error_exit(NULL);
 	}
 }
-
 
 void	old_pwd_init(void)
 {
@@ -110,7 +115,7 @@ void	old_pwd_init(void)
 	if (!old_pwd_env)
 	{
 		if (!(old_pwd_env = malloc(sizeof(t_env))) ||
-			!(old_pwd_env->name= ft_strdup("OLDPWD")))
+			!(old_pwd_env->name = ft_strdup("OLDPWD")))
 		{
 			error_exit(NULL);
 		}
@@ -129,7 +134,7 @@ void	pwd_init(void)
 	if (!pwd_env)
 	{
 		if (!(pwd_env = malloc(sizeof(t_env))) ||
-			!(pwd_env->name= ft_strdup("PWD")))
+			!(pwd_env->name = ft_strdup("PWD")))
 		{
 			error_exit(NULL);
 		}
@@ -144,7 +149,7 @@ void	pwd_init(void)
 	}
 }
 
-void	minishell_init()
+void	minishell_init(void)
 {
 	extern t_env *g_envs;
 
