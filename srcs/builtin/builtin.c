@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 10:58:17 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/27 15:07:08 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/28 18:44:28 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,26 +23,29 @@
 ** bash: exit: aaa: numeric argument required
 */
 
-void	exec_exit(char **args)
+int		exec_exit(char **args)
 {
 	(void)args;
 	exit(1);
+	return (0);
 }
 
-void	exec_cd(char **args)
+int		exec_cd(char **args)
 {
 	(void)args;
 	ft_putstr_fd("cd called!\n", STDOUT_FILENO);
+	return (0);
 }
 
-void	exec_builtin(char **args)
+int		exec_builtin(char **args)
 {
 	if (ft_strcmp(args[0], "exit") == 0)
-		exec_exit(args);
+		return (exec_exit(args));
 	if (ft_strcmp(args[0], "cd") == 0)
-		exec_cd(args);
+		return (exec_cd(args));
 	if (ft_strcmp(args[0], "echo") == 0)
-		exec_echo(args, FALSE);
+		return (exec_echo(args, FALSE));
+	return (1);
 }
 
 int		is_builtin(char **args)
