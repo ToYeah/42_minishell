@@ -6,4 +6,5 @@ ls
 ls -a
 ls | grep a
 ls | grep a | grep c
+echo hello world | cat
 no_such_file

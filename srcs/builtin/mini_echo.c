@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_echo.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 11:11:48 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/27 16:50:05 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/28 18:32:12 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	skip_option(char **args, t_bool *flag, size_t *index)
 	}
 }
 
-int		exec_echo(char **args, t_bool pipe_flag)
+int		exec_echo(char **args)
 {
 	size_t index;
 	t_bool option_flag;
@@ -60,8 +60,5 @@ int		exec_echo(char **args, t_bool pipe_flag)
 	}
 	if (option_flag == FALSE)
 		ft_putstr_fd("\n", STDOUT_FILENO);
-	if (pipe_flag == FALSE)
-		return (0);
-	else
-		exit(0);
+	return (0);
 }
