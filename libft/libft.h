@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/08 22:20:01 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/24 10:48:38 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/28 16:55:05 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ int				ft_nbrdig_hex_ul(unsigned long n);
 int				ft_nbrdig_ui(unsigned int n);
 int				ft_get_next_line(int fd, char **line);
 int				ft_strcmp(char *s1, char *s2);
+int				ft_atoi_overflow_zero(const char *str);
 size_t			ft_strlen(const char *s);
 size_t			ft_strlcpy(char *dst, const char *src, size_t dstsize);
 size_t			ft_strlcat(char *dst, const char *src, size_t dstsize);
