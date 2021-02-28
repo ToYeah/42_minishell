@@ -1,15 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   buildin.c                                          :+:      :+:    :+:   */
+/*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/10 23:55:20 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/25 18:00:37 by totaisei         ###   ########.fr       */
+/*   Created: 2021/02/27 10:58:17 by totaisei          #+#    #+#             */
+/*   Updated: 2021/02/27 15:07:08 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "builtin.h"
 #include "libft.h"
 
 /*
@@ -36,16 +37,18 @@ void	exec_cd(char **args)
 
 void	exec_builtin(char **args)
 {
-	if (ft_strncmp(args[0], "exit", ft_strlen("exit") + 1) == 0)
+	if (ft_strcmp(args[0], "exit") == 0)
 		exec_exit(args);
-	if (ft_strncmp(args[0], "cd", ft_strlen("cd") + 1) == 0)
+	if (ft_strcmp(args[0], "cd") == 0)
 		exec_cd(args);
+	if (ft_strcmp(args[0], "echo") == 0)
+		exec_echo(args, FALSE);
 }
 
 int		is_builtin(char **args)
 {
 	const char	*commands[] = {
-		"exit", "cd", NULL
+		"exit", "cd", "echo", NULL
 	};
 	int			i;
 

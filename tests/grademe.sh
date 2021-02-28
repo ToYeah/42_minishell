@@ -32,6 +32,7 @@ cleanup () {
 run_tests () {
 	cleanup
 	run_syntax_tests
+	run_general_tests echo_test
 	run_general_tests simple_command
 }
 
