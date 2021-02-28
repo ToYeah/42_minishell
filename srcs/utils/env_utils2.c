@@ -6,14 +6,14 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 10:35:56 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/28 10:37:47 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/28 18:42:40 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 #include "libft.h"
 
-t_env *get_env(const char *name)
+t_env	*get_env(const char *name)
 {
 	t_env			*now;
 	extern t_env	*g_envs;
