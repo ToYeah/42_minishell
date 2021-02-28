@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 23:38:53 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/27 23:28:38 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/28 17:54:15 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,12 @@ const char	*search_env(char *name)
 	while (now)
 	{
 		if (ft_strncmp(now->name, name, ft_strlen(name) + 1) == 0)
-			return (now->value);
+		{
+			if (!now->value)
+				return ("");
+			else
+				return (now->value);
+		}
 		now = now->next;
 	}
 	return ("");
