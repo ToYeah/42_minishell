@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 11:07:08 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/28 18:29:50 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/02/28 20:47:12 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,28 @@
 #include "lexer.h"
 #include "parser.h"
 #include "exec.h"
+
+#include <sys/types.h>
+#include <sys/stat.h>
+
+typedef struct stat t_stat;
+
+t_bool is_same_dir(const char *dir_1, const char *dir_2)
+{
+	t_stat stat1;
+	t_stat stat2;
+
+	if (!dir_1 || !dir_2)
+		return (FALSE);
+	if (stat(dir_1, &stat1) < 0 ||
+		stat(dir_2, &stat2) < 0)
+	{
+		return (FALSE);
+	}
+	if (stat1.st_ino == stat2.st_ino)
+		return (TRUE);
+	return (FALSE);
+}
 
 void	old_pwd_init(void)
 {
@@ -39,7 +61,9 @@ void	old_pwd_init(void)
 void	pwd_init(void)
 {
 	t_env			*pwd_env;
+	char			*cwd;
 	extern t_env	*g_envs;
+	extern char		*g_pwd;
 
 	pwd_env = get_env("PWD");
 	if (!pwd_env)
@@ -53,11 +77,16 @@ void	pwd_init(void)
 		pwd_env->next = NULL;
 		add_env(&g_envs, pwd_env);
 	}
-	if (!pwd_env->value)
+	if (!(cwd = getcwd(NULL, 0)))
+		error_exit(NULL);
+	if (!pwd_env->value || !is_same_dir(pwd_env->value, cwd))
 	{
-		if (!(pwd_env->value = getcwd(NULL, 0)))
+		if (!(pwd_env->value = ft_strdup(cwd)))
 			error_exit(NULL);
 	}
+	if (!(g_pwd = ft_strdup(pwd_env->value)))
+		error_exit(NULL);
+	free(cwd);
 }
 
 void	minishell_init(void)
