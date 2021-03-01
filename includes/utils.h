@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 20:13:16 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/27 23:26:49 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/01 14:10:31 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define UTILS_H
 
 # include <stddef.h>
+# include <sys/stat.h>
 # include "token.h"
 
 typedef struct	s_env
@@ -22,6 +23,8 @@ typedef struct	s_env
 	char			*value;
 	struct s_env	*next;
 }				t_env;
+
+typedef struct stat	t_stat;
 
 void			error_exit(char *command);
 void			print_error(char *message, char *command);
@@ -36,6 +39,8 @@ void			del_env(t_env **envs, char *name);
 t_env			*get_last_env(t_env *envs);
 size_t			get_env_size(t_env *envs);
 t_env			*create_new_env(char *env_str);
-const char		*search_env(char *name);
-
+const char		*get_env_data(char *name);
+t_env			*get_env(const char *name);
+void			minishell_init(void);
+void			shlvl_init(void);
 #endif

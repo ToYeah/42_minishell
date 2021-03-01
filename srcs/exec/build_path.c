@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_path.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 11:40:22 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/27 23:27:46 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/01 14:10:40 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ char		*search_command_binary(const char *cmd)
 	index = 0;
 	res = NULL;
 	path = build_full_path("", cmd);
-	if (!(split_path = ft_split(search_env("PATH"), ':')))
+	if (!(split_path = ft_split(get_env_data("PATH"), ':')))
 		error_exit(NULL);
 	if (split_path[0] == NULL)
 		is_command_exist(path, &res);
