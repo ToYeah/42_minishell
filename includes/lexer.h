@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 16:44:34 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/22 07:53:09 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/01 09:55:12 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef struct	s_tokeniser{
 	size_t			tok_i;
 	size_t			str_len;
 	t_bool			esc_flag;
+	t_bool			is_quoted;
 	t_token			*token;
 	t_token			*tokens_start;
 	t_token_state	state;
