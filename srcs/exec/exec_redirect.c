@@ -14,6 +14,7 @@
 #include <string.h>
 #include <errno.h>
 #include "exec.h"
+#include "expander.h"
 
 #define FILE_MODE	0644
 
@@ -44,15 +45,25 @@ static void	cleanup_redirects(t_command *command)
 t_bool		setup_redirects(t_command *command)
 {
 	t_redirect	*redir;
+	char		*org_filename;
 
 	redir = command->redirects;
 	while (redir)
 	{
-		redir->fd_file = open_file(redir);
-		if (redir->fd_file < 0)
+		if ((org_filename = ft_strdup(redir->filename->data)) == NULL)
+			return (FALSE);
+		expand_tokens(&redir->filename);
+		if (redir->filename == NULL || redir->filename->next)
 		{
+			print_error("ambiguous redirect", org_filename);
+			free(org_filename);
 			cleanup_redirects(command);
+			return (FALSE);
+		}
+		if ((redir->fd_file = open_file(redir)) < 0)
+		{
 			print_error(strerror(errno), redir->filename->data);
+			cleanup_redirects(command);
 			return (FALSE);
 		}
 		redir = redir->next;
