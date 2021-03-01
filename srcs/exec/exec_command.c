@@ -13,16 +13,6 @@
 #include "const.h"
 #include "builtin.h"
 #include "exec.h"
-#include "expander.h"
-
-static t_bool	convert_tokens(t_command *command, char ***args)
-{
-	expand_tokens(&command->args);
-	*args = convert_args(command);
-	if (*args[0] == NULL)
-		return (FALSE);
-	return (TRUE);
-}
 
 static void		exec_binary(char **args)
 {

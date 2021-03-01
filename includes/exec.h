@@ -79,7 +79,7 @@ void					cleanup_pipe(t_pipe_state state, int old_pipe[],
 t_bool					setup_redirects(t_command *command);
 t_bool					dup_redirects(t_command *command);
 
-char					**convert_args(t_command *command);
+t_bool					convert_tokens(t_command *command, char ***args);
 
 char					*build_full_path(char *path, const char *cmd);
 char					*build_cmd_path(const char *cmd);

@@ -6,13 +6,14 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 17:08:55 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/27 23:29:46 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/02 01:18:00 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
+#include "expander.h"
 
-char	**convert_args(t_command *command)
+static char	**convert_args(t_command *command)
 {
 	char	**args;
 	t_token	*now_token;
@@ -39,4 +40,13 @@ char	**convert_args(t_command *command)
 	}
 	args[i] = NULL;
 	return (args);
+}
+
+t_bool		convert_tokens(t_command *command, char ***args)
+{
+	expand_tokens(&command->args);
+	*args = convert_args(command);
+	if (*args[0] == NULL)
+		return (FALSE);
+	return (TRUE);
 }
