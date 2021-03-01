@@ -8,3 +8,7 @@ ls | grep a
 ls | grep a | grep c
 echo hello world | cat
 no_such_file
+> file
+> file | cat < no_such_file
+echo hello 2147483647> file
+echo hello 2147483648> file
