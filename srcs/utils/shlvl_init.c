@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 18:27:08 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/01 11:51:36 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/01 14:52:07 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_bool	is_digit_str(char *str)
 	size_t index;
 
 	index = 0;
-	while (str[index] == ' ')
+	while (ft_isspace(str[index]))
 		index++;
 	if (str[index] == '+' || str[index] == '-')
 		index++;
