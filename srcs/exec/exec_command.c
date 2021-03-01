@@ -87,7 +87,7 @@ static void		update_pipe_state(t_command *command, t_pipe_state *state)
 {
 	if (*state == NO_PIPE)
 		return ;
-	if (command->next)
+	if (command->next && command->next->next)
 		*state = PIPE_READ_WRITE;
 	else
 		*state = PIPE_READ_ONLY;
