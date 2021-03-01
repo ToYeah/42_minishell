@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 20:01:44 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/20 10:26:35 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/01 10:18:18 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	close_token_list(t_tokeniser *toker)
 		del_token_list(&(toker->tokens_start));
 		return ;
 	}
-	if (toker->tok_i == 0)
+	if (toker->tok_i == 0 && toker->is_quoted == FALSE)
 	{
 		if (toker->tokens_start == toker->token)
 			del_token_list(&toker->tokens_start);
@@ -48,6 +48,7 @@ void	tokeniser_init(t_tokeniser *toker, char *str, t_bool esc_flag)
 	toker->tok_i = 0;
 	toker->str_len = len;
 	toker->esc_flag = esc_flag;
+	toker->is_quoted = FALSE;
 }
 
 t_token	*tokenise(char *str, t_bool esc_flag)

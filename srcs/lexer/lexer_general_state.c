@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 18:59:13 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/22 08:07:34 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/01 10:28:12 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	tokeniser_add_new_token(t_tokeniser *toker)
 {
 	t_token *tmp_token;
 
-	if (toker->tok_i > 0)
+	if (toker->tok_i > 0 || (toker->is_quoted))
 	{
 		toker->token->data[toker->tok_i] = '\0';
 		tmp_token =
@@ -25,6 +25,7 @@ void	tokeniser_add_new_token(t_tokeniser *toker)
 		toker->token->next = tmp_token;
 		toker->token = tmp_token;
 		toker->tok_i = 0;
+		toker->is_quoted = FALSE;
 	}
 }
 
@@ -55,7 +56,7 @@ void	general_sep_process(t_tokeniser *toker, t_token_type type, char *str)
 	if (is_io_number_token(toker, type))
 		toker->token->type = IO_NUMBER;
 	tokeniser_add_new_token(toker);
-	if (type != CHAR_WHITESPACE)
+	if (type != CHAR_WHITESPACE && type != CHAR_TAB)
 	{
 		toker->token->data[toker->tok_i++] = str[toker->str_i];
 		if (str[toker->str_i + 1] == str[toker->str_i])
@@ -103,19 +104,19 @@ void	general_state(t_tokeniser *toker, t_token_type type, char *str)
 		if (type == CHAR_QOUTE)
 		{
 			toker->state = STATE_IN_QUOTE;
+			toker->is_quoted = TRUE;
 			if (toker->esc_flag)
 				toker->tok_i -= 1;
 		}
 		else if (type == CHAR_DQUOTE)
 		{
 			toker->state = STATE_IN_DQUOTE;
+			toker->is_quoted = TRUE;
 			if (toker->esc_flag)
 				toker->tok_i -= 1;
 		}
 		else
-		{
 			toker->state = STATE_GENERAL;
-		}
 		toker->token->type = TOKEN;
 	}
 	else
