@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 20:16:45 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/01 13:07:10 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/02 01:13:09 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,13 @@ void			exec_command(
 {
 	char			**args;
 
-	if (convert_tokens(command, &args) == FALSE)
+	if (setup_redirects(command) == FALSE)
 		return ;
+	if (convert_tokens(command, &args) == FALSE)
+	{
+		cleanup_redirects(command);
+		return ;
+	}
 	if (*state == NO_PIPE && is_builtin(args))
 		exec_builtin_parent(command, args);
 	else

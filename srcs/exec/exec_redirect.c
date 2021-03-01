@@ -30,7 +30,7 @@ static int	open_file(t_redirect *redir)
 	return (open(filename, O_WRONLY | O_CREAT | O_APPEND, FILE_MODE));
 }
 
-static void	cleanup_redirects(t_command *command)
+void		cleanup_redirects(t_command *command)
 {
 	t_redirect	*redir;
 
