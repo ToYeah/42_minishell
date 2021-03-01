@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 18:05:44 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/27 23:28:40 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/01 10:31:35 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ t_token_type	judge_token_type(char c)
 {
 	int			command_count;
 	const char	commands[] = {
-		'|', '\'', '\"', ' ', ';', '\\', '>', '<', '\0'};
+		'|', '\'', '\"', ' ', ';', '\\', '>', '<', '\t', '\0'};
 
-	command_count = 9;
+	command_count = 10;
 	while (command_count--)
 	{
 		if (commands[command_count] == c)
