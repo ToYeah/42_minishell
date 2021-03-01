@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 11:07:08 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/01 14:34:15 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/01 14:54:10 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	old_pwd_init(void)
 		add_env(&g_envs, old_pwd_env);
 	}
 	else
-		ft_safe_free_char(old_pwd_env->value);
+		ft_safe_free_char(&(old_pwd_env->value));
 }
 
 void	pwd_value_init(t_env *pwd_env)
