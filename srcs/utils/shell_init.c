@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 11:07:08 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/28 20:47:12 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/01 09:08:49 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
-typedef struct stat t_stat;
+typedef struct stat	t_stat;
 
-t_bool is_same_dir(const char *dir_1, const char *dir_2)
+t_bool	is_same_dir(const char *dir_1, const char *dir_2)
 {
 	t_stat stat1;
 	t_stat stat2;
@@ -58,10 +58,26 @@ void	old_pwd_init(void)
 	}
 }
 
+void	pwd_value_init(t_env *pwd_env)
+{
+	char			*cwd;
+	extern char		*g_pwd;
+
+	if (!(cwd = getcwd(NULL, 0)))
+		error_exit(NULL);
+	if (!pwd_env->value || !is_same_dir(pwd_env->value, cwd))
+	{
+		if (!(pwd_env->value = ft_strdup(cwd)))
+			error_exit(NULL);
+	}
+	if (!(g_pwd = ft_strdup(pwd_env->value)))
+		error_exit(NULL);
+	free(cwd);
+}
+
 void	pwd_init(void)
 {
 	t_env			*pwd_env;
-	char			*cwd;
 	extern t_env	*g_envs;
 	extern char		*g_pwd;
 
@@ -77,16 +93,7 @@ void	pwd_init(void)
 		pwd_env->next = NULL;
 		add_env(&g_envs, pwd_env);
 	}
-	if (!(cwd = getcwd(NULL, 0)))
-		error_exit(NULL);
-	if (!pwd_env->value || !is_same_dir(pwd_env->value, cwd))
-	{
-		if (!(pwd_env->value = ft_strdup(cwd)))
-			error_exit(NULL);
-	}
-	if (!(g_pwd = ft_strdup(pwd_env->value)))
-		error_exit(NULL);
-	free(cwd);
+	pwd_value_init(pwd_env);
 }
 
 void	minishell_init(void)
