@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 20:13:16 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/27 23:26:49 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/01 12:59:44 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct	s_env
 void			error_exit(char *command);
 void			print_error(char *message, char *command);
 void			print_syntax_error(t_token *token);
+void			print_bad_fd_error(int fd);
 
 t_env			*create_envs_from_environ(void);
 void			print_envs(t_env *envs);
