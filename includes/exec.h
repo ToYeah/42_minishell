@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 20:07:01 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/27 20:18:05 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/01 11:52:50 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,6 @@ typedef enum			e_cmd_type
 	RELATIVE,
 	COMMAND
 }						t_cmd_type;
-
-typedef struct stat		t_stat;
 
 void					exec_nodes(t_node *nodes);
 void					exec_command(t_command *command, t_pipe_state state,

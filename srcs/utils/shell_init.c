@@ -6,21 +6,12 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 11:07:08 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/01 09:08:49 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/01 11:54:26 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "const.h"
-#include "utils.h"
 #include "libft.h"
-#include "lexer.h"
-#include "parser.h"
-#include "exec.h"
-
-#include <sys/types.h>
-#include <sys/stat.h>
-
-typedef struct stat	t_stat;
+#include "utils.h"
 
 t_bool	is_same_dir(const char *dir_1, const char *dir_2)
 {

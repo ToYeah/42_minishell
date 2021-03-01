@@ -6,16 +6,12 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 18:27:08 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/01 09:39:24 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/01 11:51:36 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "const.h"
-#include "utils.h"
 #include "libft.h"
-#include "lexer.h"
-#include "parser.h"
-#include "exec.h"
+#include "utils.h"
 
 t_bool	is_digit_str(char *str)
 {

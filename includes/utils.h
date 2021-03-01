@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 20:13:16 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/28 18:42:02 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/01 11:57:56 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define UTILS_H
 
 # include <stddef.h>
+# include <sys/stat.h>
 # include "token.h"
 
 typedef struct	s_env
@@ -22,6 +23,8 @@ typedef struct	s_env
 	char			*value;
 	struct s_env	*next;
 }				t_env;
+
+typedef struct stat	t_stat;
 
 void			error_exit(char *command);
 void			print_error(char *message, char *command);
