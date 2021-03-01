@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 20:07:01 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/02 01:05:09 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/02 02:11:47 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,6 @@ typedef enum			e_cmd_type
 	RELATIVE,
 	COMMAND
 }						t_cmd_type;
-
-typedef struct stat		t_stat;
 
 void					exec_nodes(t_node *nodes);
 void					exec_command(t_command *command, t_pipe_state *state,

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 12:11:37 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/27 23:28:26 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/01 14:10:40 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void			expand_var_in_str(t_expander *exper)
 	if (ft_strlen(vars[VAR_NAME]) == 0)
 		return ;
 	exper->str[exper->str_i] = '\0';
-	env_value = search_env(vars[VAR_NAME]);
+	env_value = get_env_data(vars[VAR_NAME]);
 	after_var_index = exper->str_i + ft_strlen(vars[VAR_NAME]) + 1;
 	if (!(vars[VALUE] = create_expanded_str(env_value, exper->state)) ||
 		!(vars[TMP] = ft_strjoin(exper->str, vars[VALUE])) ||

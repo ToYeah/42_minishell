@@ -1,10 +1,10 @@
 echo
 echo a
 echo hello world
-echo -n 
+echo -n
 echo -n a
 echo -n hello world
-echo -nnnnnnnn 
+echo -nnnnnnnn
 echo -nnnnnnnn a
 echo -nnnnnnnn hello world
 echo -nnnnnnnn -nnnnnnnn
@@ -31,3 +31,6 @@ echo '$PATH'
 echo \$PATH
 echo "\$PATH"
 echo '\$PATH'
+echo a "" b "" c
+echo a "$NO_SUCH_ENV" b $NO_SUCH_ENV c
+echo		hello

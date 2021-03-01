@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 18:50:22 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/27 23:27:40 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/02/28 20:10:41 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 
 t_env	*g_envs;
 int		g_status;
+char	*g_pwd;
 
 void	run_commandline(char *line)
 {
@@ -57,7 +58,7 @@ void	loop_shell(void)
 
 int		main(int argc, char *argv[])
 {
-	g_envs = create_envs_from_environ();
+	minishell_init();
 	if (argc > 2 && ft_strcmp("-c", argv[1]) == 0)
 	{
 		run_commandline(argv[2]);
