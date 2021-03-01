@@ -93,18 +93,27 @@ static void		exec_command_child(
 	command->pid = pid;
 }
 
+static void		update_pipe_state(t_command *command, t_pipe_state *state)
+{
+	if (*state == NO_PIPE)
+		return ;
+	if (command->next)
+		*state = PIPE_READ_WRITE;
+	else
+		*state = PIPE_READ_ONLY;
+}
+
 void			exec_command(
-	t_command *command, t_pipe_state state, int old_pipe[])
+	t_command *command, t_pipe_state *state, int old_pipe[])
 {
 	char			**args;
 
 	if (convert_tokens(command, &args) == FALSE)
 		return ;
-	if (setup_redirects(command) == FALSE)
-		return ;
-	if (state == NO_PIPE && is_builtin(args))
+	if (*state == NO_PIPE && is_builtin(args))
 		exec_builtin_parent(command, args);
 	else
-		exec_command_child(command, args, state, old_pipe);
+		exec_command_child(command, args, *state, old_pipe);
+	update_pipe_state(command, state);
 	ft_safe_free_split(&args);
 }

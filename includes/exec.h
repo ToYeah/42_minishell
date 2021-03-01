@@ -67,7 +67,7 @@ typedef enum			e_cmd_type
 typedef struct stat		t_stat;
 
 void					exec_nodes(t_node *nodes);
-void					exec_command(t_command *command, t_pipe_state state,
+void					exec_command(t_command *command, t_pipe_state *state,
 							int old_pipe[]);
 
 void					create_pipe(t_pipe_state state, int new_pipe[]);

@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 17:59:52 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/27 23:29:19 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/02 01:09:21 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,24 +31,27 @@ static void		wait_commands(t_command *command)
 
 static void		exec_pipeline(t_node *nodes)
 {
-	t_command	*command;
-	int			pipe[2];
+	t_command		*command;
+	int				pipe[2];
+	t_pipe_state	pipe_state;
 
+	pipe_state = PIPE_WRITE_ONLY;
 	while (nodes->type == NODE_PIPE)
 		nodes = nodes->left;
-	exec_command(nodes->command, PIPE_WRITE_ONLY, pipe);
-	command = nodes->command->next;
-	while (command->next)
+	command = nodes->command;
+	while (command)
 	{
-		exec_command(command, PIPE_READ_WRITE, pipe);
+		exec_command(command, &pipe_state, pipe);
 		command = command->next;
 	}
-	exec_command(command, PIPE_READ_ONLY, pipe);
 	wait_commands(nodes->command);
 }
 
 static void		exec_list(t_node *nodes)
 {
+	t_pipe_state pipe_state;
+
+	pipe_state = NO_PIPE;
 	if (!nodes)
 	{
 		return ;
@@ -59,7 +62,7 @@ static void		exec_list(t_node *nodes)
 	}
 	else
 	{
-		exec_command(nodes->command, NO_PIPE, NULL);
+		exec_command(nodes->command, &pipe_state, NULL);
 		wait_commands(nodes->command);
 	}
 }
