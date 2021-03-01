@@ -34,7 +34,8 @@ typedef enum			e_redirect_type
 
 typedef struct			s_redirect
 {
-	int					fd;
+	int					fd_io;
+	int					fd_file;
 	t_redirect_type		type;
 	t_token				*filename;
 	struct s_redirect	*next;

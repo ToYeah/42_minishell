@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 13:42:30 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/21 23:02:42 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/01 12:21:09 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ void	print_command_args(t_token *args, int fd)
 
 void	print_redirect(t_redirect *redirect, int fd)
 {
-	if (redirect->fd != REDIR_FD_NOT_SPECIFIED)
-		ft_putnbr_fd(redirect->fd, fd);
+	if (redirect->fd_io != REDIR_FD_NOT_SPECIFIED)
+		ft_putnbr_fd(redirect->fd_io, fd);
 	if (redirect->type == REDIR_INPUT)
 		ft_putstr_fd("<", fd);
 	else if (redirect->type == REDIR_OUTPUT)
