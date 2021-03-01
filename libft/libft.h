@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/08 22:20:01 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/28 16:55:05 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/01 14:39:53 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int				ft_isdigit(int c);
 int				ft_isalnum(int c);
 int				ft_isascii(int c);
 int				ft_isprint(int c);
-int				ft_isprint(int c);
+int				ft_isspace(int c);
 int				ft_toupper(int c);
 int				ft_tolower(int c);
 int				ft_lstsize(t_list *lst);
