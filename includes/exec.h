@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 20:07:01 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/27 20:18:05 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/01 12:21:11 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,9 @@ void					dup_pipe(t_pipe_state state, int old_pipe[],
 							int new_pipe[]);
 void					cleanup_pipe(t_pipe_state state, int old_pipe[],
 							int new_pipe[]);
+
+t_bool					setup_redirects(t_command *command);
+t_bool					dup_redirects(t_command *command);
 
 char					**convert_args(t_command *command);
 

@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 20:16:45 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/28 18:39:09 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/01 13:07:10 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,28 @@ static void		exec_binary(char **args)
 
 static void		exec_builtin_parent(t_command *command, char **args)
 {
+	int	stdin;
+	int	stdout;
+	int	stderr;
+
+	stdin = dup(STDIN_FILENO);
+	stdout = dup(STDOUT_FILENO);
+	stderr = dup(STDERR_FILENO);
+	if (dup_redirects(command) == FALSE)
+	{
+		close(stdin);
+		close(stdout);
+		close(stderr);
+		return ;
+	}
 	exec_builtin(args);
+	dup2(stdin, STDIN_FILENO);
+	dup2(stdout, STDOUT_FILENO);
+	dup2(stderr, STDERR_FILENO);
+	close(stdin);
+	close(stdout);
+	close(stderr);
+	return ;
 }
 
 static void		exec_command_child(
@@ -61,6 +82,8 @@ static void		exec_command_child(
 	if (pid == 0)
 	{
 		dup_pipe(state, old_pipe, new_pipe);
+		if (dup_redirects(command) == FALSE)
+			exit(1);
 		if (is_builtin(args))
 			exit(exec_builtin(args));
 		else
@@ -76,6 +99,8 @@ void			exec_command(
 	char			**args;
 
 	if (convert_tokens(command, &args) == FALSE)
+		return ;
+	if (setup_redirects(command) == FALSE)
 		return ;
 	if (state == NO_PIPE && is_builtin(args))
 		exec_builtin_parent(command, args);
