@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 18:27:08 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/28 18:27:52 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/01 09:39:24 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,9 @@ void	put_shlvl_warning(int num)
 	char	*tmp;
 	char	*msg;
 
+	str_num = NULL;
+	tmp = NULL;
+	msg = NULL;
 	if (!(str_num = ft_itoa(num)) ||
 		!(tmp = ft_strjoin("shell level (", str_num)) ||
 		!(msg = ft_strjoin(tmp, ") too high, resetting to 1")))
