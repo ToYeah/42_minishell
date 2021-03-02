@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 10:43:56 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/02 18:14:17 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/02 18:24:50 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 #define FILE_MODE	0644
 
-static int	open_file(t_redirect *redir)
+static int		open_file(t_redirect *redir)
 {
 	char *filename;
 
@@ -30,7 +30,7 @@ static int	open_file(t_redirect *redir)
 	return (open(filename, O_WRONLY | O_CREAT | O_APPEND, FILE_MODE));
 }
 
-void		cleanup_redirects(t_command *command)
+void			cleanup_redirects(t_command *command)
 {
 	t_redirect	*redir;
 
@@ -49,7 +49,22 @@ void		cleanup_redirects(t_command *command)
 	}
 }
 
-t_bool		setup_redirects(t_command *command)
+static t_bool	check_redirect(t_redirect *redir, char *org_filename)
+{
+	if (redir->filename == NULL || redir->filename->next)
+	{
+		print_error("ambiguous redirect", org_filename);
+		return (FALSE);
+	}
+	if ((redir->fd_file = open_file(redir)) < 0)
+	{
+		print_error(strerror(errno), redir->filename->data);
+		return (FALSE);
+	}
+	return (TRUE);
+}
+
+t_bool			setup_redirects(t_command *command)
 {
 	t_redirect	*redir;
 	char		*org_filename;
@@ -60,25 +75,19 @@ t_bool		setup_redirects(t_command *command)
 		if ((org_filename = ft_strdup(redir->filename->data)) == NULL)
 			error_exit(NULL);
 		expand_tokens(&redir->filename);
-		if (redir->filename == NULL || redir->filename->next)
+		if (check_redirect(redir, org_filename) == FALSE)
 		{
-			print_error("ambiguous redirect", org_filename);
 			free(org_filename);
 			cleanup_redirects(command);
 			return (FALSE);
 		}
-		if ((redir->fd_file = open_file(redir)) < 0)
-		{
-			print_error(strerror(errno), redir->filename->data);
-			cleanup_redirects(command);
-			return (FALSE);
-		}
+		free(org_filename);
 		redir = redir->next;
 	}
 	return (TRUE);
 }
 
-t_bool		dup_redirects(t_command *command, t_bool is_parent)
+t_bool			dup_redirects(t_command *command, t_bool is_parent)
 {
 	t_redirect	*redir;
 
