@@ -12,3 +12,5 @@ no_such_file
 > file | cat < no_such_file
 echo hello 2147483647> file
 echo hello 2147483648> file
+echo a | $NO_ENV | cat
+echo a > $NO_ENV | echo b
