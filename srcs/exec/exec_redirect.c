@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 10:43:56 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/02 11:37:03 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/02 18:14:17 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_bool		setup_redirects(t_command *command)
 	while (redir)
 	{
 		if ((org_filename = ft_strdup(redir->filename->data)) == NULL)
-			return (FALSE);
+			error_exit(NULL);
 		expand_tokens(&redir->filename);
 		if (redir->filename == NULL || redir->filename->next)
 		{
