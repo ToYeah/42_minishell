@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 10:58:17 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/28 18:44:35 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/02 20:28:48 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ int		is_builtin(char **args)
 	int			i;
 
 	i = 0;
+	if (args[0] == NULL)
+		return (0);
 	while (commands[i])
 	{
 		if (ft_strcmp(args[0], (char *)commands[i]) == 0)
