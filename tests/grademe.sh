@@ -8,9 +8,10 @@ MINISHELL_EXE="minishell"
 # ------------------------------------------------------------------------------
 
 cd `dirname $0`
-PWD=`pwd`
-CASE_DIR="${PWD}/cases"
-OUTPUT_DIR="${PWD}/outputs"
+GRADEME_DIR=`pwd`
+CASE_DIR="${GRADEME_DIR}/cases"
+OUTPUT_DIR="${GRADEME_DIR}/outputs"
+TEST_DIR="${GRADEME_DIR}/test"
 
 BASH_STDOUT_FILE="${OUTPUT_DIR}/bash_stdout.txt"
 BASH_STDERR_FILE="${OUTPUT_DIR}/bash_stderr.txt"
