@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 10:43:56 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/02 21:02:17 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/02 21:43:21 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void			cleanup_redirects(t_command *command)
 		if (redir->fd_backup >= 0)
 		{
 			if (dup2(redir->fd_backup, redir->fd_io) < 0 ||
-				close(redir->fd_backup))
+				close(redir->fd_backup) < 0)
 			{
 				error_exit(NULL);
 			}
