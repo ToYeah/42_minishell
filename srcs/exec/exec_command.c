@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 20:16:45 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/02 01:13:09 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/02 11:27:19 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,28 +36,9 @@ static void		exec_binary(char **args)
 
 static void		exec_builtin_parent(t_command *command, char **args)
 {
-	int	stdin;
-	int	stdout;
-	int	stderr;
-
-	stdin = dup(STDIN_FILENO);
-	stdout = dup(STDOUT_FILENO);
-	stderr = dup(STDERR_FILENO);
-	if (dup_redirects(command) == FALSE)
-	{
-		close(stdin);
-		close(stdout);
-		close(stderr);
+	if (dup_redirects(command, TRUE) == FALSE)
 		return ;
-	}
 	exec_builtin(args);
-	dup2(stdin, STDIN_FILENO);
-	dup2(stdout, STDOUT_FILENO);
-	dup2(stderr, STDERR_FILENO);
-	close(stdin);
-	close(stdout);
-	close(stderr);
-	return ;
 }
 
 static void		exec_command_child(
@@ -72,7 +53,7 @@ static void		exec_command_child(
 	if (pid == 0)
 	{
 		dup_pipe(state, old_pipe, new_pipe);
-		if (dup_redirects(command) == FALSE)
+		if (dup_redirects(command, FALSE) == FALSE)
 			exit(1);
 		if (is_builtin(args))
 			exit(exec_builtin(args));
@@ -96,7 +77,7 @@ static void		update_pipe_state(t_command *command, t_pipe_state *state)
 void			exec_command(
 	t_command *command, t_pipe_state *state, int old_pipe[])
 {
-	char			**args;
+	char	**args;
 
 	if (setup_redirects(command) == FALSE)
 		return ;
@@ -109,6 +90,7 @@ void			exec_command(
 		exec_builtin_parent(command, args);
 	else
 		exec_command_child(command, args, *state, old_pipe);
+	cleanup_redirects(command);
 	update_pipe_state(command, state);
 	ft_safe_free_split(&args);
 }

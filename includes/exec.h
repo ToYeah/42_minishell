@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 20:07:01 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/02 02:11:47 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/02 11:21:54 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void					cleanup_pipe(t_pipe_state state, int old_pipe[],
 							int new_pipe[]);
 
 t_bool					setup_redirects(t_command *command);
-t_bool					dup_redirects(t_command *command);
+t_bool					dup_redirects(t_command *command, t_bool is_parent);
 void					cleanup_redirects(t_command *command);
 
 t_bool					convert_tokens(t_command *command, char ***args);
