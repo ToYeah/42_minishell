@@ -43,7 +43,7 @@ run_tests () {
 	 	eval "$SETUP_CMD"
 		execute_shell "$TEST_CMD"
 		replace_bash_error
-		assert_equal "$TEST_CMD"
+		assert_equal "$TEST_CMD" "$SETUP_CMD"
 		cleanup
 	done < "${CASE_DIR}/$1.txt"
 }
@@ -71,10 +71,14 @@ assert_equal () {
 	DIFF_STDOUT=`diff ${MINISHELL_STDOUT_FILE} ${BASH_STDOUT_FILE}`
 	DIFF_STDERR=`diff ${MINISHELL_STDERR_FILE} ${BASH_STDERR_FILE}`
 	if [ -z "${DIFF_STDOUT}" ] && [ -z "${DIFF_STDERR}" ] && [ ${MINISHELL_STATUS} -eq ${BASH_STATUS} ]; then
-		printf "${COLOR_GREEN}case: $@ [ok]${COLOR_RESET}\n"
+		printf "${COLOR_GREEN}"
+		print_case "$1" "$2"
+		printf " [ok]${COLOR_RESET}\n"
 		let RESULT_OK++
 	else
-		printf "${COLOR_RED}case: $@ [ko] return code: minishell=${MINISHELL_STATUS} bash=${BASH_STATUS}${COLOR_RESET}\n"
+		printf "${COLOR_RED}"
+		print_case "$1" "$2"
+		printf " [ko] return code: minishell=${MINISHELL_STATUS} bash=${BASH_STATUS}${COLOR_RESET}\n"
 		if [ -n "${DIFF_STDOUT}" ]; then
 			printf "${DIFF_STDOUT}\n"
 		fi
@@ -82,6 +86,13 @@ assert_equal () {
 			printf "${DIFF_STDERR}\n"
 		fi
 		let RESULT_KO++
+	fi
+}
+
+print_case () {
+	printf "case: $1"
+	if [ -n "$2" ]; then
+		printf " [setup: `echo $2`]"
 	fi
 }
 
