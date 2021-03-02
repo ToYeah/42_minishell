@@ -36,6 +36,7 @@ typedef struct			s_redirect
 {
 	int					fd_io;
 	int					fd_file;
+	int					fd_backup;
 	t_redirect_type		type;
 	t_token				*filename;
 	struct s_redirect	*next;
