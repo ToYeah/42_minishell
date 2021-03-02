@@ -9,3 +9,4 @@ echo $SHLVL, export SHLVL=4294967296
 echo $SHLVL, export SHLVL=-4294967296
 echo $SHLVL, export SHLVL=-4294967297
 echo $SHLVL, export SHLVL=a
+echo $SHLVL, export SHLVL=`printf "\v42"`
