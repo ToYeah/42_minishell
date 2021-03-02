@@ -26,16 +26,25 @@ RESULT_ALL=0
 RESULT_OK=0
 RESULT_KO=0
 
-cleanup () {
-	rm -f ${BASH_STDOUT_FILE} ${BASH_STDERR_FILE} ${MINISHELL_STDOUT_FILE} ${MINISHELL_STDERR_FILE}
+run_all_tests () {
+	set_minishell_path
+	cleanup
+	run_tests syntax_test
+	run_tests echo_test
+	run_tests simple_command
 }
 
 run_tests () {
-	set_minishell_path
-	cleanup
-	run_syntax_tests
-	run_general_tests echo_test
-	run_general_tests simple_command
+	while read -r line; do
+		execute_shell "$line"
+		replace_bash_error
+		assert_equal "$line"
+		cleanup
+	done < "${CASE_DIR}/$1.txt"
+}
+
+cleanup () {
+	rm -f ${BASH_STDOUT_FILE} ${BASH_STDERR_FILE} ${MINISHELL_STDOUT_FILE} ${MINISHELL_STDERR_FILE}
 }
 
 set_minishell_path () {
@@ -43,24 +52,6 @@ set_minishell_path () {
 	cd ${MINISHELL_DIR}
 	MINISHELL_PATH="`pwd`/${MINISHELL_EXE}"
 	cd ${GRADEME_DIR}
-}
-
-run_syntax_tests () {
-	while read -r line; do
-		execute_shell "$line"
-		replace_bash_error
-		assert_equal "$line"
-		cleanup
-	done < "${CASE_DIR}/syntax_test.txt"
-}
-
-run_general_tests () {
-	while read -r line; do
-		execute_shell "$line"
-		replace_bash_error
-		assert_equal "$line"
-		cleanup
-	done < "${CASE_DIR}/$1.txt"
 }
 
 execute_shell () {
@@ -108,5 +99,5 @@ show_results () {
 	fi
 }
 
-run_tests
+run_all_tests
 show_results
