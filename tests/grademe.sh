@@ -36,11 +36,14 @@ run_all_tests () {
 
 run_tests () {
 	while read -r line; do
+		TEST_CMD=`echo "$line" | cut -d ',' -f 1`
+		SETUP_CMD=`echo "$line" | cut -d ',' -f 2 -s`
 	 	mkdir -p ${TEST_DIR}
 	 	cd ${TEST_DIR}
 	 	eval "$SETUP_CMD"
+		execute_shell "$TEST_CMD"
 		replace_bash_error
-		assert_equal "$line"
+		assert_equal "$TEST_CMD"
 		cleanup
 	done < "${CASE_DIR}/$1.txt"
 }
