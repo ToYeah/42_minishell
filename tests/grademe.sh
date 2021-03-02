@@ -32,6 +32,7 @@ run_all_tests () {
 	run_tests syntax_test
 	run_tests echo_test
 	run_tests simple_command
+	run_tests shlvl
 }
 
 run_tests () {
