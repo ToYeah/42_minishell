@@ -31,10 +31,18 @@ cleanup () {
 }
 
 run_tests () {
+	set_minishell_path
 	cleanup
 	run_syntax_tests
 	run_general_tests echo_test
 	run_general_tests simple_command
+}
+
+set_minishell_path () {
+	cd ${GRADEME_DIR}
+	cd ${MINISHELL_DIR}
+	MINISHELL_PATH="`pwd`/${MINISHELL_EXE}"
+	cd ${GRADEME_DIR}
 }
 
 run_syntax_tests () {
@@ -58,7 +66,7 @@ run_general_tests () {
 execute_shell () {
 	bash -c "$@" > ${BASH_STDOUT_FILE} 2> ${BASH_STDERR_FILE}
 	BASH_STATUS=$?
-	${MINISHELL_DIR}/${MINISHELL_EXE} -c "$1" > ${MINISHELL_STDOUT_FILE} 2> ${MINISHELL_STDERR_FILE}
+	${MINISHELL_PATH} -c "$1" > ${MINISHELL_STDOUT_FILE} 2> ${MINISHELL_STDERR_FILE}
 	MINISHELL_STATUS=$?
 }
 
