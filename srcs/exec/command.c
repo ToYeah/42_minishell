@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 17:08:55 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/02 01:18:00 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/02 18:34:23 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,9 @@ t_bool		convert_tokens(t_command *command, char ***args)
 	expand_tokens(&command->args);
 	*args = convert_args(command);
 	if (*args[0] == NULL)
+	{
+		ft_safe_free_split(args);
 		return (FALSE);
+	}
 	return (TRUE);
 }
