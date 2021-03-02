@@ -1,21 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   build_path_utils.c                                 :+:      :+:    :+:   */
+/*   path_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 15:32:52 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/27 23:27:09 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/02 10:05:06 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
 #include "utils.h"
 #include "libft.h"
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <errno.h>
 
 char	*join_path(const char *prev, const char *next)
 {

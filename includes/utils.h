@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 20:13:16 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/01 14:10:31 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/02 10:04:10 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,5 @@ const char		*get_env_data(char *name);
 t_env			*get_env(const char *name);
 void			minishell_init(void);
 void			shlvl_init(void);
+char			*build_full_path(char *path, const char *cmd);
 #endif

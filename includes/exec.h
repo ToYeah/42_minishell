@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 20:07:01 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/01 11:52:50 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/02 10:04:05 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,5 @@ void					cleanup_pipe(t_pipe_state state, int old_pipe[],
 
 char					**convert_args(t_command *command);
 
-char					*build_full_path(char *path, const char *cmd);
 char					*build_cmd_path(const char *cmd);
 #endif
