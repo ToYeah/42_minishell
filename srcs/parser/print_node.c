@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 15:36:06 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/27 23:28:32 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/02 21:02:40 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,6 @@ void	print_nodes(t_node *node)
 	ft_putstr_fd("digraph AST {\n", fd);
 	print_nodes_rec(node, fd);
 	ft_putstr_fd("}\n", fd);
-	close(fd);
+	if (close(fd) < 0)
+		error_exit(NULL);
 }

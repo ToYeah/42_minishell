@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 10:43:56 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/02 18:24:50 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/02 21:02:17 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,17 @@ void			cleanup_redirects(t_command *command)
 	while (redir)
 	{
 		if (redir->fd_file >= 0)
-			close(redir->fd_file);
+		{
+			if (close(redir->fd_file) < 0)
+				error_exit(NULL);
+		}
 		if (redir->fd_backup >= 0)
 		{
-			if (dup2(redir->fd_backup, redir->fd_io) < 0)
+			if (dup2(redir->fd_backup, redir->fd_io) < 0 ||
+				close(redir->fd_backup))
+			{
 				error_exit(NULL);
-			close(redir->fd_backup);
+			}
 		}
 		redir = redir->next;
 	}
@@ -107,7 +112,8 @@ t_bool			dup_redirects(t_command *command, t_bool is_parent)
 			print_bad_fd_error(redir->fd_io);
 			return (FALSE);
 		}
-		close(redir->fd_file);
+		if (close(redir->fd_file) < 0)
+			error_exit(NULL);
 		redir->fd_file = REDIR_FD_NOT_SPECIFIED;
 		redir = redir->next;
 	}
