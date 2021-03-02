@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 20:13:16 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/01 14:10:31 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/02 02:12:13 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct stat	t_stat;
 void			error_exit(char *command);
 void			print_error(char *message, char *command);
 void			print_syntax_error(t_token *token);
+void			print_bad_fd_error(int fd);
 
 t_env			*create_envs_from_environ(void);
 void			print_envs(t_env *envs);

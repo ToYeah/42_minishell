@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 01:11:20 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/25 22:58:00 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/01 12:21:08 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ static t_bool	parse_io_redirect(t_token **tokens, t_node *command_node)
 	redirect = create_redirect();
 	if ((*tokens)->type == IO_NUMBER)
 	{
-		if (ft_atoi_limit((*tokens)->data, &redirect->fd) == FALSE)
-			redirect->fd = REDIR_FD_OUT_OF_RANGE;
+		if (ft_atoi_limit((*tokens)->data, &redirect->fd_io) == FALSE)
+			redirect->fd_io = REDIR_FD_OUT_OF_RANGE;
 		*tokens = (*tokens)->next;
 	}
 	if (set_redirect_type(*tokens, redirect) == FALSE)
