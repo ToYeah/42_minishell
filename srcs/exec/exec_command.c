@@ -54,10 +54,10 @@ static void		exec_command_child(
 		error_exit(NULL);
 	if (pid == 0)
 	{
-		if (args[0] == NULL)
-			exit(0);
 		if (setup_redirects(command) == FALSE)
 			exit(1);
+		if (args[0] == NULL)
+			exit(0);
 		dup_pipe(state, old_pipe, new_pipe);
 		if (dup_redirects(command, FALSE) == FALSE)
 			exit(1);
