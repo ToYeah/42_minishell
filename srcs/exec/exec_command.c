@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 20:16:45 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/02 11:27:19 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/02 19:17:48 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ static void		exec_binary(char **args)
 
 static void		exec_builtin_parent(t_command *command, char **args)
 {
+	if (setup_redirects(command) == FALSE)
+		return ;
 	if (dup_redirects(command, TRUE) == FALSE)
 		return ;
 	exec_builtin(args);
@@ -52,6 +54,8 @@ static void		exec_command_child(
 		error_exit(NULL);
 	if (pid == 0)
 	{
+		if (setup_redirects(command) == FALSE)
+			exit(1);
 		dup_pipe(state, old_pipe, new_pipe);
 		if (dup_redirects(command, FALSE) == FALSE)
 			exit(1);
@@ -79,8 +83,6 @@ void			exec_command(
 {
 	char	**args;
 
-	if (setup_redirects(command) == FALSE)
-		return ;
 	if (convert_tokens(command, &args) == FALSE)
 	{
 		cleanup_redirects(command);
