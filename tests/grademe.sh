@@ -36,7 +36,9 @@ run_all_tests () {
 
 run_tests () {
 	while read -r line; do
-		execute_shell "$line"
+	 	mkdir -p ${TEST_DIR}
+	 	cd ${TEST_DIR}
+	 	eval "$SETUP_CMD"
 		replace_bash_error
 		assert_equal "$line"
 		cleanup
@@ -45,6 +47,7 @@ run_tests () {
 
 cleanup () {
 	rm -f ${BASH_STDOUT_FILE} ${BASH_STDERR_FILE} ${MINISHELL_STDOUT_FILE} ${MINISHELL_STDERR_FILE}
+	rm -fr ${TEST_DIR}
 }
 
 set_minishell_path () {
