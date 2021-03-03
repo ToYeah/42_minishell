@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 20:13:16 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/02 10:04:10 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/03 11:50:16 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ typedef struct	s_env
 {
 	char			*name;
 	char			*value;
+	t_bool			is_env;
 	struct s_env	*next;
 }				t_env;
 
@@ -43,5 +44,6 @@ const char		*get_env_data(char *name);
 t_env			*get_env(const char *name);
 void			minishell_init(void);
 void			shlvl_init(void);
+char			*join_path(const char *prev, const char *next);
 char			*build_full_path(char *path, const char *cmd);
 #endif

@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 23:38:53 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/01 14:10:01 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/03 11:54:34 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ t_env		*create_new_env(char *env_str)
 	env->value = ft_strdup(sep + 1);
 	if (!env->name || !env->value)
 		error_exit(NULL);
+	env->is_env = TRUE;
 	env->next = NULL;
 	return (env);
 }
