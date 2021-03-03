@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 21:44:06 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/03 21:48:15 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/03 22:01:50 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_bool		is_executable(const char *path)
 	t_stat	path_stat;
 
 	if (stat(path, &path_stat) == -1)
-		return (FALSE);
+		return (TRUE);
 	if ((path_stat.st_mode & S_IXUSR) != S_IXUSR)
 		return (FALSE);
 	return (TRUE);
