@@ -13,8 +13,6 @@
 #include "exec.h"
 #include "utils.h"
 #include "libft.h"
-#include <sys/types.h>
-#include <sys/stat.h>
 
 t_cmd_type	judge_cmd_type(const char *str)
 {
@@ -24,46 +22,6 @@ t_cmd_type	judge_cmd_type(const char *str)
 		return (RELATIVE);
 	else
 		return (COMMAND);
-}
-
-t_bool		is_executable_command(char *path)
-{
-	t_stat buf;
-
-	if (lstat(path, &buf) == -1)
-		return (FALSE);
-	if (S_ISLNK(buf.st_mode))
-	{
-		if ((buf.st_mode & S_IXUSR) != S_IXUSR ||
-			stat(path, &buf) == -1 ||
-			S_ISDIR(buf.st_mode) ||
-			(buf.st_mode & S_IXUSR) != S_IXUSR)
-		{
-			return (FALSE);
-		}
-	}
-	else
-	{
-		if ((buf.st_mode & S_IXUSR) != S_IXUSR)
-			return (FALSE);
-	}
-	return (TRUE);
-}
-
-t_bool		is_command_exist(char *path, char **res)
-{
-	t_stat buf;
-
-	if (!path)
-		return (FALSE);
-	if (lstat(path, &buf) == -1)
-		return (FALSE);
-	if (S_ISDIR(buf.st_mode))
-		return (FALSE);
-	ft_safe_free_char(res);
-	if (!(*res = ft_strdup(path)))
-		error_exit(NULL);
-	return (TRUE);
 }
 
 char		*search_command_binary(const char *cmd)
@@ -84,7 +42,8 @@ char		*search_command_binary(const char *cmd)
 	{
 		ft_safe_free_char(&path);
 		path = build_full_path(split_path[index], cmd);
-		if (is_command_exist(path, &res) && is_executable_command(path))
+		if (is_command_exist(path, &res) && !is_directory(path) &&
+			is_executable(path))
 			break ;
 		index++;
 	}

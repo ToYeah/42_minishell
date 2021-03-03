@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 20:07:01 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/03 00:04:51 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/03 21:49:06 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,9 @@ t_bool					convert_tokens(t_command *command, char ***args);
 
 char					*build_full_path(char *path, const char *cmd);
 char					*build_cmd_path(const char *cmd);
+
+t_bool					is_directory(const char *path);
+t_bool					is_executable(const char *path);
+t_bool					is_command_exist(char *path, char **res);
+
 #endif
