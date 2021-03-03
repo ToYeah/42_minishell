@@ -1,16 +1,16 @@
-/bin/ls
-/bin/ls -a
-/bin/ls | /usr/bin/grep a
-/bin/ls | /usr/bin/grep a | /usr/bin/grep c
-ls
-ls -a
-ls | grep a
-ls | grep a | grep c
+/bin/ls, touch a .a
+/bin/ls -a, touch a .a
+/bin/ls | /usr/bin/grep a, touch aa ab ac
+/bin/ls | /usr/bin/grep a | /usr/bin/grep c, touch aa ab ac
+ls, touch a .a
+ls -a, touch a .a
+ls | grep a, touch aa ab ac
+ls | grep a | grep c, touch aa ab ac
 echo hello world | cat
 no_such_file
 > file
 > file | cat < no_such_file
 echo hello 2147483647> file
 echo hello 2147483648> file
-echo a | $NO_ENV | cat
-echo a > $NO_ENV | echo b
+echo a | $NO_ENV | cat, unset NO_ENV
+echo a > $NO_ENV | echo b, unset NO_ENV
