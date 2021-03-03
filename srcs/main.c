@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 18:50:22 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/28 20:10:41 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/03 17:41:04 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,11 @@ void	run_commandline(char *line)
 
 void	loop_shell(void)
 {
-	int		status;
 	char	*line;
 	int		gnl_result;
 
-	status = 1;
 	gnl_result = 1;
-	while (status)
+	while (TRUE)
 	{
 		if (gnl_result)
 			ft_putstr_fd(SHELL_PROMPT, STDERR_FILENO);
