@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 20:16:45 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/03 17:45:46 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/03 21:57:26 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,6 @@ static void		exec_binary(char **args)
 
 	envs = generate_environ(g_envs);
 	path = build_cmd_path(args[0]);
-	if (path == NULL)
-	{
-		print_error("command not found", args[0]);
-		ft_safe_free_split(&envs);
-		exit(STATUS_CMD_NOT_FOUND);
-	}
 	if (execve(path, args, generate_environ(g_envs)) < 0)
 		error_exit(path);
 	free(path);

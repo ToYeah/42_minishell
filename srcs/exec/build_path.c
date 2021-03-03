@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   build_path.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 11:40:22 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/01 14:10:40 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/03 21:57:04 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "const.h"
 #include "exec.h"
 #include "utils.h"
 #include "libft.h"
@@ -52,6 +53,25 @@ char		*search_command_binary(const char *cmd)
 	return (res);
 }
 
+static void	check_cmd_path(const char *cmd, const char *path)
+{
+	if (path == NULL)
+	{
+		print_error("command not found", (char *)cmd);
+		exit(STATUS_CMD_NOT_FOUND);
+	}
+	if (is_directory(path))
+	{
+		print_error("is a directory", (char *)path);
+		exit(STATUS_CMD_NOT_EXECUTABLE);
+	}
+	if (!is_executable(path))
+	{
+		print_error("Permission denied", (char *)path);
+		exit(STATUS_CMD_NOT_EXECUTABLE);
+	}
+}
+
 char		*build_cmd_path(const char *cmd)
 {
 	t_cmd_type	type;
@@ -69,5 +89,6 @@ char		*build_cmd_path(const char *cmd)
 		if (!(res = ft_strdup(cmd)))
 			error_exit(NULL);
 	}
+	check_cmd_path(cmd, res);
 	return (res);
 }
