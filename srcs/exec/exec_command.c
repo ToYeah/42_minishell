@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 20:16:45 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/03 14:22:52 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/03 17:45:46 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ static void		exec_binary(char **args)
 static int		exec_builtin_parent(t_command *command, char **args)
 {
 	if (setup_redirects(command) == FALSE)
-		return (1);
+		return (EXIT_FAILURE);
 	if (dup_redirects(command, TRUE) == FALSE)
-		return (1);
+		return (EXIT_FAILURE);
 	return (exec_builtin(args));
 }
 
@@ -55,12 +55,12 @@ static void		exec_command_child(
 	if (pid == 0)
 	{
 		if (setup_redirects(command) == FALSE)
-			exit(1);
+			exit(EXIT_FAILURE);
 		if (args[0] == NULL)
-			exit(0);
+			exit(EXIT_SUCCESS);
 		dup_pipe(state, old_pipe, new_pipe);
 		if (dup_redirects(command, FALSE) == FALSE)
-			exit(1);
+			exit(EXIT_FAILURE);
 		if (is_builtin(args))
 			exit(exec_builtin(args));
 		else
@@ -86,7 +86,7 @@ int				exec_command(
 	char	**args;
 	int		status;
 
-	status = 0;
+	status = EXIT_SUCCESS;
 	convert_tokens(command, &args);
 	if (*state == NO_PIPE && is_builtin(args))
 		status = exec_builtin_parent(command, args);

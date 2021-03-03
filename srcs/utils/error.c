@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 20:12:22 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/03 14:40:53 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/03 17:45:16 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	print_error(char *message, char *command)
 void	error_exit(char *command)
 {
 	print_error(strerror(errno), command);
-	exit(1);
+	exit(EXIT_FAILURE);
 }
 
 void	print_syntax_error(t_token *token)
