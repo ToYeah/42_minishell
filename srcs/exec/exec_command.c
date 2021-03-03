@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 20:16:45 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/02 20:29:24 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/03 14:22:52 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ static void		exec_binary(char **args)
 	ft_safe_free_split(&envs);
 }
 
-static void		exec_builtin_parent(t_command *command, char **args)
+static int		exec_builtin_parent(t_command *command, char **args)
 {
 	if (setup_redirects(command) == FALSE)
-		return ;
+		return (1);
 	if (dup_redirects(command, TRUE) == FALSE)
-		return ;
-	exec_builtin(args);
+		return (1);
+	return (exec_builtin(args));
 }
 
 static void		exec_command_child(
@@ -80,17 +80,20 @@ static void		update_pipe_state(t_command *command, t_pipe_state *state)
 		*state = PIPE_READ_ONLY;
 }
 
-void			exec_command(
+int				exec_command(
 	t_command *command, t_pipe_state *state, int old_pipe[])
 {
 	char	**args;
+	int		status;
 
+	status = 0;
 	convert_tokens(command, &args);
 	if (*state == NO_PIPE && is_builtin(args))
-		exec_builtin_parent(command, args);
+		status = exec_builtin_parent(command, args);
 	else
 		exec_command_child(command, args, *state, old_pipe);
 	cleanup_redirects(command);
 	update_pipe_state(command, state);
 	ft_safe_free_split(&args);
+	return (status);
 }
