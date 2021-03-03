@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 20:12:22 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/01 13:09:46 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/03 14:40:53 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,17 @@ void	print_syntax_error(t_token *token)
 	}
 	ft_putendl_fd("'", STDERR_FILENO);
 	g_status = STATUS_SYNTAX_ERROR;
+}
+
+void	print_token_error(t_token_state state)
+{
+	extern int	g_status;
+
+	if (state == STATE_IN_DQUOTE)
+		print_error("unexpected EOF while looking for matching `\"'", NULL);
+	if (state == STATE_IN_QUOTE)
+		print_error("unexpected EOF while looking for matching `''", NULL);
+	g_status = STATUS_TOKEN_ERROR;
 }
 
 void	print_bad_fd_error(int fd)
