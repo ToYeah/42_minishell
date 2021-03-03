@@ -29,10 +29,10 @@ RESULT_KO=0
 run_all_tests () {
 	set_minishell_path
 	cleanup
-	run_tests syntax_test
-	run_tests echo_test
-	run_tests simple_command
-	run_tests shlvl
+	run_tests "syntax_error"
+	run_tests "echo"
+	run_tests "simple_command"
+	run_tests "shlvl"
 	run_tests "pwd"
 }
 
