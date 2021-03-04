@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 10:58:17 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/28 18:44:35 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/02 11:02:23 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,6 @@ int		exec_exit(char **args)
 {
 	(void)args;
 	exit(1);
-	return (0);
-}
-
-int		exec_cd(char **args)
-{
-	(void)args;
-	ft_putstr_fd("cd called!\n", STDOUT_FILENO);
 	return (0);
 }
 
