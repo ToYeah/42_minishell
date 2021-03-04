@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 18:27:08 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/04 17:16:25 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/04 18:54:47 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_bool	is_digit_str(char *str)
 			break ;
 		index++;
 	}
-	while (ft_isspace(str[index]))
+	while (str[index] == ' ' || str[index] == '\t')
 		index++;
 	if (str[index] == '\0')
 		return (TRUE);
