@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 10:50:50 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/04 11:40:31 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/04 12:45:23 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,22 +42,55 @@ char *get_cwd_path(char *caller)
 }
 
 
-
-
-
 int		exec_cd(char **args)
 {
 	char *canon_path;
 	char *phy_path;
+	char *cd_path;
+	t_bool is_canon_path;
+	int err;
+
 	extern char *g_pwd;
 
 	if (!(phy_path = join_path(g_pwd, args[1])))
 		error_exit(NULL);
+	ft_safe_free_char(&g_pwd);
 	canon_path = path_canonicalisation(phy_path);
-	
-	printf("%s\n", canon_path);
-	chdir(args[1]);
-	g_pwd = canon_path;
-	free(phy_path);
+	if (canon_path && is_directory(canon_path))
+	{
+		cd_path = canon_path;
+		is_canon_path = TRUE;
+	}
+	else
+	{
+		cd_path = phy_path;
+		is_canon_path = FALSE;
+	}
+
+	if (chdir(cd_path) == 0)
+	{
+		if (is_canon_path == FALSE)
+		{
+			g_pwd = get_cwd_path("cd");
+		}
+		if (is_canon_path || g_pwd == NULL)
+		{
+			if (!(g_pwd = ft_strdup(cd_path)))
+				error_exit(NULL);
+		}
+	}
+	else
+	{
+		err = errno;
+		if (chdir(args[1]) == 0)
+		{
+			if (!(g_pwd = get_cwd_path("cd")))
+			{
+				if(!(g_pwd = ft_strdup(phy_path)))
+					error_exit(NULL);
+			}
+		}
+		errno = err;
+	}
 	return (0);
 }
