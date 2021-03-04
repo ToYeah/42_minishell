@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 20:12:22 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/03 17:45:16 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/04 15:46:53 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,11 @@ void	print_bad_fd_error(int fd)
 		print_error(strerror(errno), fd_str);
 		free(fd_str);
 	}
+}
+
+void	print_numeric_argument_error(char *arg)
+{
+	ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
+	ft_putstr_fd(arg, STDERR_FILENO);
+	ft_putendl_fd(": numeric argument required", STDERR_FILENO);
 }

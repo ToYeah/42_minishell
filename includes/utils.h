@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 20:13:16 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/03 14:40:43 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/04 15:50:58 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void			print_error(char *message, char *command);
 void			print_syntax_error(t_token *token);
 void			print_token_error(t_token_state state);
 void			print_bad_fd_error(int fd);
+void			print_numeric_argument_error(char *arg);
 
 t_env			*create_envs_from_environ(void);
 void			print_envs(t_env *envs);
@@ -45,4 +46,6 @@ const char		*get_env_data(char *name);
 t_env			*get_env(const char *name);
 void			minishell_init(void);
 void			shlvl_init(void);
+t_bool			is_digit_str(char *str);
+
 #endif

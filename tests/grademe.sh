@@ -29,14 +29,23 @@ RESULT_KO=0
 run_all_tests () {
 	set_minishell_path
 	cleanup
-	run_tests "syntax_error"
-	run_tests "echo"
-	run_tests "simple_command"
-	run_tests "shlvl"
-	run_tests "pwd"
+	if [ -n "$1" ]; then
+		run_tests "$1"
+	else
+		run_tests "syntax_error"
+		run_tests "echo"
+		run_tests "exit"
+		run_tests "simple_command"
+		run_tests "shlvl"
+		run_tests "pwd"
+	fi
 }
 
 run_tests () {
+	if [ ! -e "${CASE_DIR}/$1.txt" ]; then
+		print_usage
+		exit 1
+	fi
 	while read -r line; do
 		TEST_CMD=`echo "$line" | cut -d ',' -f 1`
 		SETUP_CMD=`echo "$line" | cut -d ',' -f 2 -s`
@@ -48,6 +57,10 @@ run_tests () {
 		assert_equal "$TEST_CMD" "$SETUP_CMD"
 		cleanup
 	done < "${CASE_DIR}/$1.txt"
+}
+
+print_usage () {
+	echo "usage: ./grademe.sh [`ls cases | sed 's/\.txt//' | tr '\n' ' ' | sed 's/ *$//'`]"
 }
 
 cleanup () {
@@ -80,7 +93,10 @@ assert_equal () {
 	else
 		printf "${COLOR_RED}"
 		print_case "$1" "$2"
-		printf " [ko] return code: minishell=${MINISHELL_STATUS} bash=${BASH_STATUS}${COLOR_RESET}\n"
+		printf " [ko]${COLOR_RESET}\n"
+		if [ ${MINISHELL_STATUS} -ne ${BASH_STATUS} ]; then
+			printf "exit status: minishell=${MINISHELL_STATUS} bash=${BASH_STATUS}\n"
+		fi
 		if [ -n "${DIFF_STDOUT}" ]; then
 			printf "${DIFF_STDOUT}\n"
 		fi
@@ -103,6 +119,7 @@ replace_bash_error () {
 	if [ $? -eq 0 ]; then
 		sed -i "" -e 's/bash: -c: line 0:/minishell:/' -e '2d' ${BASH_STDERR_FILE}
 	else
+		sed -i "" -e 's/bash: line 0:/bash:/' ${BASH_STDERR_FILE}
 		sed -i "" -e 's/bash:/minishell:/' ${BASH_STDERR_FILE}
 	fi
 }
@@ -118,5 +135,5 @@ show_results () {
 	fi
 }
 
-run_all_tests
+run_all_tests $@
 show_results

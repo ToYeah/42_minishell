@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 18:50:22 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/03 17:41:04 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/04 15:36:18 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 t_env	*g_envs;
 int		g_status;
 char	*g_pwd;
+t_bool	g_interactive;
 
 void	run_commandline(char *line)
 {
@@ -59,10 +60,12 @@ int		main(int argc, char *argv[])
 	minishell_init();
 	if (argc > 2 && ft_strcmp("-c", argv[1]) == 0)
 	{
+		g_interactive = FALSE;
 		run_commandline(argv[2]);
 	}
 	else
 	{
+		g_interactive = TRUE;
 		loop_shell();
 	}
 	return (g_status);

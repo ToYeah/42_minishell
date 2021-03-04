@@ -6,29 +6,12 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 10:58:17 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/03 17:45:04 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/04 14:59:30 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 #include "libft.h"
-
-/*
-** Cause the shell to exit with a status of n.  If  n  is  omitted,
-** the exit status is that of the last command executed.  A trap on
-** EXIT is executed before the shell terminates.
-**
-** bash-3.2$ exit aaa
-** exit
-** bash: exit: aaa: numeric argument required
-*/
-
-int		exec_exit(char **args)
-{
-	(void)args;
-	exit(1);
-	return (EXIT_SUCCESS);
-}
 
 int		exec_cd(char **args)
 {
