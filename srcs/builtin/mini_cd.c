@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 10:50:50 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/04 16:56:49 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/04 17:03:28 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,6 @@
 
 #include <stdio.h>
 
-#define CWD_CMD_ERR_MSG "error retrieving current directory"
-#define CWD_ERR_MSG "getcwd: cannot access parent directories"
-
 char	*get_cwd_path(char *caller)
 {
 	char *cwd;
@@ -31,9 +28,9 @@ char	*get_cwd_path(char *caller)
 	{
 		ft_putstr_fd(caller, STDERR_FILENO);
 		ft_putstr_fd(": ", STDERR_FILENO);
-		ft_putstr_fd(CWD_CMD_ERR_MSG, STDERR_FILENO);
+		ft_putstr_fd("error retrieving current directory", STDERR_FILENO);
 		ft_putstr_fd(": ", STDERR_FILENO);
-		ft_putstr_fd(CWD_ERR_MSG, STDERR_FILENO);
+		ft_putstr_fd("getcwd: cannot access parent directories", STDERR_FILENO);
 		ft_putstr_fd(": " , STDERR_FILENO);
 		ft_putstr_fd(strerror(errno), STDERR_FILENO);
 		ft_putstr_fd("\n", STDERR_FILENO);
