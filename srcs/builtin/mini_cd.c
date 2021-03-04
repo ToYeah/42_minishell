@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 10:50:50 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/04 17:34:33 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/04 17:39:59 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ int		change_dir_process(char *cd_path,const char *arg, t_bool is_canon_path)
 		return (res);
 	}
 	errno = err;
+	res = EXIT_FAILURE;
 	return (res);
 }
 
@@ -145,8 +146,9 @@ const char	*set_cd_destination(char **args)
 
 int		exec_cd(char **args)
 {
-	char *cd_path;
-	t_bool is_canon_path;
+	char	*cd_path;
+	t_bool	is_canon_path;
+	int		res;
 	const char	*destination;
 	extern char *g_pwd;
 
@@ -154,7 +156,7 @@ int		exec_cd(char **args)
 		return (EXIT_FAILURE);
 
 	set_cd_path(&cd_path, destination, &is_canon_path);
-	change_dir_process(cd_path, destination, is_canon_path);
+	res = change_dir_process(cd_path, destination, is_canon_path);
 	ft_safe_free_char(&cd_path);
-	return (EXIT_SUCCESS);
+	return (res);
 }
