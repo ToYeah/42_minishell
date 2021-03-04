@@ -6,19 +6,12 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 10:58:17 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/04 11:42:54 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/04 11:43:43 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 #include "libft.h"
-
-int		exec_cd(char **args)
-{
-	(void)args;
-	ft_putstr_fd("cd called!\n", STDOUT_FILENO);
-	return (EXIT_SUCCESS);
-}
 
 int		exec_builtin(char **args)
 {
