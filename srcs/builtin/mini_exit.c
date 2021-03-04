@@ -1,23 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin.h                                          :+:      :+:    :+:   */
+/*   mini_exit.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/12 20:07:55 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/04 14:59:45 by nfukada          ###   ########.fr       */
+/*   Created: 2021/03/04 14:59:01 by nfukada           #+#    #+#             */
+/*   Updated: 2021/03/04 15:00:58 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_H
-# define BUILTIN_H
+/*
+** Cause the shell to exit with a status of n.  If  n  is  omitted,
+** the exit status is that of the last command executed.  A trap on
+** EXIT is executed before the shell terminates.
+**
+** bash-3.2$ exit aaa
+** exit
+** bash: exit: aaa: numeric argument required
+*/
 
-# include "libft.h"
+#include <stdlib.h>
 
-int		is_builtin(char **args);
-int		exec_echo(char **args);
-int		exec_exit(char **args);
-int		exec_builtin(char **args);
-
-#endif
+int		exec_exit(char **args)
+{
+	(void)args;
+	exit(1);
+	return (0);
+}
