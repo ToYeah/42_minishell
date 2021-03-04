@@ -118,8 +118,12 @@ is_ok () {
 }
 
 print_case () {
-	printf "case: $1"
+	echo  -n "case: $1"
 	if [ -n "$2" ]; then
+		echo -n " [setup: `echo $2`]"
+	fi
+}
+
 output_log () {
 	echo "---------------------------------" >> ${LOG_FILE}
 	if is_ok ; then
