@@ -32,12 +32,12 @@ run_all_tests () {
 	if [ -n "$1" ]; then
 		run_tests "$1"
 	else
-	run_tests "syntax_error"
-	run_tests "echo"
+		run_tests "syntax_error"
+		run_tests "echo"
 		run_tests "exit"
-	run_tests "simple_command"
-	run_tests "shlvl"
-	run_tests "pwd"
+		run_tests "simple_command"
+		run_tests "shlvl"
+		run_tests "pwd"
 	fi
 }
 
@@ -119,6 +119,7 @@ replace_bash_error () {
 	if [ $? -eq 0 ]; then
 		sed -i "" -e 's/bash: -c: line 0:/minishell:/' -e '2d' ${BASH_STDERR_FILE}
 	else
+		sed -i "" -e 's/bash: line 0:/bash:/' ${BASH_STDERR_FILE}
 		sed -i "" -e 's/bash:/minishell:/' ${BASH_STDERR_FILE}
 	fi
 }
