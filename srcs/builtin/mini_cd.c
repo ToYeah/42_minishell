@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 10:50:50 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/04 17:03:28 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/04 17:34:33 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,31 +89,31 @@ int		change_dir_process(char *cd_path,const char *arg, t_bool is_canon_path)
 	return (res);
 }
 
-t_bool	set_cd_path(char **cd_path, const char *arg)
+void	set_cd_path(char **cd_path, const char *arg, t_bool *flag)
 {
 	char		*canon_path;
 	char		*physical_path;
-	t_bool		res;
 	extern char	*g_pwd;
 
-	if (!(physical_path = join_path(g_pwd, arg)))
+	if (*arg == '/')
+		physical_path = ft_strdup(arg);
+	else
+		physical_path = join_path(g_pwd, arg);
+	if (!physical_path)
 		error_exit(NULL);
 	canon_path = path_canonicalisation(physical_path);
 	if (canon_path && is_directory(canon_path))
 	{
-		if (!(*cd_path = ft_strdup(canon_path)))
-			error_exit(NULL);
-		res = TRUE;
+		*cd_path = canon_path;
+		ft_safe_free_char(&physical_path);
+		*flag = TRUE;
 	}
 	else
 	{
-		if (!(*cd_path = ft_strdup(physical_path)))
-			error_exit(NULL);
-		res = FALSE;
+		*cd_path = physical_path;
+		ft_safe_free_char(&canon_path);
+		*flag = FALSE;
 	}
-	ft_safe_free_char(&canon_path);
-	ft_safe_free_char(&physical_path);
-	return res;
 }
 
 const char	*set_cd_destination(char **args)
@@ -143,18 +143,17 @@ const char	*set_cd_destination(char **args)
 	return (args[1]);
 }
 
-
 int		exec_cd(char **args)
 {
 	char *cd_path;
 	t_bool is_canon_path;
 	const char	*destination;
-
 	extern char *g_pwd;
 
 	if (!(destination = set_cd_destination(args)))
 		return (EXIT_FAILURE);
-	is_canon_path = set_cd_path(&cd_path, destination);
+
+	set_cd_path(&cd_path, destination, &is_canon_path);
 	change_dir_process(cd_path, destination, is_canon_path);
 	ft_safe_free_char(&cd_path);
 	return (EXIT_SUCCESS);
