@@ -30,6 +30,7 @@ void			error_exit(char *command);
 void			print_error(char *message, char *command);
 void			print_syntax_error(t_token *token);
 void			print_bad_fd_error(int fd);
+void			print_numeric_argument_error(char *arg);
 
 t_env			*create_envs_from_environ(void);
 void			print_envs(t_env *envs);
