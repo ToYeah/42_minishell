@@ -41,6 +41,10 @@ run_all_tests () {
 }
 
 run_tests () {
+	if [ ! -e "${CASE_DIR}/$1.txt" ]; then
+		print_usage
+		exit 1
+	fi
 	while read -r line; do
 		TEST_CMD=`echo "$line" | cut -d ',' -f 1`
 		SETUP_CMD=`echo "$line" | cut -d ',' -f 2 -s`
@@ -52,6 +56,10 @@ run_tests () {
 		assert_equal "$TEST_CMD" "$SETUP_CMD"
 		cleanup
 	done < "${CASE_DIR}/$1.txt"
+}
+
+print_usage () {
+	echo "usage: ./grademe.sh [`ls cases | sed 's/\.txt//' | tr '\n' ' ' | sed 's/ *$//'`]"
 }
 
 cleanup () {
