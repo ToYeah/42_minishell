@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 10:58:17 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/04 11:43:43 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/04 12:31:03 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,15 @@ int		exec_builtin(char **args)
 		return (exec_cd(args));
 	if (ft_strcmp(args[0], "echo") == 0)
 		return (exec_echo(args));
+	if (ft_strcmp(args[0], "pwd") == 0)
+		return (exec_pwd(args));
 	return (EXIT_FAILURE);
 }
 
 int		is_builtin(char **args)
 {
 	const char	*commands[] = {
-		"exit", "cd", "echo", NULL
+		"exit", "cd", "echo", "pwd", NULL
 	};
 	int			i;
 
