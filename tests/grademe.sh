@@ -29,11 +29,15 @@ RESULT_KO=0
 run_all_tests () {
 	set_minishell_path
 	cleanup
+	if [ -n "$1" ]; then
+		run_tests "$1"
+	else
 	run_tests "syntax_error"
 	run_tests "echo"
 	run_tests "simple_command"
 	run_tests "shlvl"
 	run_tests "pwd"
+	fi
 }
 
 run_tests () {
@@ -118,5 +122,5 @@ show_results () {
 	fi
 }
 
-run_all_tests
+run_all_tests $@
 show_results
