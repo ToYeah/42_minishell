@@ -3,18 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   build_path.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 11:40:22 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/01 14:10:40 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/03 21:57:04 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "const.h"
 #include "exec.h"
 #include "utils.h"
 #include "libft.h"
-#include <sys/types.h>
-#include <sys/stat.h>
 
 t_cmd_type	judge_cmd_type(const char *str)
 {
@@ -24,46 +23,6 @@ t_cmd_type	judge_cmd_type(const char *str)
 		return (RELATIVE);
 	else
 		return (COMMAND);
-}
-
-t_bool		is_executable_command(char *path)
-{
-	t_stat buf;
-
-	if (lstat(path, &buf) == -1)
-		return (FALSE);
-	if (S_ISLNK(buf.st_mode))
-	{
-		if ((buf.st_mode & S_IXUSR) != S_IXUSR ||
-			stat(path, &buf) == -1 ||
-			S_ISDIR(buf.st_mode) ||
-			(buf.st_mode & S_IXUSR) != S_IXUSR)
-		{
-			return (FALSE);
-		}
-	}
-	else
-	{
-		if ((buf.st_mode & S_IXUSR) != S_IXUSR)
-			return (FALSE);
-	}
-	return (TRUE);
-}
-
-t_bool		is_command_exist(char *path, char **res)
-{
-	t_stat buf;
-
-	if (!path)
-		return (FALSE);
-	if (lstat(path, &buf) == -1)
-		return (FALSE);
-	if (S_ISDIR(buf.st_mode))
-		return (FALSE);
-	ft_safe_free_char(res);
-	if (!(*res = ft_strdup(path)))
-		error_exit(NULL);
-	return (TRUE);
 }
 
 char		*search_command_binary(const char *cmd)
@@ -84,13 +43,33 @@ char		*search_command_binary(const char *cmd)
 	{
 		ft_safe_free_char(&path);
 		path = build_full_path(split_path[index], cmd);
-		if (is_command_exist(path, &res) && is_executable_command(path))
+		if (is_command_exist(path, &res) && !is_directory(path) &&
+			is_executable(path))
 			break ;
 		index++;
 	}
 	ft_safe_free_char(&path);
 	ft_safe_free_split(&split_path);
 	return (res);
+}
+
+static void	check_cmd_path(const char *cmd, const char *path)
+{
+	if (path == NULL)
+	{
+		print_error("command not found", (char *)cmd);
+		exit(STATUS_CMD_NOT_FOUND);
+	}
+	if (is_directory(path))
+	{
+		print_error("is a directory", (char *)path);
+		exit(STATUS_CMD_NOT_EXECUTABLE);
+	}
+	if (!is_executable(path))
+	{
+		print_error("Permission denied", (char *)path);
+		exit(STATUS_CMD_NOT_EXECUTABLE);
+	}
 }
 
 char		*build_cmd_path(const char *cmd)
@@ -110,5 +89,6 @@ char		*build_cmd_path(const char *cmd)
 		if (!(res = ft_strdup(cmd)))
 			error_exit(NULL);
 	}
+	check_cmd_path(cmd, res);
 	return (res);
 }

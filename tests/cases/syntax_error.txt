@@ -13,3 +13,5 @@
 | echo
 echo | |
 cat < >
+echo '
+echo "

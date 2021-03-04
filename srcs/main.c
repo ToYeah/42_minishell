@@ -40,13 +40,11 @@ void	run_commandline(char *line)
 
 void	loop_shell(void)
 {
-	int		status;
 	char	*line;
 	int		gnl_result;
 
-	status = 1;
 	gnl_result = 1;
-	while (status)
+	while (TRUE)
 	{
 		if (gnl_result)
 			ft_putstr_fd(SHELL_PROMPT, STDERR_FILENO);

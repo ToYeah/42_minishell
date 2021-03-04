@@ -29,6 +29,7 @@ typedef struct stat	t_stat;
 void			error_exit(char *command);
 void			print_error(char *message, char *command);
 void			print_syntax_error(t_token *token);
+void			print_token_error(t_token_state state);
 void			print_bad_fd_error(int fd);
 void			print_numeric_argument_error(char *arg);
 
