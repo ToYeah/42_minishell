@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 20:13:16 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/02 02:12:13 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/04 15:50:58 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,6 @@ const char		*get_env_data(char *name);
 t_env			*get_env(const char *name);
 void			minishell_init(void);
 void			shlvl_init(void);
+t_bool			is_digit_str(char *str);
+
 #endif
