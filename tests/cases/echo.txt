@@ -1,5 +1,8 @@
 echo
 echo a
+echo	tab
+echo "	tab	"
+echo		tab
 echo hello world
 echo -n
 echo -n a
@@ -32,5 +35,5 @@ echo \$PATH
 echo "\$PATH"
 echo '\$PATH'
 echo a "" b "" c
-echo a "$NO_SUCH_ENV" b $NO_SUCH_ENV c
+echo a "$NO_SUCH_ENV" b $NO_SUCH_ENV c, unset NO_SUCH_ENV
 echo		hello

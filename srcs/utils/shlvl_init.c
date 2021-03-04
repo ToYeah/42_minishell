@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shlvl_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 18:27:08 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/01 14:52:07 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/04 17:16:25 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ t_bool	is_digit_str(char *str)
 			break ;
 		index++;
 	}
+	while (ft_isspace(str[index]))
+		index++;
 	if (str[index] == '\0')
 		return (TRUE);
 	else

@@ -1,0 +1,5 @@
+echo $OLDPWD
+echo $OLDPWD, export OLDPWD=/
+echo $PWD
+echo $PWD, export PWD=/
+echo $PWD, mkdir dir; ln -s dir symdir; cd symdir

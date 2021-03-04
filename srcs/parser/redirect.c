@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 13:24:58 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/27 23:28:34 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/02 11:34:47 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,23 @@ t_redirect	*create_redirect(void)
 	{
 		error_exit(NULL);
 	}
-	redirect->fd = REDIR_FD_NOT_SPECIFIED;
+	redirect->fd_io = REDIR_FD_NOT_SPECIFIED;
+	redirect->fd_file = REDIR_FD_NOT_SPECIFIED;
+	redirect->fd_backup = REDIR_FD_NOT_SPECIFIED;
 	redirect->next = NULL;
 	redirect->filename = NULL;
 	return (redirect);
+}
+
+static void	set_redirect_fd(t_redirect *redirect)
+{
+	if (redirect->fd_io == REDIR_FD_NOT_SPECIFIED)
+	{
+		if (redirect->type == REDIR_INPUT)
+			redirect->fd_io = STDIN_FILENO;
+		else
+			redirect->fd_io = STDOUT_FILENO;
+	}
 }
 
 t_bool		set_redirect_type(t_token *token, t_redirect *redirect)
@@ -61,6 +74,7 @@ t_bool		set_redirect_type(t_token *token, t_redirect *redirect)
 	{
 		return (FALSE);
 	}
+	set_redirect_fd(redirect);
 	return (TRUE);
 }
 

@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 20:07:01 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/02 10:04:05 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/04 11:42:12 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,9 @@ typedef enum			e_redirect_type
 
 typedef struct			s_redirect
 {
-	int					fd;
+	int					fd_io;
+	int					fd_file;
+	int					fd_backup;
 	t_redirect_type		type;
 	t_token				*filename;
 	struct s_redirect	*next;
@@ -64,7 +66,7 @@ typedef enum			e_cmd_type
 }						t_cmd_type;
 
 void					exec_nodes(t_node *nodes);
-void					exec_command(t_command *command, t_pipe_state state,
+int						exec_command(t_command *command, t_pipe_state *state,
 							int old_pipe[]);
 
 void					create_pipe(t_pipe_state state, int new_pipe[]);
@@ -73,7 +75,16 @@ void					dup_pipe(t_pipe_state state, int old_pipe[],
 void					cleanup_pipe(t_pipe_state state, int old_pipe[],
 							int new_pipe[]);
 
-char					**convert_args(t_command *command);
+t_bool					setup_redirects(t_command *command);
+t_bool					dup_redirects(t_command *command, t_bool is_parent);
+void					cleanup_redirects(t_command *command);
+
+t_bool					convert_tokens(t_command *command, char ***args);
 
 char					*build_cmd_path(const char *cmd);
+
+t_bool					is_directory(const char *path);
+t_bool					is_executable(const char *path);
+t_bool					is_command_exist(char *path, char **res);
+
 #endif

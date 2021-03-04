@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 20:13:16 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/03 14:51:21 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/04 11:42:25 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@ typedef struct stat	t_stat;
 void			error_exit(char *command);
 void			print_error(char *message, char *command);
 void			print_syntax_error(t_token *token);
+void			print_token_error(t_token_state state);
+void			print_bad_fd_error(int fd);
+void			print_numeric_argument_error(char *arg);
 
 t_env			*create_envs_from_environ(void);
 void			print_envs(t_env *envs);
@@ -47,4 +50,6 @@ void			shlvl_init(void);
 char			*join_path(const char *prev, const char *next);
 char			*build_full_path(char *path, const char *cmd);
 char			*path_canonicalisation(char *path);
+t_bool			is_digit_str(char *str);
+
 #endif

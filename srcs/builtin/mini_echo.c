@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 11:11:48 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/28 18:32:12 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/03 17:45:56 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,5 @@ int		exec_echo(char **args)
 	}
 	if (option_flag == FALSE)
 		ft_putstr_fd("\n", STDOUT_FILENO);
-	return (0);
+	return (EXIT_SUCCESS);
 }

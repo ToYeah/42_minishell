@@ -3,25 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/10 12:27:41 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/01 11:12:24 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/04 17:08:24 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <errno.h>
 #include "libft.h"
 
-int			ft_atoi(const char *str)
+static t_bool	is_out_of_range(unsigned long *value, int sign, char numchar)
+{
+	unsigned long	ov_div;
+
+	ov_div = MY_LONG_MAX / 10;
+	if ((ov_div < *value || (ov_div == *value && numchar > '7')) && sign > 0)
+	{
+		*value = MY_LONG_MAX;
+		return (TRUE);
+	}
+	if ((ov_div < *value || (ov_div == *value && numchar > '8'))
+	&& sign == -1)
+	{
+		*value = MY_LONG_MAX * -1 - 1;
+		return (TRUE);
+	}
+	return (FALSE);
+}
+
+int				ft_atoi(const char *str)
 {
 	int				i;
 	int				sign;
-	unsigned long	ov_div;
 	unsigned long	result;
 
 	i = 0;
 	result = 0;
-	ov_div = MY_LONG_MAX / 10;
 	while ((9 <= str[i] && str[i] <= 13) || str[i] == 32)
 		i++;
 	sign = str[i] == '-' ? -1 : 1;
@@ -29,19 +47,18 @@ int			ft_atoi(const char *str)
 		i++;
 	while (str[i] && ('0' <= str[i] && str[i] <= '9'))
 	{
-		if ((ov_div < result || (ov_div == result && str[i] > '7'))
-		&& sign == 1)
-			return ((int)MY_LONG_MAX);
-		else if ((ov_div < result || (ov_div == result && str[i] > '8'))
-		&& sign == -1)
-			return ((int)(MY_LONG_MAX * -1 - 1));
+		if (is_out_of_range(&result, sign, str[i]) == TRUE)
+		{
+			errno = ERANGE;
+			return ((int)result);
+		}
 		result *= 10;
 		result += str[i++] - '0';
 	}
 	return ((int)result * sign);
 }
 
-t_bool		ft_atoi_limit(const char *str, int *return_value)
+t_bool			ft_atoi_limit(const char *str, int *return_value)
 {
 	int				i;
 	int				sign;
@@ -70,7 +87,7 @@ t_bool		ft_atoi_limit(const char *str, int *return_value)
 	return (TRUE);
 }
 
-int			ft_atoi_overflow_zero(const char *str)
+int				ft_atoi_overflow_zero(const char *str)
 {
 	int				i;
 	int				sign;
