@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 20:01:44 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/01 10:18:18 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/03 14:41:13 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	close_token_list(t_tokeniser *toker)
 		return ;
 	if (toker->state != STATE_GENERAL)
 	{
-		ft_putstr_fd("Quote does not exist.", STDOUT_FILENO);
+		print_token_error(toker->state);
 		del_token_list(&(toker->tokens_start));
 		return ;
 	}

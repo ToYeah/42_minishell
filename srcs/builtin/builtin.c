@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 10:58:17 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/02 20:28:48 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/03 17:45:04 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ int		exec_exit(char **args)
 {
 	(void)args;
 	exit(1);
-	return (0);
+	return (EXIT_SUCCESS);
 }
 
 int		exec_cd(char **args)
 {
 	(void)args;
 	ft_putstr_fd("cd called!\n", STDOUT_FILENO);
-	return (0);
+	return (EXIT_SUCCESS);
 }
 
 int		exec_builtin(char **args)
@@ -45,7 +45,7 @@ int		exec_builtin(char **args)
 		return (exec_cd(args));
 	if (ft_strcmp(args[0], "echo") == 0)
 		return (exec_echo(args));
-	return (1);
+	return (EXIT_FAILURE);
 }
 
 int		is_builtin(char **args)

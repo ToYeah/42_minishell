@@ -6,10 +6,12 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 20:16:45 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/02 20:29:24 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/03 22:15:15 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <errno.h>
+#include <string.h>
 #include "const.h"
 #include "builtin.h"
 #include "exec.h"
@@ -22,25 +24,27 @@ static void		exec_binary(char **args)
 
 	envs = generate_environ(g_envs);
 	path = build_cmd_path(args[0]);
-	if (path == NULL)
-	{
-		print_error("command not found", args[0]);
-		ft_safe_free_split(&envs);
-		exit(STATUS_CMD_NOT_FOUND);
-	}
 	if (execve(path, args, generate_environ(g_envs)) < 0)
-		error_exit(path);
+	{
+		if (errno == ENOENT)
+		{
+			print_error(strerror(errno), path);
+			exit(STATUS_CMD_NOT_FOUND);
+		}
+		else
+			error_exit(path);
+	}
 	free(path);
 	ft_safe_free_split(&envs);
 }
 
-static void		exec_builtin_parent(t_command *command, char **args)
+static int		exec_builtin_parent(t_command *command, char **args)
 {
 	if (setup_redirects(command) == FALSE)
-		return ;
+		return (EXIT_FAILURE);
 	if (dup_redirects(command, TRUE) == FALSE)
-		return ;
-	exec_builtin(args);
+		return (EXIT_FAILURE);
+	return (exec_builtin(args));
 }
 
 static void		exec_command_child(
@@ -55,12 +59,12 @@ static void		exec_command_child(
 	if (pid == 0)
 	{
 		if (setup_redirects(command) == FALSE)
-			exit(1);
+			exit(EXIT_FAILURE);
 		if (args[0] == NULL)
-			exit(0);
+			exit(EXIT_SUCCESS);
 		dup_pipe(state, old_pipe, new_pipe);
 		if (dup_redirects(command, FALSE) == FALSE)
-			exit(1);
+			exit(EXIT_FAILURE);
 		if (is_builtin(args))
 			exit(exec_builtin(args));
 		else
@@ -80,17 +84,20 @@ static void		update_pipe_state(t_command *command, t_pipe_state *state)
 		*state = PIPE_READ_ONLY;
 }
 
-void			exec_command(
+int				exec_command(
 	t_command *command, t_pipe_state *state, int old_pipe[])
 {
 	char	**args;
+	int		status;
 
+	status = EXIT_SUCCESS;
 	convert_tokens(command, &args);
 	if (*state == NO_PIPE && is_builtin(args))
-		exec_builtin_parent(command, args);
+		status = exec_builtin_parent(command, args);
 	else
 		exec_command_child(command, args, *state, old_pipe);
 	cleanup_redirects(command);
 	update_pipe_state(command, state);
 	ft_safe_free_split(&args);
+	return (status);
 }

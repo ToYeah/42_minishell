@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 20:13:16 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/02 02:12:13 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/03 14:40:43 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct stat	t_stat;
 void			error_exit(char *command);
 void			print_error(char *message, char *command);
 void			print_syntax_error(t_token *token);
+void			print_token_error(t_token_state state);
 void			print_bad_fd_error(int fd);
 
 t_env			*create_envs_from_environ(void);

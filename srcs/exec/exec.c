@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 17:59:52 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/02 01:09:21 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/03 14:27:19 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,28 @@
 
 static void		wait_commands(t_command *command)
 {
-	int	status;
+	extern int	g_status;
+	int			status;
+	t_bool		has_child;
 
+	has_child = FALSE;
 	while (command)
 	{
-		if (command->pid != NO_PID && waitpid(command->pid, &status, 0) < 0)
+		if (command->pid != NO_PID)
 		{
-			error_exit(NULL);
+			if (waitpid(command->pid, &status, 0) < 0)
+				error_exit(NULL);
+			has_child = TRUE;
 		}
 		command = command->next;
 	}
+	if (has_child == TRUE && WIFEXITED(status))
+		g_status = WEXITSTATUS(status);
 }
 
 static void		exec_pipeline(t_node *nodes)
 {
+	extern int		g_status;
 	t_command		*command;
 	int				pipe[2];
 	t_pipe_state	pipe_state;
@@ -41,7 +49,7 @@ static void		exec_pipeline(t_node *nodes)
 	command = nodes->command;
 	while (command)
 	{
-		exec_command(command, &pipe_state, pipe);
+		g_status = exec_command(command, &pipe_state, pipe);
 		command = command->next;
 	}
 	wait_commands(nodes->command);
@@ -49,7 +57,8 @@ static void		exec_pipeline(t_node *nodes)
 
 static void		exec_list(t_node *nodes)
 {
-	t_pipe_state pipe_state;
+	extern int		g_status;
+	t_pipe_state	pipe_state;
 
 	pipe_state = NO_PIPE;
 	if (!nodes)
@@ -62,7 +71,7 @@ static void		exec_list(t_node *nodes)
 	}
 	else
 	{
-		exec_command(nodes->command, &pipe_state, NULL);
+		g_status = exec_command(nodes->command, &pipe_state, NULL);
 		wait_commands(nodes->command);
 	}
 }
