@@ -93,7 +93,10 @@ assert_equal () {
 	else
 		printf "${COLOR_RED}"
 		print_case "$1" "$2"
-		printf " [ko] return code: minishell=${MINISHELL_STATUS} bash=${BASH_STATUS}${COLOR_RESET}\n"
+		printf " [ko]${COLOR_RESET}\n"
+		if [ ${MINISHELL_STATUS} -ne ${BASH_STATUS} ]; then
+			printf "exit status: minishell=${MINISHELL_STATUS} bash=${BASH_STATUS}\n"
+		fi
 		if [ -n "${DIFF_STDOUT}" ]; then
 			printf "${DIFF_STDOUT}\n"
 		fi
