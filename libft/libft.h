@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/08 22:20:01 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/01 14:39:53 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/04 13:41:24 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,4 +97,5 @@ t_list			*ft_lstmap(t_list *l, void *(*f)(void *), void (*del)(void *));
 t_list			*ft_lstnew(void *content);
 t_list			*ft_lstlast(t_list *lst);
 t_bool			ft_atoi_limit(const char *str, int *return_value);
+char			*ft_strcpy_forward(char *dest, char *src);
 #endif

@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:09:25 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/03 16:03:07 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/04 13:41:12 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,20 +68,6 @@ t_canon_list	*create_canonical_list(char **split)
 			now = now->next;
 	}
 	return (res);
-}
-
-char			*ft_strcpy_forward(char *dest, char *src)
-{
-	size_t index;
-
-	index = 0;
-	while (src[index])
-	{
-		dest[index] = src[index];
-		index++;
-	}
-	dest[index] = '\0';
-	return (&(dest[index]));
 }
 
 void			cpy_canonical_path(char **res, t_canon_list *list)
