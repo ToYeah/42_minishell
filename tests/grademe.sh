@@ -34,6 +34,7 @@ run_all_tests () {
 	else
 	run_tests "syntax_error"
 	run_tests "echo"
+		run_tests "exit"
 	run_tests "simple_command"
 	run_tests "shlvl"
 	run_tests "pwd"
