@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 15:32:52 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/02 10:05:06 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/04 11:59:11 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,15 @@ char	*build_full_path(char *path, const char *cmd)
 	free(cwd);
 	free(tmp);
 	return (res);
+}
+
+t_bool		is_directory(const char *path)
+{
+	t_stat path_stat;
+
+	if (stat(path, &path_stat) == -1)
+		return (FALSE);
+	if (S_ISDIR(path_stat.st_mode))
+		return (TRUE);
+	return (FALSE);
 }
