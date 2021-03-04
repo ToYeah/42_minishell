@@ -30,7 +30,7 @@ RESULT_KO=0
 run_all_tests () {
 	set_minishell_path
 	cleanup
-	rm ${LOG_FILE}
+	rm -f ${LOG_FILE}
 	if [ -n "$1" ]; then
 		run_tests "$1"
 	else
