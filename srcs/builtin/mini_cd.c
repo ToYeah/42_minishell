@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 10:50:50 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/05 18:01:19 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/05 20:42:01 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_bool		try_env_path(const char *dest)
 	while (split_env[index])
 	{
 		joined_dest = join_path(split_env[index], dest);
-		if (try_change_dir(joined_dest) == 0)
+		if (try_change_dir(joined_dest))
 			break ;
 		ft_safe_free_char(&joined_dest);
 		index++;
