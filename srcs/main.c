@@ -50,6 +50,11 @@ void	loop_shell(void)
 			ft_putstr_fd(SHELL_PROMPT, STDERR_FILENO);
 		if ((gnl_result = ft_get_next_line(STDIN_FILENO, &line)) < 0)
 			error_exit(NULL);
+		if (gnl_result == 0 && line[0] == '\0')
+		{
+			ft_putendl_fd("exit", STDERR_FILENO);
+			exit(g_status);
+		}
 		run_commandline(line);
 		free(line);
 	}
