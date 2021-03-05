@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 10:50:50 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/04 17:39:59 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/05 09:34:08 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,11 @@ int		change_dir_process(char *cd_path,const char *arg, t_bool is_canon_path)
 	return (res);
 }
 
-void	set_cd_path(char **cd_path, const char *arg, t_bool *flag)
+char	*set_cd_path(const char *arg, t_bool *flag)
 {
 	char		*canon_path;
 	char		*physical_path;
-	extern char	*g_pwd;
+	extern char *g_pwd;
 
 	if (*arg == '/')
 		physical_path = ft_strdup(arg);
@@ -105,15 +105,15 @@ void	set_cd_path(char **cd_path, const char *arg, t_bool *flag)
 	canon_path = path_canonicalisation(physical_path);
 	if (canon_path && is_directory(canon_path))
 	{
-		*cd_path = canon_path;
 		ft_safe_free_char(&physical_path);
 		*flag = TRUE;
+		return (canon_path);
 	}
 	else
 	{
-		*cd_path = physical_path;
 		ft_safe_free_char(&canon_path);
 		*flag = FALSE;
+		return (physical_path);
 	}
 }
 
@@ -144,19 +144,59 @@ const char	*set_cd_destination(char **args)
 	return (args[1]);
 }
 
+int		change_directory_to_dest(const char *destination)
+{
+	char		*path;
+	t_bool		is_canon_path;
+	int			res;
+	
+	path = set_cd_path(destination, &is_canon_path);
+	res = change_dir_process(path, destination, is_canon_path);
+	ft_safe_free_char(&path);
+	return (res);
+}
+
+t_bool		cd_path_env_process(const char *dest)
+{
+	size_t		index;
+	char		**split_env;
+	char		*joined_dest;
+	t_bool		res;
+
+	index = 0;
+	res = FALSE;
+	joined_dest = NULL;
+	if (!(split_env = ft_split(get_env_data("CDPATH"), ':')))
+		error_exit(NULL);
+	while (split_env[index])
+	{
+		joined_dest = join_path(split_env[index], dest);
+		if (change_directory_to_dest(joined_dest) == 0)
+			break ;
+		ft_safe_free_char(&joined_dest);
+		index++;
+	}
+	if (split_env[index])
+		res = TRUE;
+	ft_safe_free_char(&joined_dest);
+	ft_safe_free_split(&split_env);
+	return (res);
+}
+
 int		exec_cd(char **args)
 {
-	char	*cd_path;
-	t_bool	is_canon_path;
-	int		res;
 	const char	*destination;
 	extern char *g_pwd;
 
 	if (!(destination = set_cd_destination(args)))
 		return (EXIT_FAILURE);
-
-	set_cd_path(&cd_path, destination, &is_canon_path);
-	res = change_dir_process(cd_path, destination, is_canon_path);
-	ft_safe_free_char(&cd_path);
-	return (res);
+	if (cd_path_env_process(destination))
+	{
+		ft_putendl_fd(g_pwd, STDOUT_FILENO);
+		return (EXIT_SUCCESS);
+	}
+	if (change_directory_to_dest(destination) == 0)
+		return (EXIT_SUCCESS);
+	print_error(strerror(errno), "cd");
+	return (EXIT_FAILURE);
 }
