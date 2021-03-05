@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 15:32:52 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/04 14:38:47 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/05 12:12:58 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	correct_path(char **str)
 	if (!str || !*str)
 		return ;
 	index = 0;
+	split = NULL;
+	res = NULL;
 	if (!(split = ft_split(*str, '/')) ||
 		!(res = malloc(sizeof(char) * (ft_strlen(*str) + 1))))
 		error_exit(NULL);
