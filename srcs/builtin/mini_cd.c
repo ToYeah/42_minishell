@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 10:50:50 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/05 16:45:43 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/05 18:01:19 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,6 @@ const char	*set_cd_destination(char **args)
 	index = 0;
 	while (args[index])
 		index++;
-	if (index >= 3)
-	{
-		print_error("too many arguments", "cd");
-		return (NULL);
-	}
 	if (index == 1)
 	{
 		if (!(home_env = get_env("HOME")))
