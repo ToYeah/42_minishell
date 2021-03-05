@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:09:25 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/05 20:06:58 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/05 20:24:09 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,12 @@ t_bool	cpy_canonical_path(char **split, char **res)
 	while (split[index])
 	{
 		path_p = paste_path_elem(path_p, split[index], start);
+		if (path_p == start)
+			path_p = ft_strcpy_forward(path_p, "/");
 		if (!is_directory(start))
 			return (FALSE);
 		index++;
 	}
-	if (path_p == start)
-		path_p = ft_strcpy_forward(path_p, "/");
 	return (TRUE);
 }
 
