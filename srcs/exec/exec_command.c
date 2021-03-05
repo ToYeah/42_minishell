@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 20:16:45 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/03 22:15:15 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/05 14:08:07 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ static void		exec_command_child(
 		error_exit(NULL);
 	if (pid == 0)
 	{
+		set_signal_handler(SIG_DFL);
 		if (setup_redirects(command) == FALSE)
 			exit(EXIT_FAILURE);
 		if (args[0] == NULL)
@@ -70,6 +71,7 @@ static void		exec_command_child(
 		else
 			exec_binary(args);
 	}
+	set_signal_handler(SIG_IGN);
 	cleanup_pipe(state, old_pipe, new_pipe);
 	command->pid = pid;
 }
