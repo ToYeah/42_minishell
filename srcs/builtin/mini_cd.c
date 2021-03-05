@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 10:50:50 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/05 14:40:58 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/05 14:44:59 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,7 @@ t_bool		try_change_dir(const char *destination)
 	return (FALSE);
 }
 
-t_bool		try_env_dir(const char *dest)
+t_bool		try_env_path(const char *dest)
 {
 	size_t		index;
 	char		**split_env;
@@ -192,15 +192,15 @@ int		exec_cd(char **args)
 
 	if (!(destination = set_cd_destination(args)))
 		return (EXIT_FAILURE);
-	if (try_env_dir(destination))
+	if (try_env_path(destination))
 	{
 		ft_putendl_fd(g_pwd, STDOUT_FILENO);
-		bind_pwd_valie();
+		bind_pwd_value();
 		return (EXIT_SUCCESS);
 	}
 	if (try_change_dir(destination))
 	{
-		bind_pwd_valie();
+		bind_pwd_value();
 		return (EXIT_SUCCESS);
 	}
 	print_error(strerror(errno), "cd");

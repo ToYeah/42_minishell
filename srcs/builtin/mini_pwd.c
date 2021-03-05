@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 12:28:21 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/05 11:33:57 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/05 14:45:16 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "builtin.h"
 #include "utils.h"
 
-void	bind_pwd_valie(void)
+void	bind_pwd_value(void)
 {
 	extern char *g_pwd;
 
