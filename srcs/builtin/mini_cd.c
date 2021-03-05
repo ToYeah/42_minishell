@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 10:50:50 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/05 14:53:39 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/05 14:58:30 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ t_bool		try_env_path(const char *dest)
 	return (res);
 }
 
-int		exec_cd(char **args)
+int			exec_cd(char **args)
 {
 	const char	*destination;
 	extern char *g_pwd;

@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 12:28:21 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/05 14:45:16 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/05 15:00:34 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	bind_pwd_value(void)
 int		exec_pwd(char **args)
 {
 	extern char *g_pwd;
+
 	(void)args;
 	ft_putendl_fd(g_pwd, STDOUT_FILENO);
 	return (EXIT_SUCCESS);
