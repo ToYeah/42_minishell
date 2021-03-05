@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 23:38:53 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/05 10:09:32 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/05 10:27:40 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,28 @@ void		free_env(t_env *env)
 	env->name = NULL;
 	env->value = NULL;
 	free(env);
+}
+
+void		update_env_value(
+	const char *env_name, const char *new_value, t_bool is_env_var)
+{
+	t_env		*env;
+
+	if (!env_name)
+		return ;
+	if (!(env = get_env(env_name)))
+	{
+		env = create_new_env((char *)env_name);
+		env->is_env = is_env_var;
+	}
+	ft_safe_free_char(&env->value);
+	if (new_value)
+	{
+		if (!(env->value = ft_strdup(new_value)))
+			error_exit(NULL);
+	}
+	else
+	{
+		env->value = NULL;
+	}
 }

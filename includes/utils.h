@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 20:13:16 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/04 11:59:29 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/05 10:26:37 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,6 @@ char			*build_full_path(char *path, const char *cmd);
 char			*path_canonicalisation(char *path);
 t_bool			is_digit_str(char *str);
 t_bool			is_directory(const char *path);
-
+void			update_env_value(const char *env_name,
+					const char *new_value, t_bool is_env_var);
 #endif
