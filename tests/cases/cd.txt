@@ -3,6 +3,7 @@ mkdir dir; cd dir; cd ..; pwd;
 touch testfile; cd testfile
 cd NO_SUCH_FILE; pwd
 cd hello world; pwd
+cd / cd ../../akjwyefgjkwveyjfgweyugyuwegf76t273/../../
 mkdir hello; cd hello world; pwd
 cd /; pwd
 cd /bin; pwd
