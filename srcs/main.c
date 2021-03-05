@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 18:50:22 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/05 19:46:29 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/05 21:35:07 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,26 +38,37 @@ void	run_commandline(char *line)
 	del_node_list(nodes);
 }
 
-void	loop_shell(void)
+void	process_input(int *gnl_result)
 {
 	char	*line;
+
+	if (*gnl_result)
+		ft_putstr_fd(SHELL_PROMPT, STDERR_FILENO);
+	if ((*gnl_result = ft_get_next_line(STDIN_FILENO, &line)) < 0)
+		error_exit(NULL);
+	if (*gnl_result == 0)
+	{
+		if (line[0] == '\0')
+		{
+			ft_putendl_fd("exit", STDERR_FILENO);
+			exit(g_status);
+		}
+		ft_putstr_fd(CLEAR_FROM_CURSOR, STDERR_FILENO);
+	}
+	if (*gnl_result)
+		run_commandline(line);
+	free(line);
+}
+
+void	loop_shell(void)
+{
 	int		gnl_result;
 
 	gnl_result = 1;
 	while (TRUE)
 	{
 		set_signal_handler(handle_signal);
-		if (gnl_result)
-			ft_putstr_fd(SHELL_PROMPT, STDERR_FILENO);
-		if ((gnl_result = ft_get_next_line(STDIN_FILENO, &line)) < 0)
-			error_exit(NULL);
-		if (gnl_result == 0 && line[0] == '\0')
-		{
-			ft_putendl_fd("exit", STDERR_FILENO);
-			exit(g_status);
-		}
-		run_commandline(line);
-		free(line);
+		process_input(&gnl_result);
 	}
 }
 
