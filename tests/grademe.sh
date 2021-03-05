@@ -50,14 +50,11 @@ run_tests () {
 	while read -r line; do
 		TEST_CMD=`echo "$line" | cut -d ',' -f 1`
 		SETUP_CMD=`echo "$line" | cut -d ',' -f 2 -s`
-	 	mkdir -p ${TEST_DIR}
-	 	cd ${TEST_DIR}
-	 	eval "$SETUP_CMD"
 		execute_shell "$TEST_CMD"
 		replace_bash_error
 		assert_equal "$TEST_CMD" "$SETUP_CMD"
-		cleanup
 	done < "${CASE_DIR}/$1.txt"
+	cleanup
 }
 
 print_usage () {
@@ -69,6 +66,12 @@ cleanup () {
 	rm -fr ${TEST_DIR}
 }
 
+prepare_test_dir () {
+	rm -fr ${TEST_DIR}
+	mkdir -p ${TEST_DIR}
+	cd ${TEST_DIR}
+}
+
 set_minishell_path () {
 	cd ${GRADEME_DIR}
 	cd ${MINISHELL_DIR}
@@ -77,8 +80,10 @@ set_minishell_path () {
 }
 
 execute_shell () {
-	bash -c "$@" > ${BASH_STDOUT_FILE} 2> ${BASH_STDERR_FILE}
+	prepare_test_dir
+	bash -c "$1" > ${BASH_STDOUT_FILE} 2> ${BASH_STDERR_FILE}
 	BASH_STATUS=$?
+	prepare_test_dir
 	${MINISHELL_PATH} -c "$1" > ${MINISHELL_STDOUT_FILE} 2> ${MINISHELL_STDERR_FILE}
 	MINISHELL_STATUS=$?
 }
