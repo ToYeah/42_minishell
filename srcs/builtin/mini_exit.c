@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 14:59:01 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/04 17:15:05 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/05 20:55:41 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,22 @@
 #include "libft.h"
 #include "utils.h"
 
-int		exec_exit(char **args)
+static t_bool	has_error(char **args, int index)
+{
+	if (errno || is_digit_str(args[index]) == FALSE)
+	{
+		print_numeric_argument_error(args[index]);
+		exit(255);
+	}
+	if (args[index + 1])
+	{
+		print_error("too many arguments", "exit");
+		return (TRUE);
+	}
+	return (FALSE);
+}
+
+int				exec_exit(char **args)
 {
 	extern int		g_status;
 	extern t_bool	g_interactive;
@@ -30,16 +45,8 @@ int		exec_exit(char **args)
 		exit(g_status);
 	errno = 0;
 	status = ft_atoi(args[i]);
-	if (errno || is_digit_str(args[i]) == FALSE)
-	{
-		print_numeric_argument_error(args[i]);
-		exit(255);
-	}
-	if (args[i + 1])
-	{
-		print_error("too many arguments", "exit");
+	if (has_error(args, i) == TRUE)
 		return (EXIT_FAILURE);
-	}
 	exit(status);
 	return (EXIT_FAILURE);
 }
