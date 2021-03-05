@@ -38,6 +38,7 @@ run_all_tests () {
 		run_tests "simple_command"
 		run_tests "shlvl"
 		run_tests "pwd"
+		run_tests "cd"
 	fi
 }
 
