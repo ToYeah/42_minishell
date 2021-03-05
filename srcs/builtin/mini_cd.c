@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 10:50:50 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/05 14:58:30 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/05 16:44:07 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,6 @@ int			exec_cd(char **args)
 		bind_pwd_value();
 		return (EXIT_SUCCESS);
 	}
-	print_error(strerror(errno), "cd");
+	print_error_filename(strerror(errno), "cd", destination);
 	return (EXIT_FAILURE);
 }
