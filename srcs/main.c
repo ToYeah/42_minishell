@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 18:50:22 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/04 15:36:18 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/05 19:46:29 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	loop_shell(void)
 	gnl_result = 1;
 	while (TRUE)
 	{
+		set_signal_handler(handle_signal);
 		if (gnl_result)
 			ft_putstr_fd(SHELL_PROMPT, STDERR_FILENO);
 		if ((gnl_result = ft_get_next_line(STDIN_FILENO, &line)) < 0)
