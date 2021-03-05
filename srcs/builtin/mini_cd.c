@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 10:50:50 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/05 09:34:08 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/05 11:50:03 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,10 +193,14 @@ int		exec_cd(char **args)
 	if (cd_path_env_process(destination))
 	{
 		ft_putendl_fd(g_pwd, STDOUT_FILENO);
+		bind_pwd_valie();
 		return (EXIT_SUCCESS);
 	}
 	if (change_directory_to_dest(destination) == 0)
+	{
+		bind_pwd_valie();
 		return (EXIT_SUCCESS);
+	}
 	print_error(strerror(errno), "cd");
 	return (EXIT_FAILURE);
 }
