@@ -14,6 +14,8 @@
 # define CONST_H
 
 # define SHELL_PROMPT			"\e[32mminishell > \e[0m"
+# define BACK_CURSOR			"\033[2D"
+# define CLEAR_FROM_CURSOR		"\033[0K"
 
 # define STATUS_SYNTAX_ERROR		258
 # define STATUS_TOKEN_ERROR			2
