@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 10:50:50 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/05 11:50:03 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/05 14:40:58 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ const char	*set_cd_destination(char **args)
 	return (args[1]);
 }
 
-int		change_directory_to_dest(const char *destination)
+t_bool		try_change_dir(const char *destination)
 {
 	char		*path;
 	t_bool		is_canon_path;
@@ -153,10 +153,12 @@ int		change_directory_to_dest(const char *destination)
 	path = set_cd_path(destination, &is_canon_path);
 	res = change_dir_process(path, destination, is_canon_path);
 	ft_safe_free_char(&path);
-	return (res);
+	if (res == 0)
+		return (TRUE);
+	return (FALSE);
 }
 
-t_bool		cd_path_env_process(const char *dest)
+t_bool		try_env_dir(const char *dest)
 {
 	size_t		index;
 	char		**split_env;
@@ -171,7 +173,7 @@ t_bool		cd_path_env_process(const char *dest)
 	while (split_env[index])
 	{
 		joined_dest = join_path(split_env[index], dest);
-		if (change_directory_to_dest(joined_dest) == 0)
+		if (try_change_dir(joined_dest) == 0)
 			break ;
 		ft_safe_free_char(&joined_dest);
 		index++;
@@ -190,13 +192,13 @@ int		exec_cd(char **args)
 
 	if (!(destination = set_cd_destination(args)))
 		return (EXIT_FAILURE);
-	if (cd_path_env_process(destination))
+	if (try_env_dir(destination))
 	{
 		ft_putendl_fd(g_pwd, STDOUT_FILENO);
 		bind_pwd_valie();
 		return (EXIT_SUCCESS);
 	}
-	if (change_directory_to_dest(destination) == 0)
+	if (try_change_dir(destination))
 	{
 		bind_pwd_valie();
 		return (EXIT_SUCCESS);
