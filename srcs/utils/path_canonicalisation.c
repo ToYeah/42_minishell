@@ -6,104 +6,66 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:09:25 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/04 13:41:12 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/05 20:06:58 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 #include "libft.h"
-#include "canonicalisation.h"
 
-t_canon_list	*set_canonlist(char **split)
+#include <stdio.h>
+
+char	*paste_path_elem(char *path_p, char *elem, char *start)
 {
-	t_canon_list	*res;
-	t_canon_list	*prev;
-	t_canon_list	*now;
-	size_t			index;
+	if (ft_strcmp(elem, "..") == 0)
+	{
+		path_p = ft_strrchr(start, '/');
+		if (!path_p)
+			path_p = start;
+		*path_p = '\0';
+	}
+	else if (ft_strcmp(elem, ".") != 0)
+	{
+		path_p = ft_strcpy_forward(path_p, "/");
+		path_p = ft_strcpy_forward(path_p, elem);
+	}
+	return (path_p);
+}
 
-	prev = NULL;
-	res = NULL;
+t_bool	cpy_canonical_path(char **split, char **res)
+{
+	char	*start;
+	char	*path_p;
+	size_t	index;
+
+	start = *res;
+	*start = '\0';
 	index = 0;
+	path_p = start;
 	while (split[index])
 	{
-		if (!(now = malloc(sizeof(t_canon_list))))
-			error_exit(NULL);
-		if (!res)
-			res = now;
-		now->data = split[index];
-		now->prev = prev;
-		now->next = NULL;
-		if (prev)
-			prev->next = now;
-		prev = now;
+		path_p = paste_path_elem(path_p, split[index], start);
+		if (!is_directory(start))
+			return (FALSE);
 		index++;
 	}
-	return (res);
+	if (path_p == start)
+		path_p = ft_strcpy_forward(path_p, "/");
+	return (TRUE);
 }
 
-t_canon_list	*create_canonical_list(char **split)
-{
-	t_canon_list *now;
-	t_canon_list *res;
-	t_canon_list *tmp;
-
-	res = set_canonlist(split);
-	now = res;
-	while (now)
-	{
-		if (ft_strcmp(now->data, ".") == 0)
-		{
-			tmp = now;
-			now = now->next;
-			remove_canon(tmp, &res);
-		}
-		else if (ft_strcmp(now->data, "..") == 0)
-		{
-			tmp = now;
-			now = now->next;
-			remove_canon(tmp->prev, &res);
-			remove_canon(tmp, &res);
-		}
-		else
-			now = now->next;
-	}
-	return (res);
-}
-
-void			cpy_canonical_path(char **res, t_canon_list *list)
-{
-	char *str;
-
-	str = *res;
-	while (list)
-	{
-		*str = '/';
-		str++;
-		str = ft_strcpy_forward(str, list->data);
-		list = list->next;
-	}
-	if (str == *res)
-	{
-		*str = '/';
-		str++;
-	}
-	*str = '\0';
-}
-
-char			*path_canonicalisation(char *path)
+char	*path_canonicalisation(char *path)
 {
 	char			**split;
 	char			*res;
-	t_canon_list	*list;
 
 	if (!path)
 		return (NULL);
 	if (!(split = ft_split(path, '/')) ||
 		!(res = malloc(sizeof(char *) * (ft_strlen(path) + 1))))
 		error_exit(NULL);
-	list = create_canonical_list(split);
-	cpy_canonical_path(&res, list);
-	del_canonlist(&list);
+	if (!(cpy_canonical_path(split, &res)))
+		ft_safe_free_char(&res);
 	ft_safe_free_split(&split);
 	return (res);
 }

@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:49:01 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/05 18:43:25 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/05 19:55:19 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ char	*set_cd_path(const char *arg, t_bool *flag)
 	if (!physical_path)
 		error_exit(NULL);
 	canon_path = path_canonicalisation(physical_path);
-	if (canon_path && is_directory(physical_path))
+	if (canon_path)
 	{
 		ft_safe_free_char(&physical_path);
 		*flag = TRUE;
