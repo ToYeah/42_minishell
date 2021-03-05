@@ -1,0 +1,31 @@
+mkdir dir; cd dir; pwd;
+mkdir dir; cd dir; cd ..; pwd;
+touch testfile; cd testfile
+cd NO_SUCH_FILE; pwd
+cd hello world; pwd
+mkdir hello; cd hello world; pwd
+cd /; pwd
+cd /bin; pwd
+cd /bin/../; pwd
+mkdir dir; cd DIR; pwd
+mkdir DIR; cd dir; pwd
+mkdir dir; chmod 000 dir; cd dir
+mkdir dir; ln -s dir link; cd link; pwd
+mkdir dir; ln -s dir link; rmdir dir; cd link; pwd
+mkdir dir; cd dir; rmdir ../dir; cd ./; pwd; cd ./././././; pwd; cd .////////./; pwd; cd ../; pwd
+mkdir -p a/b/c; cd a/b/c; rm -rf ../../b; cd ./; pwd; cd ../; pwd; cd .////./; pwd
+mkdir -p a/b/c; cd a/b/c; rm -rf ../../b; cd ./; pwd; cd .././.; pwd; cd ./; pwd; cd ../; pwd
+cd ; pwd;
+cd ; pwd;, export HOME=
+cd ; pwd;, unset HOME
+mkdir -p a/b; cd ; pwd, export HOME=a
+cd ; pwd; export HOME=NO_SUCH_FILE
+mkdir -p a/b/c; cd b; pwd , export CDPATH=a
+mkdir -p a/b/c; cd c; pwd , export CDPATH=a/b
+mkdir -p a/test  b/test; mkdir -p a:b/test; cd test; pwd, export CDPATH=a:b:a:b
+mkdir -p a/test  b/test; mkdir -p a:b/test; cd test; pwd, export CDPATH=b:a:a:b
+mkdir -p a/hello  b/hello; mkdir -p a:b/test; cd test; pwd, export CDPATH=a:b:a:b
+mkdir -p a/test  b/test; mkdir -p a:b/test; chmod 000 a/test ;cd test; pwd, export CDPATH=a:b:a:b
+mkdir -p a/b/c/d/e/f/g/h/i/; cd a/b/c/d/../../c/d/e/f/g/h/i/../../../g/h/i/../.././././../g/h/i/../../../../../../../c/d/../d/../d/e/../../d/e/.././././e/f/.//////../f/g/h/i/////../../../; pwd
+cd; cd ../../../../../././././../../../././../../../; pwd, export HOME="/"
+
