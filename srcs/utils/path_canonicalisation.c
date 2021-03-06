@@ -6,14 +6,12 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:09:25 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/05 20:24:09 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/06 07:34:47 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 #include "libft.h"
-
-#include <stdio.h>
 
 char	*paste_path_elem(char *path_p, char *elem, char *start)
 {
@@ -51,6 +49,8 @@ t_bool	cpy_canonical_path(char **split, char **res)
 			return (FALSE);
 		index++;
 	}
+	if (path_p == start)
+		path_p = ft_strcpy_forward(path_p, "/");
 	return (TRUE);
 }
 
