@@ -6,12 +6,13 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 20:16:45 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/05 14:08:07 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/06 22:02:01 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <errno.h>
 #include <string.h>
+#include <signal.h>
 #include "const.h"
 #include "builtin.h"
 #include "exec.h"

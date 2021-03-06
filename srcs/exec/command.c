@@ -6,10 +6,12 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 17:08:55 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/05 20:39:43 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/06 22:01:38 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <signal.h>
+#include <sys/wait.h>
 #include "exec.h"
 #include "expander.h"
 
