@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 20:07:01 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/03 21:49:06 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/05 20:40:26 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ t_bool					dup_redirects(t_command *command, t_bool is_parent);
 void					cleanup_redirects(t_command *command);
 
 t_bool					convert_tokens(t_command *command, char ***args);
+void					wait_commands(t_command *command);
 
 char					*build_full_path(char *path, const char *cmd);
 char					*build_cmd_path(const char *cmd);

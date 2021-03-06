@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 20:13:16 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/04 15:50:58 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/05 00:42:45 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,8 @@ t_env			*get_env(const char *name);
 void			minishell_init(void);
 void			shlvl_init(void);
 t_bool			is_digit_str(char *str);
+
+void			set_signal_handler(void (*func)(int));
+void			handle_signal(int signal);
 
 #endif
