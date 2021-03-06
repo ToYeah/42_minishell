@@ -26,6 +26,7 @@ cd ; pwd;, unset HOME
 cd ; pwd;, export HOME="./"
 cd ; pwd;, export HOME="../../"
 cd ; pwd;, export HOME=""
+cd ; pwd;, export HOME="/BIN"
 mkdir -p a/b; cd ; pwd, export HOME=a
 cd ; pwd;, export HOME=NO_SUCH_FILE
 cd bin; pwd, export CDPATH="/"
@@ -36,6 +37,7 @@ mkdir -p a/b; cd b; pwd, export CDPATH=""
 mkdir dir; cd dir; pwd, export CDPATH="./"
 mkdir -p a/b/c; cd b; pwd; cd a; pwd; cd b; pwd, export CDPATH="../a"
 mkdir -p a/b/c; cd b; pwd , export CDPATH=a
+mkdir -p a/b/c; cd b; pwd , export CDPATH=A
 mkdir -p a/b/c; cd ./b; pwd , export CDPATH=a
 mkdir -p a/b/c; cd a; cd ../b; pwd , export CDPATH=a
 mkdir -p a/b/c; cd .; pwd , export CDPATH=a
@@ -54,4 +56,3 @@ mkdir a; cd a; pwd, export CDPATH="a"
 mkdir -p a/a; cd a; pwd, export CDPATH="a"
 mkdir -p a/b/c/d/e/f/g/h/i/; cd a/b/c/d/../../c/d/e/f/g/h/i/../../../g/h/i/../.././././../g/h/i/../../../../../../../c/d/../d/../d/e/../../d/e/.././././e/f/.//////../f/g/h/i/////../../../; pwd
 cd; cd ../../../../../././././../../../././../../../; pwd, export HOME="/"
-
