@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 10:50:50 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/06 07:14:25 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/06 08:10:14 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ t_bool		try_env_path(const char *dest)
 
 t_bool		needs_env_path_search(char **args, const char *dest)
 {
-	if (args[1] == NULL)
+	if (args[1] == NULL || args[1][0] == '/')
 		return (FALSE);
 	if (ft_strcmp((char *)dest, ".") == 0 ||
 		ft_strcmp((char *)dest, "..") == 0 ||
