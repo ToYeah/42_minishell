@@ -41,6 +41,12 @@ mkdir -p a/test  b/test; mkdir -p a:b/test; cd test; pwd, export CDPATH=a:b:a:b
 mkdir -p a/test  b/test; mkdir -p a:b/test; cd test; pwd, export CDPATH=b:a:a:b
 mkdir -p a/hello  b/hello; mkdir -p a:b/test; cd test; pwd, export CDPATH=a:b:a:b
 mkdir -p a/test  b/test; mkdir -p a:b/test; chmod 000 a/test ;cd test; pwd; cd ../../; chmod 777 a/test, export CDPATH=a:b:a:b
+cd /; pwd, export CDPATH="/"
+cd /bin; pwd, export CDPATH="/"
+cd /bin; pwd, export CDPATH="/bin"
+cd /bin; pwd, export CDPATH="/bin"
+mkdir a; cd a; pwd, export CDPATH="a"
+mkdir -p a/a; cd a; pwd, export CDPATH="a"
 mkdir -p a/b/c/d/e/f/g/h/i/; cd a/b/c/d/../../c/d/e/f/g/h/i/../../../g/h/i/../.././././../g/h/i/../../../../../../../c/d/../d/../d/e/../../d/e/.././././e/f/.//////../f/g/h/i/////../../../; pwd
 cd; cd ../../../../../././././../../../././../../../; pwd, export HOME="/"
 
