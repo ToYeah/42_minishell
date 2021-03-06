@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 10:50:50 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/05 20:42:01 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/06 07:14:25 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,25 +65,41 @@ t_bool		try_env_path(const char *dest)
 	return (res);
 }
 
+t_bool		needs_env_path_search(char **args, const char *dest)
+{
+	if (args[1] == NULL)
+		return (FALSE);
+	if (ft_strcmp((char *)dest, ".") == 0 ||
+		ft_strcmp((char *)dest, "..") == 0 ||
+		ft_strncmp((char *)dest, "./", 2) == 0 ||
+		ft_strncmp((char *)dest, "../", 3) == 0)
+	{
+		return (FALSE);
+	}
+	return (TRUE);
+}
+
 int			exec_cd(char **args)
 {
-	const char	*destination;
+	const char	*dest;
 	extern char *g_pwd;
 
-	if (!(destination = set_cd_destination(args)))
+	if (!(dest = set_cd_destination(args)))
 		return (EXIT_FAILURE);
-	if (try_env_path(destination))
+	if (needs_env_path_search(args, dest))
 	{
-		ft_putendl_fd(g_pwd, STDOUT_FILENO);
+		if (try_env_path(dest))
+		{
+			ft_putendl_fd(g_pwd, STDOUT_FILENO);
+			bind_pwd_value();
+			return (EXIT_SUCCESS);
+		}
+	}
+	if (try_change_dir(dest))
+	{
 		bind_pwd_value();
 		return (EXIT_SUCCESS);
 	}
-	if (try_change_dir(destination))
-	{
-		bind_pwd_value();
-		return (EXIT_SUCCESS);
-	}
-	print_error_filename(strerror(errno), "cd",
-		(char *)destination);
+	print_error_filename(strerror(errno), "cd", (char *)dest);
 	return (EXIT_FAILURE);
 }
