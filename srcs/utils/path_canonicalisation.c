@@ -6,14 +6,14 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:09:25 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/06 07:34:47 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/06 07:56:39 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 #include "libft.h"
 
-char	*paste_path_elem(char *path_p, char *elem, char *start)
+char	*cpy_path_elem(char *path_p, char *elem, char *start)
 {
 	if (ft_strcmp(elem, "..") == 0)
 	{
@@ -42,7 +42,7 @@ t_bool	cpy_canonical_path(char **split, char **res)
 	path_p = start;
 	while (split[index])
 	{
-		path_p = paste_path_elem(path_p, split[index], start);
+		path_p = cpy_path_elem(path_p, split[index], start);
 		if (path_p == start)
 			path_p = ft_strcpy_forward(path_p, "/");
 		if (!is_directory(start))
