@@ -67,11 +67,17 @@ print_usage () {
 
 cleanup () {
 	rm -f ${BASH_STDOUT_FILE} ${BASH_STDERR_FILE} ${MINISHELL_STDOUT_FILE} ${MINISHELL_STDERR_FILE}
-	rm -fr ${TEST_DIR}
+	if [ -e "${TEST_DIR}" ]; then
+		chmod -R 777 ${TEST_DIR}
+		rm -fr ${TEST_DIR}
+	fi
 }
 
 prepare_test_dir () {
-	rm -fr ${TEST_DIR}
+	if [ -e "${TEST_DIR}" ]; then
+		chmod -R 777 ${TEST_DIR}
+		rm -fr ${TEST_DIR}
+	fi
 	mkdir -p ${TEST_DIR}
 	cd ${TEST_DIR}
 }
