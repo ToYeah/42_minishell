@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 08:24:01 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/22 12:21:18 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/07 13:34:20 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,5 @@ typedef struct	s_expander
 void			expand_tokens(t_token **tokens);
 char			*create_expanded_str(const char *str, t_token_state state);
 char			*expand_env_var(char *input);
-
+char			*dup_env_value(char *name);
 #endif

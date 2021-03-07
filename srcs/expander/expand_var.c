@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_var.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 12:03:39 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/27 23:28:22 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/07 13:36:40 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,23 @@ char	*create_expanded_str(const char *str, t_token_state state)
 		(calc_escaped_value_len(str, esc_chars) + 1))))
 		error_exit(NULL);
 	copy_escaped_value(str, esc_chars, res);
+	return (res);
+}
+
+char	*dup_env_value(char *name)
+{
+	char		*res;
+	extern int	g_status;
+
+	if (ft_strcmp("?", name) == 0)
+	{
+		if (!(res = ft_itoa(g_status)))
+			error_exit(NULL);
+	}
+	else
+	{
+		if (!(res = ft_strdup(get_env_data(name))))
+			error_exit(NULL);
+	}
 	return (res);
 }
