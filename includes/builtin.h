@@ -23,5 +23,6 @@ int			exec_cd(char **args);
 int			exec_pwd(void);
 void		bind_pwd_value(void);
 t_bool		try_change_dir(const char *destination);
+int			exec_env(void);
 
 #endif
