@@ -13,6 +13,7 @@ CASE_DIR="${GRADEME_DIR}/cases"
 OUTPUT_DIR="${GRADEME_DIR}/outputs"
 TEST_DIR="${GRADEME_DIR}/test"
 
+LOG_FILE="${GRADEME_DIR}/result.log"
 BASH_STDOUT_FILE="${OUTPUT_DIR}/bash_stdout.txt"
 BASH_STDERR_FILE="${OUTPUT_DIR}/bash_stderr.txt"
 MINISHELL_STDOUT_FILE="${OUTPUT_DIR}/minishell_stdout.txt"
@@ -29,6 +30,7 @@ RESULT_KO=0
 run_all_tests () {
 	set_minishell_path
 	cleanup
+	rm -f ${LOG_FILE}
 	if [ -n "$1" ]; then
 		run_tests "$1"
 	else
@@ -53,6 +55,7 @@ run_tests () {
 		execute_shell "$TEST_CMD"
 		replace_bash_error
 		assert_equal "$TEST_CMD" "$SETUP_CMD"
+		output_log "$TEST_CMD" "$SETUP_CMD"
 	done < "${CASE_DIR}/$1.txt"
 	cleanup
 }
@@ -91,7 +94,7 @@ execute_shell () {
 assert_equal () {
 	DIFF_STDOUT=`diff ${MINISHELL_STDOUT_FILE} ${BASH_STDOUT_FILE}`
 	DIFF_STDERR=`diff ${MINISHELL_STDERR_FILE} ${BASH_STDERR_FILE}`
-	if [ -z "${DIFF_STDOUT}" ] && [ -z "${DIFF_STDERR}" ] && [ ${MINISHELL_STATUS} -eq ${BASH_STATUS} ]; then
+	if is_ok ; then
 		printf "${COLOR_GREEN}"
 		print_case "$1" "$2"
 		printf " [ok]${COLOR_RESET}\n"
@@ -113,11 +116,39 @@ assert_equal () {
 	fi
 }
 
-print_case () {
-	printf "case: $1"
-	if [ -n "$2" ]; then
-		printf " [setup: `echo $2`]"
+is_ok () {
+	if [ -z "${DIFF_STDOUT}" ] && [ -z "${DIFF_STDERR}" ] && [ ${MINISHELL_STATUS} -eq ${BASH_STATUS} ]; then
+		return 0
 	fi
+	return 1
+}
+
+print_case () {
+	echo  -n "case: $1"
+	if [ -n "$2" ]; then
+		echo -n " [setup: `echo $2`]"
+	fi
+}
+
+output_log () {
+	echo "---------------------------------" >> ${LOG_FILE}
+	if is_ok ; then
+		echo -n "[OK] " >> ${LOG_FILE}
+	else
+		echo -n "[KO] " >> ${LOG_FILE}
+	fi
+	echo `print_case "$1" "$2"` >> ${LOG_FILE}
+	echo "---------------------------------" >> ${LOG_FILE}
+	echo "# minishell: stdout" >> ${LOG_FILE}
+	cat "${MINISHELL_STDOUT_FILE}" >> ${LOG_FILE}
+	echo "# bash     : stdout" >> ${LOG_FILE}
+	cat "${BASH_STDOUT_FILE}" >> ${LOG_FILE}
+	echo "# minishell: stderr" >> ${LOG_FILE}
+	cat "${MINISHELL_STDERR_FILE}" >> ${LOG_FILE}
+	echo "# bash     : stderr" >> ${LOG_FILE}
+	cat "${BASH_STDERR_FILE}" >> ${LOG_FILE}
+	echo "# minishell: exit status = ${MINISHELL_STATUS}" >> ${LOG_FILE}
+	echo "# bash     : exit status = ${BASH_STATUS}" >> ${LOG_FILE}
 }
 
 replace_bash_error () {

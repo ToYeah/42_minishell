@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 20:13:16 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/05 16:48:12 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/07 11:27:49 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,8 @@ t_bool			is_digit_str(char *str);
 t_bool			is_directory(const char *path);
 void			update_env_value(const char *env_name,
 					const char *new_value, t_bool is_env_var);
+
+void			set_signal_handler(void (*func)(int));
+void			handle_signal(int signal);
+
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shlvl_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 18:27:08 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/04 17:16:25 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/06 12:11:18 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_bool	is_digit_str(char *str)
 			break ;
 		index++;
 	}
-	while (ft_isspace(str[index]))
+	while (str[index] == ' ' || str[index] == '\t')
 		index++;
 	if (str[index] == '\0')
 		return (TRUE);
@@ -57,13 +57,13 @@ void	put_shlvl_warning(int num)
 	free(msg);
 }
 
-char	*calc_shlvl(char *shlvl)
+void	calc_shlvl(char **shlvl)
 {
 	char	*res;
 	int		num;
 
-	num = ft_atoi_overflow_zero(shlvl);
-	if (!is_digit_str(shlvl))
+	num = ft_atoi_overflow_zero(*shlvl);
+	if (!is_digit_str(*shlvl))
 		num = 0;
 	num++;
 	if (num == 1000)
@@ -77,7 +77,8 @@ char	*calc_shlvl(char *shlvl)
 		put_shlvl_warning(num);
 		res = ft_strdup("1");
 	}
-	return (res);
+	ft_safe_free_char(shlvl);
+	*shlvl = res;
 }
 
 void	shlvl_init(void)
@@ -100,7 +101,8 @@ void	shlvl_init(void)
 	}
 	else
 	{
-		if (!(shlvl_env->value = calc_shlvl(shlvl_env->value)))
+		calc_shlvl(&(shlvl_env->value));
+		if (!(shlvl_env->value))
 			error_exit(NULL);
 	}
 }
