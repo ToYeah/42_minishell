@@ -41,6 +41,7 @@ run_all_tests () {
 		run_tests "shlvl"
 		run_tests "pwd"
 		run_tests "cd"
+		run_tests "env"
 	fi
 }
 
