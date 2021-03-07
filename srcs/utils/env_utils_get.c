@@ -13,6 +13,13 @@
 #include "utils.h"
 #include "libft.h"
 
+t_bool		can_generate_environ(t_env *env)
+{
+	if (env->value)
+		return (TRUE);
+	return (FALSE);
+}
+
 t_env		*get_last_env(t_env *envs)
 {
 	t_env	*target;
