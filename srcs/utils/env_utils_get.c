@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils_get.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 14:35:53 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/01 14:35:55 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/07 23:55:37 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,16 @@ t_env		*get_last_env(t_env *envs)
 	return (target);
 }
 
-size_t		get_env_size(t_env *envs)
+size_t		get_environ_size(t_env *envs)
 {
 	size_t	size;
 
 	size = 0;
 	while (envs)
 	{
+		if (can_generate_environ(envs))
+			size++;
 		envs = envs->next;
-		size++;
 	}
 	return (size);
 }
