@@ -1,27 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin.h                                          :+:      :+:    :+:   */
+/*   mini_pwd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/12 20:07:55 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/07 11:11:06 by totaisei         ###   ########.fr       */
+/*   Created: 2021/03/04 12:28:21 by totaisei          #+#    #+#             */
+/*   Updated: 2021/03/07 11:11:14 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_H
-# define BUILTIN_H
+#include "libft.h"
+#include "builtin.h"
+#include "utils.h"
 
-# include "libft.h"
+void	bind_pwd_value(void)
+{
+	extern char *g_pwd;
 
-int			is_builtin(char **args);
-int			exec_echo(char **args);
-int			exec_exit(char **args);
-int			exec_builtin(char **args);
-int			exec_cd(char **args);
-int			exec_pwd(void);
-void		bind_pwd_value(void);
-t_bool		try_change_dir(const char *destination);
+	update_env_value("OLDPWD", get_env_data("PWD"), FALSE);
+	update_env_value("PWD", g_pwd, FALSE);
+}
 
-#endif
+int		exec_pwd(void)
+{
+	extern char *g_pwd;
+
+	ft_putendl_fd(g_pwd, STDOUT_FILENO);
+	return (EXIT_SUCCESS);
+}

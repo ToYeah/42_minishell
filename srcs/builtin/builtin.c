@@ -3,22 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 10:58:17 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/04 14:59:30 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/07 11:14:02 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 #include "libft.h"
-
-int		exec_cd(char **args)
-{
-	(void)args;
-	ft_putstr_fd("cd called!\n", STDOUT_FILENO);
-	return (EXIT_SUCCESS);
-}
 
 int		exec_builtin(char **args)
 {
@@ -28,13 +21,15 @@ int		exec_builtin(char **args)
 		return (exec_cd(args));
 	if (ft_strcmp(args[0], "echo") == 0)
 		return (exec_echo(args));
+	if (ft_strcmp(args[0], "pwd") == 0)
+		return (exec_pwd());
 	return (EXIT_FAILURE);
 }
 
 int		is_builtin(char **args)
 {
 	const char	*commands[] = {
-		"exit", "cd", "echo", NULL
+		"exit", "cd", "echo", "pwd", NULL
 	};
 	int			i;
 

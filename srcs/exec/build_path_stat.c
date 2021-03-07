@@ -3,26 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   build_path_stat.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 21:44:06 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/03 22:01:50 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/04 11:58:56 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <sys/stat.h>
 #include "utils.h"
-
-t_bool		is_directory(const char *path)
-{
-	t_stat path_stat;
-
-	if (stat(path, &path_stat) == -1)
-		return (FALSE);
-	if (S_ISDIR(path_stat.st_mode))
-		return (TRUE);
-	return (FALSE);
-}
 
 t_bool		is_executable(const char *path)
 {
