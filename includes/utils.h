@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 20:13:16 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/07 23:52:13 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/08 00:03:56 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void			print_error_filename(char *message,
 					char *command, char *file);
 
 t_env			*create_envs_from_environ(void);
-void			print_envs(t_env *envs);
 char			**generate_environ(t_env *envs);
 void			add_env(t_env **envs, t_env *new_env);
 void			del_env(t_env **envs, char *name);

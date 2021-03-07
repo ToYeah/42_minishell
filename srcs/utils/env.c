@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 19:17:58 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/07 23:56:48 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/08 00:03:47 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,6 @@ t_env	*create_envs_from_environ(void)
 		i++;
 	}
 	return (envs);
-}
-
-void	print_envs(t_env *envs)
-{
-	while (envs)
-	{
-		ft_putstr_fd(envs->name, STDOUT_FILENO);
-		ft_putchar_fd('=', STDOUT_FILENO);
-		ft_putstr_fd(envs->value, STDOUT_FILENO);
-		ft_putchar_fd('\n', STDOUT_FILENO);
-		envs = envs->next;
-	}
 }
 
 char	**generate_environ(t_env *envs)
