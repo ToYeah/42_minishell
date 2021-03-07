@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:49:01 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/05 19:55:19 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/07 11:02:51 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int		change_dir_process(char *cd_path, const char *arg, t_bool is_canon_path)
 	return (res);
 }
 
-char	*set_cd_path(const char *arg, t_bool *flag)
+char	*set_cd_path(const char *arg, t_bool *is_canon_path)
 {
 	char		*canon_path;
 	char		*physical_path;
@@ -104,13 +104,13 @@ char	*set_cd_path(const char *arg, t_bool *flag)
 	if (canon_path)
 	{
 		ft_safe_free_char(&physical_path);
-		*flag = TRUE;
+		*is_canon_path = TRUE;
 		return (canon_path);
 	}
 	else
 	{
 		ft_safe_free_char(&canon_path);
-		*flag = FALSE;
+		*is_canon_path = FALSE;
 		return (physical_path);
 	}
 }
