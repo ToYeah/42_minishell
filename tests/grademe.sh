@@ -80,6 +80,8 @@ prepare_test_dir () {
 	fi
 	mkdir -p ${TEST_DIR}
 	cd ${TEST_DIR}
+	eval "${SETUP_CMD}"
+	cd ${TEST_DIR}
 }
 
 set_minishell_path () {
@@ -179,5 +181,6 @@ show_results () {
 	fi
 }
 
+make -C "${MINISHELL_DIR}"
 run_all_tests $@
 show_results

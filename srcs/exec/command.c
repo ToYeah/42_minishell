@@ -6,12 +6,15 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 17:08:55 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/06 22:01:38 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/08 21:49:50 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <signal.h>
 #include <sys/wait.h>
+#include <errno.h>
+#include <string.h>
+#include "const.h"
 #include "exec.h"
 #include "expander.h"
 
@@ -97,4 +100,25 @@ void		wait_commands(t_command *command)
 	if (has_child == FALSE)
 		return ;
 	handle_command_status(status, catch_sigint);
+}
+
+void		handle_execve_error(char *path)
+{
+	int	status;
+
+	if (errno == ENOENT)
+		status = STATUS_CMD_NOT_FOUND;
+	else
+		status = STATUS_CMD_NOT_EXECUTABLE;
+	if (is_directory(path))
+	{
+		print_error("is a directory", path);
+		exit(status);
+	}
+	if (errno == ENOEXEC && !is_executable(path))
+		errno = EACCES;
+	if (errno == ENOEXEC)
+		exit(EXIT_SUCCESS);
+	print_error(strerror(errno), path);
+	exit(status);
 }

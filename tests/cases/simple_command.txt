@@ -9,8 +9,17 @@ ls | grep a | grep c, touch aa ab ac
 echo hello world | cat
 no_such_file
 ./no_such_file
+/bin/ls/no_such_file
+/bin/no_such_dir/file
 perm, touch perm; chmod 000 perm
 ./perm, touch perm; chmod 000 perm
+perm, touch perm; chmod 100 perm
+./perm, touch perm; chmod 100 perm
+perm, touch perm; chmod 300 perm
+./perm, touch perm; chmod 300 perm
+perm, touch perm; chmod 500 perm
+./perm, touch perm; chmod 500 perm
+./empty, touch empty; chmod +x empty
 dir, mkdir dir
 ./dir, mkdir dir
 ./exe, printf "#!/bin/bash\necho 42" > exe; chmod +x exe; ln -s exe sym; chmod -h -x sym

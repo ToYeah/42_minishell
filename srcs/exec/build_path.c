@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 11:40:22 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/08 08:44:32 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/08 21:34:33 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,6 @@ static void	check_cmd_path(const char *cmd, const char *path)
 	{
 		print_error("command not found", (char *)cmd);
 		exit(STATUS_CMD_NOT_FOUND);
-	}
-	if (is_directory(path))
-	{
-		print_error("is a directory", (char *)path);
-		exit(STATUS_CMD_NOT_EXECUTABLE);
-	}
-	if (!is_executable(path))
-	{
-		print_error("Permission denied", (char *)path);
-		exit(STATUS_CMD_NOT_EXECUTABLE);
 	}
 }
 
