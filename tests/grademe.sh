@@ -181,5 +181,6 @@ show_results () {
 	fi
 }
 
+make -C "${MINISHELL_DIR}"
 run_all_tests $@
 show_results
