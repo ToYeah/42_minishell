@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 23:38:53 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/05 10:27:40 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/09 02:45:03 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,26 @@ void		update_env_value(
 	{
 		env->value = NULL;
 	}
+}
+
+t_env		*copy_envs(t_env *envs)
+{
+	t_env	*res;
+	t_env	*now_env;
+	t_env	*copy_env;
+
+	now_env = envs;
+	res = NULL;
+	while (now_env)
+	{
+		if ((copy_env = (t_env *)malloc(sizeof(t_env))) == NULL)
+			error_exit(NULL);
+		copy_env->name = now_env->name;
+		copy_env->value = now_env->value;
+		copy_env->is_env = now_env->is_env;
+		copy_env->next = NULL;
+		add_env(&res, copy_env);
+		now_env = now_env->next;
+	}
+	return (res);
 }

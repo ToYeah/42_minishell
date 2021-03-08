@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 20:13:16 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/09 00:30:36 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/09 02:46:40 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ char			**generate_environ(t_env *envs);
 t_bool			can_generate_environ(t_env *env);
 void			add_env(t_env **envs, t_env *new_env);
 void			del_env(t_env **envs, char *name);
+t_env			*copy_envs(t_env *envs);
 
 t_env			*get_last_env(t_env *envs);
 size_t			get_environ_size(t_env *envs);
