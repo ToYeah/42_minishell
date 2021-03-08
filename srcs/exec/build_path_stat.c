@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 21:44:06 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/04 11:58:56 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/08 08:44:16 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_bool		is_executable(const char *path)
 	return (TRUE);
 }
 
-t_bool		is_command_exist(char *path, char **res)
+t_bool		is_command_exist(const char *path, char **res)
 {
 	t_stat buf;
 
