@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 20:07:01 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/07 11:27:24 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/08 08:44:25 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,6 @@ void					wait_commands(t_command *command);
 char					*build_cmd_path(const char *cmd);
 
 t_bool					is_executable(const char *path);
-t_bool					is_command_exist(char *path, char **res);
+t_bool					is_command_exist(const char *path, char **res);
 
 #endif
