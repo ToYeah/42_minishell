@@ -50,7 +50,8 @@ void		free_env(t_env *env)
 void		update_env_value(
 	const char *env_name, const char *new_value, t_bool is_env_var)
 {
-	t_env		*env;
+	extern t_env	*g_envs;
+	t_env			*env;
 
 	if (!env_name)
 		return ;
@@ -58,6 +59,7 @@ void		update_env_value(
 	{
 		env = create_new_env((char *)env_name);
 		env->is_env = is_env_var;
+		add_env(&g_envs, env);
 	}
 	ft_safe_free_char(&env->value);
 	if (new_value)
