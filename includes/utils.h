@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 20:13:16 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/08 00:03:56 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/09 00:30:36 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void			print_bad_fd_error(int fd);
 void			print_numeric_argument_error(char *arg);
 void			print_error_filename(char *message,
 					char *command, char *file);
+void			print_identifier_error(char *name);
 
 t_env			*create_envs_from_environ(void);
 char			**generate_environ(t_env *envs);

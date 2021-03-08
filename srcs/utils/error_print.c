@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 20:27:33 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/05 20:29:51 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/09 00:40:21 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,11 @@ void	print_numeric_argument_error(char *arg)
 	ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
 	ft_putstr_fd(arg, STDERR_FILENO);
 	ft_putendl_fd(": numeric argument required", STDERR_FILENO);
+}
+
+void	print_identifier_error(char *name)
+{
+	ft_putstr_fd("minishell: export: `", STDERR_FILENO);
+	ft_putstr_fd(name, STDERR_FILENO);
+	ft_putendl_fd("': not a valid identifier", STDERR_FILENO);
 }
