@@ -48,6 +48,9 @@ t_bool			can_generate_environ(t_env *env);
 t_env			*create_new_env(char *env_str);
 const char		*get_env_data(char *name);
 t_env			*get_env(const char *name);
+
+void			env_mergesort(t_env **lst, int (*cmp)());
+
 void			minishell_init(void);
 void			shlvl_init(void);
 char			*join_path(const char *prev, const char *next);
