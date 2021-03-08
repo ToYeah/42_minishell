@@ -86,6 +86,6 @@ void					handle_execve_error(char *path);
 char					*build_cmd_path(const char *cmd);
 
 t_bool					is_executable(const char *path);
-t_bool					is_command_exist(char *path, char **res);
+t_bool					is_command_exist(const char *path, char **res);
 
 #endif

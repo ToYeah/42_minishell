@@ -50,7 +50,6 @@ t_env			*get_env(const char *name);
 void			minishell_init(void);
 void			shlvl_init(void);
 char			*join_path(const char *prev, const char *next);
-char			*build_full_path(char *path, const char *cmd);
 char			*path_canonicalisation(char *path);
 t_bool			is_digit_str(char *str);
 t_bool			is_directory(const char *path);

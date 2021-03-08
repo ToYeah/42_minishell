@@ -26,7 +26,7 @@ t_bool		is_executable(const char *path)
 	return (TRUE);
 }
 
-t_bool		is_command_exist(char *path, char **res)
+t_bool		is_command_exist(const char *path, char **res)
 {
 	t_stat buf;
 
