@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 20:16:45 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/08 17:46:30 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/08 18:12:20 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ static void		exec_binary(char **args)
 	path = build_cmd_path(args[0]);
 	if (execve(path, args, generate_environ(g_envs)) < 0)
 	{
+		if (errno == ENOEXEC)
+			exit(EXIT_SUCCESS);
 		print_error(strerror(errno), path);
 		if (errno == ENOENT)
 			exit(STATUS_CMD_NOT_FOUND);
