@@ -13,6 +13,12 @@ no_such_file
 /bin/no_such_dir/file
 perm, touch perm; chmod 000 perm
 ./perm, touch perm; chmod 000 perm
+perm, touch perm; chmod 100 perm
+./perm, touch perm; chmod 100 perm
+perm, touch perm; chmod 300 perm
+./perm, touch perm; chmod 300 perm
+perm, touch perm; chmod 500 perm
+./perm, touch perm; chmod 500 perm
 ./empty, touch empty; chmod +x empty
 dir, mkdir dir
 ./dir, mkdir dir
