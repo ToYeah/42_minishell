@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 19:17:58 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/08 00:03:47 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/09 02:45:37 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,15 @@ char	**generate_environ(t_env *envs)
 	}
 	environ[i] = NULL;
 	return (environ);
+}
+
+t_bool	can_generate_environ(t_env *env)
+{
+	if (env->value == NULL)
+		return (FALSE);
+	if (env->is_env == FALSE)
+		return (FALSE);
+	return (TRUE);
 }
 
 void	add_env(t_env **envs, t_env *new_env)
