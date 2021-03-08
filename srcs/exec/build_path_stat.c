@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_path_stat.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 21:44:06 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/08 08:44:16 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/08 21:57:22 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@ t_bool		is_executable(const char *path)
 	t_stat	path_stat;
 
 	if (stat(path, &path_stat) == -1)
-		return (TRUE);
+		return (FALSE);
 	if ((path_stat.st_mode & S_IXUSR) != S_IXUSR)
+		return (FALSE);
+	if ((path_stat.st_mode & S_IRUSR) != S_IRUSR)
 		return (FALSE);
 	return (TRUE);
 }

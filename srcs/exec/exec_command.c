@@ -6,14 +6,11 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 20:16:45 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/06 22:02:01 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/08 21:49:43 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <errno.h>
-#include <string.h>
 #include <signal.h>
-#include "const.h"
 #include "builtin.h"
 #include "exec.h"
 
@@ -27,13 +24,7 @@ static void		exec_binary(char **args)
 	path = build_cmd_path(args[0]);
 	if (execve(path, args, generate_environ(g_envs)) < 0)
 	{
-		if (errno == ENOENT)
-		{
-			print_error(strerror(errno), path);
-			exit(STATUS_CMD_NOT_FOUND);
-		}
-		else
-			error_exit(path);
+		handle_execve_error(path);
 	}
 	free(path);
 	ft_safe_free_split(&envs);
