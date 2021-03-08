@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:09:25 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/06 07:56:39 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/08 09:19:40 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,21 @@ t_bool	cpy_canonical_path(char **split, char **res)
 	return (TRUE);
 }
 
+void	add_slash_path_front(char *path, char **res)
+{
+	char *added_res;
+
+	if (!path || !res || !*res)
+		return ;
+	if (ft_strncmp(path, "//", 2) == 0 && path[2] != '/')
+	{
+		if (!(added_res = ft_strjoin("/", *res)))
+			return error_exit(NULL);
+		ft_safe_free_char(res);
+		*res = added_res;
+	}
+}
+
 char	*path_canonicalisation(char *path)
 {
 	char			**split;
@@ -67,5 +82,6 @@ char	*path_canonicalisation(char *path)
 	if (!(cpy_canonical_path(split, &res)))
 		ft_safe_free_char(&res);
 	ft_safe_free_split(&split);
+	add_slash_path_front(path, &res);
 	return (res);
 }
