@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 20:07:01 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/07 11:27:24 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/08 21:50:17 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void					cleanup_redirects(t_command *command);
 
 t_bool					convert_tokens(t_command *command, char ***args);
 void					wait_commands(t_command *command);
+void					handle_execve_error(char *path);
 
 char					*build_cmd_path(const char *cmd);
 
