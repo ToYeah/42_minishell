@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 14:35:53 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/07 23:55:37 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/08 13:44:05 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,11 @@
 
 t_bool		can_generate_environ(t_env *env)
 {
-	if (env->value)
-		return (TRUE);
-	return (FALSE);
+	if (env->value == NULL)
+		return (FALSE);
+	if (env->is_env == FALSE)
+		return (FALSE);
+	return (TRUE);
 }
 
 t_env		*get_last_env(t_env *envs)
