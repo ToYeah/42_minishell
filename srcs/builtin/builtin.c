@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 10:58:17 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/07 20:34:57 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/09 00:11:56 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,15 @@ int		exec_builtin(char **args)
 		return (exec_pwd());
 	if (ft_strcmp(args[0], "env") == 0)
 		return (exec_env());
+	if (ft_strcmp(args[0], "export") == 0)
+		return (exec_export(args));
 	return (EXIT_FAILURE);
 }
 
 int		is_builtin(char **args)
 {
 	const char	*commands[] = {
-		"exit", "cd", "echo", "pwd", "env", NULL
+		"exit", "cd", "echo", "pwd", "env", "export", NULL
 	};
 	int			i;
 
