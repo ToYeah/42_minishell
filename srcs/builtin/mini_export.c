@@ -78,7 +78,7 @@ static int		set_envs(char **args)
 		else
 		{
 			restore_arg(sep, append_flag);
-			print_identifier_error(args[i]);
+			print_identifier_error("export", args[i]);
 			ret = EXIT_FAILURE;
 		}
 		i++;
