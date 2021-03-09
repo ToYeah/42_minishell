@@ -26,5 +26,6 @@ void		bind_pwd_value(void);
 t_bool		try_change_dir(const char *destination);
 int			exec_env(void);
 int			exec_export(char **args);
+int			print_envs(void);
 
 #endif
