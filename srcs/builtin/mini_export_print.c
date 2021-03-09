@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 02:50:02 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/09 15:49:14 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/09 21:00:14 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	print_env(t_env *env)
 	ft_putstr_fd(env->name, STDOUT_FILENO);
 	if (env->value)
 	{
-		escaped_value = create_expanded_str(env->value, STATE_IN_DQUOTE);
+		escaped_value = create_expanded_str(env->value, STATE_IN_DQUOTE, TRUE);
 		ft_putstr_fd("=\"", STDOUT_FILENO);
 		ft_putstr_fd(escaped_value, STDOUT_FILENO);
 		ft_putchar_fd('"', STDOUT_FILENO);
