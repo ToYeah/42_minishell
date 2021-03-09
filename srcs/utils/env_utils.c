@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 23:38:53 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/09 02:45:03 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/09 18:22:18 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,36 @@ void		free_env(t_env *env)
 	free(env);
 }
 
-void		update_env_value(
-	const char *env_name, const char *new_value, t_bool is_env_var)
+static void	set_env_value(t_env *env, const char *new_value, t_bool append_flag)
+{
+	char	*old_value;
+
+	old_value = env->value;
+	if (append_flag == TRUE)
+	{
+		if (old_value || new_value)
+		{
+			if (!(env->value = ft_strjoin(old_value, new_value)))
+				error_exit(NULL);
+		}
+		else
+			env->value = NULL;
+	}
+	else
+	{
+		if (new_value)
+		{
+			if (!(env->value = ft_strdup(new_value)))
+				error_exit(NULL);
+		}
+		else
+			env->value = NULL;
+	}
+	ft_safe_free_char(&old_value);
+}
+
+void		update_env_value(const char *env_name, const char *new_value,
+	t_bool is_env_var, t_bool append_flag)
 {
 	extern t_env	*g_envs;
 	t_env			*env;
@@ -61,16 +89,7 @@ void		update_env_value(
 		env->is_env = is_env_var;
 		add_env(&g_envs, env);
 	}
-	ft_safe_free_char(&env->value);
-	if (new_value)
-	{
-		if (!(env->value = ft_strdup(new_value)))
-			error_exit(NULL);
-	}
-	else
-	{
-		env->value = NULL;
-	}
+	set_env_value(env, new_value, append_flag);
 }
 
 t_env		*copy_envs(t_env *envs)

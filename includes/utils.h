@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 20:13:16 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/09 02:46:40 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/09 18:15:27 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ char			*join_path(const char *prev, const char *next);
 char			*path_canonicalisation(char *path);
 t_bool			is_digit_str(char *str);
 t_bool			is_directory(const char *path);
-void			update_env_value(const char *env_name,
-					const char *new_value, t_bool is_env_var);
+void			update_env_value(const char *env_name, const char *new_value,
+					t_bool is_env_var, t_bool append_flag);
 
 void			set_signal_handler(void (*func)(int));
 void			handle_signal(int signal);
