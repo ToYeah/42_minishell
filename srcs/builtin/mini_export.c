@@ -6,14 +6,14 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 00:11:32 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/09 18:16:12 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/09 21:42:32 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 #include "utils.h"
 
-static t_bool	is_identifier(char *name)
+t_bool			is_identifier(char *name)
 {
 	size_t	i;
 

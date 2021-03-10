@@ -27,5 +27,6 @@ t_bool		try_change_dir(const char *destination);
 int			exec_env(void);
 int			exec_export(char **args);
 int			print_envs(void);
+t_bool		is_identifier(char *name);
 
 #endif
