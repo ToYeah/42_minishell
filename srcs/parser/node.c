@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 12:06:22 by nfukada           #+#    #+#             */
-/*   Updated: 2021/02/27 23:28:29 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/10 21:41:25 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,18 @@ t_node	*create_command_node(t_parse_info *info)
 	return (node);
 }
 
-void	del_node_list(t_node *node)
+void	del_node_list(t_node **node)
 {
-	if (!node)
+	if (!node || !*node)
 		return ;
-	if (node->type == NODE_COMMAND && node->command)
+	if ((*node)->type == NODE_COMMAND && (*node)->command)
 	{
-		del_token_list(&node->command->args);
-		del_redirect_list(&node->command->redirects);
-		free(node->command);
+		del_token_list(&(*node)->command->args);
+		del_redirect_list(&(*node)->command->redirects);
+		free((*node)->command);
 	}
-	del_node_list(node->left);
-	del_node_list(node->right);
-	free(node);
+	del_node_list(&(*node)->left);
+	del_node_list(&(*node)->right);
+	free(*node);
+	*node = NULL;
 }

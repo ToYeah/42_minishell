@@ -58,8 +58,7 @@ static t_bool	parse_command(
 		{
 			if (parse_io_redirect(tokens, *node) == FALSE)
 			{
-				del_node_list(*node);
-				*node = NULL;
+				del_node_list(node);
 				return (FALSE);
 			}
 		}
