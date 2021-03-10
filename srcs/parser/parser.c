@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 01:11:20 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/01 12:21:08 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/10 21:41:50 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,10 @@ static t_bool	parse_command(
 			break ;
 	}
 	if (!(*node)->command->args && !(*node)->command->redirects)
+	{
+		del_node_list(node);
 		return (FALSE);
+	}
 	return (TRUE);
 }
 
