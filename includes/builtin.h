@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 20:07:55 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/09 00:12:09 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/09 21:35:19 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@ int			exec_env(void);
 int			exec_export(char **args);
 int			print_envs(void);
 t_bool		is_identifier(char *name);
+int			exec_unset(char **args);
 
 #endif
