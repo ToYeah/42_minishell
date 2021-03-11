@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 20:13:16 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/08 00:03:56 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/11 09:00:05 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void			minishell_init(void);
 void			shlvl_init(void);
 char			*join_path(const char *prev, const char *next);
 char			*path_canonicalisation(char *path);
+char			**get_colon_units(const char *str);
 t_bool			is_digit_str(char *str);
 t_bool			is_directory(const char *path);
 void			update_env_value(const char *env_name,

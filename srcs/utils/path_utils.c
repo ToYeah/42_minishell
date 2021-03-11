@@ -6,12 +6,15 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 15:32:52 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/08 08:39:32 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/11 09:00:05 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 #include "libft.h"
+
+#define UNIT_START 0
+#define UNIT_END 1
 
 char	*join_path(const char *prev, const char *next)
 {
@@ -43,4 +46,69 @@ t_bool	is_directory(const char *path)
 	if (S_ISDIR(path_stat.st_mode))
 		return (TRUE);
 	return (FALSE);
+}
+
+char	**allocate_colon_unit_parent(const char *str)
+{
+	size_t	index;
+	size_t	colon_count;
+	char	**res;
+
+	index = 0;
+	colon_count = 0;
+	while (str[index])
+	{
+		if (str[index] == ':')
+			colon_count++;
+		index++;
+	}
+	if (!(res = malloc(sizeof(char *) * (colon_count + 2))))
+		error_exit(NULL);
+	res[colon_count + 1] = NULL;
+	return (res);
+}
+
+char	*dup_colon_unit(char *unit)
+{
+	char *res;
+
+	if (!unit)
+		return (NULL);
+	if (ft_strlen(unit) == 0)
+	{
+		if (!(res = ft_strdup(".")))
+			error_exit(NULL);
+	}
+	else
+	{
+		if (!(res = ft_strdup(unit)))
+			error_exit(NULL);
+	}
+	return (res);
+}
+
+char	**get_colon_units(const char *str)
+{
+	char	**res;
+	size_t	index;
+	char	*copied_str;
+	char	*unit[2];
+
+	index = 0;
+	res = allocate_colon_unit_parent(str);
+	if (!(copied_str = ft_strdup(str)))
+		error_exit(NULL);
+	unit[UNIT_START] = copied_str;
+	unit[UNIT_END] = ft_strchr(unit[UNIT_START], ':');
+	while (unit[UNIT_END])
+	{
+		*unit[UNIT_END] = '\0';
+		res[index] = dup_colon_unit(unit[UNIT_START]);
+		unit[UNIT_START] = unit[UNIT_END] + 1;
+		unit[UNIT_END] = ft_strchr(unit[UNIT_START], ':');
+		index++;
+	}
+	res[index] = dup_colon_unit(unit[UNIT_START]);
+	ft_safe_free_char(&copied_str);
+	return (res);
 }
