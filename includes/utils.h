@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 20:13:16 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/11 13:05:48 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/11 13:39:12 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void			minishell_init(void);
 void			shlvl_init(void);
 char			*join_path(const char *prev, const char *next);
 char			*path_canonicalisation(char *path);
-char			**get_colon_units(const char *str);
+char			**get_colon_units(const char *str, const char *subst);
 t_bool			is_digit_str(char *str);
 t_bool			is_directory(const char *path);
 void			update_env_value(const char *env_name, const char *new_value,

@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 11:40:22 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/11 09:00:05 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/11 13:40:04 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char		*search_command_binary(const char *cmd)
 	index = 0;
 	res = NULL;
 	path = NULL;
-	if (!(split_path = get_colon_units(get_env_data("PATH"))))
+	if (!(split_path = get_colon_units(get_env_data("PATH"), ".")))
 		error_exit(NULL);
 	if (split_path[0] == NULL)
 		is_command_exist(cmd, &res);

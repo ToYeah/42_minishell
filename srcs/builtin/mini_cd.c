@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 10:50:50 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/06 08:10:14 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/11 13:39:49 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_bool		try_env_path(const char *dest)
 	index = 0;
 	res = FALSE;
 	joined_dest = NULL;
-	if (!(split_env = ft_split(get_env_data("CDPATH"), ':')))
+	if (!(split_env = get_colon_units(get_env_data("CDPATH"), "")))
 		error_exit(NULL);
 	while (split_env[index])
 	{

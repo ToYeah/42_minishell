@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 15:32:52 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/11 09:00:05 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/11 13:38:37 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ char	**allocate_colon_unit_parent(const char *str)
 	return (res);
 }
 
-char	*dup_colon_unit(char *unit)
+char	*dup_colon_unit(char *unit, const char *subst)
 {
 	char *res;
 
@@ -76,7 +76,7 @@ char	*dup_colon_unit(char *unit)
 		return (NULL);
 	if (ft_strlen(unit) == 0)
 	{
-		if (!(res = ft_strdup(".")))
+		if (!(res = ft_strdup(subst)))
 			error_exit(NULL);
 	}
 	else
@@ -87,7 +87,7 @@ char	*dup_colon_unit(char *unit)
 	return (res);
 }
 
-char	**get_colon_units(const char *str)
+char	**get_colon_units(const char *str, const char *subst)
 {
 	char	**res;
 	size_t	index;
@@ -103,12 +103,12 @@ char	**get_colon_units(const char *str)
 	while (unit[UNIT_END])
 	{
 		*unit[UNIT_END] = '\0';
-		res[index] = dup_colon_unit(unit[UNIT_START]);
+		res[index] = dup_colon_unit(unit[UNIT_START], subst);
 		unit[UNIT_START] = unit[UNIT_END] + 1;
 		unit[UNIT_END] = ft_strchr(unit[UNIT_START], ':');
 		index++;
 	}
-	res[index] = dup_colon_unit(unit[UNIT_START]);
+	res[index] = dup_colon_unit(unit[UNIT_START], subst);
 	ft_safe_free_char(&copied_str);
 	return (res);
 }
