@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 20:13:16 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/09 21:42:18 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/11 10:59:50 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stddef.h>
 # include <sys/stat.h>
+# include "const.h"
 # include "token.h"
 
 typedef struct	s_env
@@ -63,5 +64,11 @@ void			update_env_value(const char *env_name, const char *new_value,
 
 void			set_signal_handler(void (*func)(int));
 void			handle_signal(int signal);
+
+# if LEAKS
+
+void			end(void) __attribute__((destructor));
+
+# endif
 
 #endif

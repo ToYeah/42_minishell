@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 18:50:22 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/10 21:43:24 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/11 21:09:38 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,3 +87,12 @@ int		main(int argc, char *argv[])
 	}
 	return (g_status);
 }
+
+#if LEAKS
+
+void	end(void)
+{
+	system("leaks minishell_leaks");
+}
+
+#endif
