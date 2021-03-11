@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:09:25 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/08 10:44:10 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/11 04:28:17 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ void	add_slash_path_front(char *path, char **res)
 
 	if (!path || !res || !*res)
 		return ;
-	if (ft_strncmp(path, "//", 2) == 0 && path[2] != '/')
+	if (ft_strncmp(path, "//", 2) == 0 && path[2] != '/' &&
+		ft_strncmp(*res, "//", 2) != 0)
 	{
 		if (!(added_res = ft_strjoin("/", *res)))
 			error_exit(NULL);
