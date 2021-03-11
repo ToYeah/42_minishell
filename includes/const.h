@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 19:46:48 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/03 17:51:59 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/11 11:06:29 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@
 
 # ifndef DEBUG
 #  define DEBUG			0
+# endif
+# ifndef LEAKS
+#  define LEAKS			0
 # endif
 
 #endif
