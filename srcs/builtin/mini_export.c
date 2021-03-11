@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 00:11:32 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/09 21:42:32 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/11 10:58:05 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void		separate_arg(char *arg, char **sep, char **value,
 	if (*sep)
 	{
 		**sep = '\0';
-		if (*(*sep - 1) == '+')
+		if (*sep != arg && *(*sep - 1) == '+')
 		{
 			*(*sep - 1) = '\0';
 			*append_flag = TRUE;
