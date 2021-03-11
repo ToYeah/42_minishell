@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 18:50:22 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/05 21:35:07 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/10 21:43:24 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	run_commandline(char *line)
 	else
 		exec_nodes(nodes);
 	del_token_list(&start_token);
-	del_node_list(nodes);
+	del_node_list(&nodes);
 }
 
 void	process_input(int *gnl_result)

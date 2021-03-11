@@ -34,14 +34,9 @@ run_all_tests () {
 	if [ -n "$1" ]; then
 		run_tests "$1"
 	else
-		run_tests "syntax_error"
-		run_tests "echo"
-		run_tests "exit"
-		run_tests "simple_command"
-		run_tests "shlvl"
-		run_tests "pwd"
-		run_tests "cd"
-		run_tests "env"
+		for file in `ls ${CASE_DIR} | sed 's/\.txt//'`; do
+			run_tests "${file}"
+		done
 	fi
 }
 

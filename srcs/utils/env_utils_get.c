@@ -6,21 +6,12 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 14:35:53 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/08 13:44:05 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/09 02:20:01 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 #include "libft.h"
-
-t_bool		can_generate_environ(t_env *env)
-{
-	if (env->value == NULL)
-		return (FALSE);
-	if (env->is_env == FALSE)
-		return (FALSE);
-	return (TRUE);
-}
 
 t_env		*get_last_env(t_env *envs)
 {
