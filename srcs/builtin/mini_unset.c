@@ -1,31 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_pwd.c                                         :+:      :+:    :+:   */
+/*   mini_unset.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/04 12:28:21 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/09 18:15:58 by nfukada          ###   ########.fr       */
+/*   Created: 2021/03/09 21:34:48 by nfukada           #+#    #+#             */
+/*   Updated: 2021/03/09 21:42:24 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "builtin.h"
 #include "utils.h"
 
-void	bind_pwd_value(void)
+int	exec_unset(char **args)
 {
-	extern char *g_pwd;
+	extern t_env	*g_envs;
+	size_t			i;
+	int				ret;
 
-	update_env_value("OLDPWD", get_env_data("PWD"), FALSE, FALSE);
-	update_env_value("PWD", g_pwd, FALSE, FALSE);
-}
-
-int		exec_pwd(void)
-{
-	extern char *g_pwd;
-
-	ft_putendl_fd(g_pwd, STDOUT_FILENO);
-	return (EXIT_SUCCESS);
+	i = 1;
+	ret = EXIT_SUCCESS;
+	while (args[i])
+	{
+		if (is_identifier(args[i]) == TRUE)
+		{
+			del_env(&g_envs, args[i]);
+		}
+		else
+		{
+			print_identifier_error("unset", args[i]);
+			ret = EXIT_FAILURE;
+		}
+		i++;
+	}
+	return (ret);
 }

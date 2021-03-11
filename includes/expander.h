@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 08:24:01 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/07 13:34:20 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/09 21:00:02 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ typedef struct	s_expander
 }				t_expander;
 
 void			expand_tokens(t_token **tokens);
-char			*create_expanded_str(const char *str, t_token_state state);
+char			*create_expanded_str(const char *str, t_token_state state,
+					t_bool is_env);
 char			*expand_env_var(char *input);
 char			*dup_env_value(char *name);
 #endif
