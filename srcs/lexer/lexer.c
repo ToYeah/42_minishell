@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 20:01:44 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/10 22:08:42 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/11 14:05:57 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,6 @@ t_token	*tokenise(char *str, t_bool esc_flag)
 	}
 	close_token_list(&toker);
 	if (DEBUG)
-		print_token_list(toker.tokens_start);
+		print_token_list(toker.tokens_start, esc_flag);
 	return (toker.tokens_start);
 }

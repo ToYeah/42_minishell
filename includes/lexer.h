@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 16:44:34 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/10 22:06:58 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/11 14:06:20 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,6 @@ void			general_state(t_tokeniser *t, t_token_type y, char *s);
 void			quote_state(t_tokeniser *t, t_token_type y, char *s);
 void			d_quote_state(t_tokeniser *t, t_token_type y, char *s);
 void			tokeniser_add_new_token(t_tokeniser *toker);
-void			print_token_list(t_token *tokens);
+void			print_token_list(t_token *tokens, t_bool esc_flag);
 
 #endif

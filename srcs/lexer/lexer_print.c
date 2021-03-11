@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 22:08:02 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/10 22:40:17 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/11 14:07:53 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	print_token_type(t_token_type type)
 ** format: [index]type: TYPE       [data]
 */
 
-void		print_token_list(t_token *tokens)
+void		print_token_list(t_token *tokens, t_bool esc_flag)
 {
 	int	index;
 
@@ -58,4 +58,6 @@ void		print_token_list(t_token *tokens)
 		tokens = tokens->next;
 		index++;
 	}
+	if (esc_flag == FALSE)
+		ft_putendl_fd("-----------------------------", STDOUT_FILENO);
 }
