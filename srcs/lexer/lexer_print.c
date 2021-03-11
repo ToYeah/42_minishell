@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 22:08:02 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/11 14:07:53 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/11 14:23:02 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ void		print_token_list(t_token *tokens, t_bool esc_flag)
 		tokens = tokens->next;
 		index++;
 	}
-	if (esc_flag == FALSE)
-		ft_putendl_fd("-----------------------------", STDOUT_FILENO);
+	if (esc_flag == TRUE)
+		ft_putendl_fd("--------------------------------", STDOUT_FILENO);
+	else
+		ft_putendl_fd("================================", STDOUT_FILENO);
 }
