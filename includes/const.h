@@ -23,7 +23,7 @@
 # define STATUS_CMD_NOT_EXECUTABLE	126
 
 # ifndef DEBUG
-#  define DEBUG			FALSE
+#  define DEBUG			0
 # endif
 
 #endif
