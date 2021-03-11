@@ -7,3 +7,4 @@ export APPEND_NONE=; export APPEND_NONE=; export APPEND_NONE+=; export | grep AP
 export APPEND_EMPTY=""; export APPEND_EMPTY=""; export APPEND_EMPTY=""; export | grep APPEND_EMPTY
 export OVERWRITE=42; export OVERWRITE=a; export | grep OVERWRITE
 export A=B=C=D; export | grep A
+export =
