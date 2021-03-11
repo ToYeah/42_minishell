@@ -10,4 +10,6 @@ export A=B=C=D; export | grep A
 export PATH; export | grep PATH
 export PWD; export | grep PWD
 export OLDPWD; export | grep OLDPWD
+unset PWD; cd ..; export | grep PWD
+unset OLDPWD; cd ..; export | grep OLDPWD
 export =
