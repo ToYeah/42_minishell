@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 02:50:02 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/09 21:00:14 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/11 12:47:51 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static void	print_env(t_env *env)
 {
 	char	*escaped_value;
 
+	if (env->is_env == FALSE)
+		return ;
 	ft_putstr_fd("declare -x ", STDOUT_FILENO);
 	ft_putstr_fd(env->name, STDOUT_FILENO);
 	if (env->value)
