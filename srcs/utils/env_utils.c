@@ -89,6 +89,8 @@ void		update_env_value(const char *env_name, const char *new_value,
 		env->is_env = is_env_var;
 		add_env(&g_envs, env);
 	}
+	else if (!new_value)
+		return ;
 	set_env_value(env, new_value, append_flag);
 }
 
