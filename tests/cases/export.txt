@@ -12,4 +12,8 @@ export PWD; export | grep PWD
 export OLDPWD; export | grep OLDPWD
 unset PWD; cd ..; export | grep PWD
 unset OLDPWD; cd ..; export | grep OLDPWD
+unset PWD; cd ..; export PWD=new_value; export | grep PWD
+unset OLDPWD; cd ..; export OLDPWD=new_value; export | grep OLDPWD
+unset PWD; cd ..; export PWD; export | grep PWD
+unset OLDPWD; cd ..; export OLDPWD; export | grep OLDPWD
 export =
