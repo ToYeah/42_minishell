@@ -6,10 +6,11 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 20:01:44 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/03 14:41:13 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/11 14:05:57 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "const.h"
 #include "lexer.h"
 #include "utils.h"
 
@@ -71,5 +72,7 @@ t_token	*tokenise(char *str, t_bool esc_flag)
 		toker.str_i++;
 	}
 	close_token_list(&toker);
+	if (DEBUG)
+		print_token_list(toker.tokens_start, esc_flag);
 	return (toker.tokens_start);
 }
