@@ -1,0 +1,13 @@
+> file
+> file | cat < no_such_file
+echo hello > out1.txt > out2.txt > out3.txt 2> err1.txt 2> err2.txt 2> err3.txt; cat out1.txt out2.txt out3.txt err1.txt err2.txt err3.txt
+echo hello >> out1.txt >> out2.txt >> out3.txt 2>> err1.txt 2>> err2.txt 2>> err3.txt; cat out1.txt out2.txt out3.txt err1.txt err2.txt err3.txt
+ls > out1.txt > out2.txt > out3.txt 2> err1.txt 2> err2.txt 2> err3.txt; cat out1.txt out2.txt out3.txt err1.txt err2.txt err3.txt
+ls >> out1.txt >> out2.txt >> out3.txt 2>> err1.txt 2>> err2.txt 2>> err3.txt; cat out1.txt out2.txt out3.txt err1.txt err2.txt err3.txt
+ls no_such_file > out1.txt > out2.txt > out3.txt 2> err1.txt 2> err2.txt 2> err3.txt; cat out1.txt out2.txt out3.txt err1.txt err2.txt err3.txt
+ls no_such_file >> out1.txt >> out2.txt >> out3.txt 2>> err1.txt 2>> err2.txt 2>> err3.txt; cat out1.txt out2.txt out3.txt err1.txt err2.txt err3.txt
+echo a > out; echo b >> out; echo c >> out; echo d >> out; cat out
+echo a > out; echo b >> out; echo c >> out; echo d > out; cat out
+echo hello 2147483647> file
+echo hello 2147483648> file
+echo a > $NO_ENV | echo b, unset NO_ENV

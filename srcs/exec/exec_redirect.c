@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 10:43:56 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/02 21:43:21 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/12 16:35:24 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void			cleanup_redirects(t_command *command)
 	t_redirect	*redir;
 
 	redir = command->redirects;
+	while (redir && redir->next)
+		redir = redir->next;
 	while (redir)
 	{
 		if (redir->fd_file >= 0)
@@ -50,7 +52,7 @@ void			cleanup_redirects(t_command *command)
 				error_exit(NULL);
 			}
 		}
-		redir = redir->next;
+		redir = redir->prev;
 	}
 }
 
