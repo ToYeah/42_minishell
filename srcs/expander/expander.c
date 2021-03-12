@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 12:11:37 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/09 21:00:27 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/12 15:19:02 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ char			*expand_env_var(char *input)
 		exper.type = judge_token_type(exper.str[exper.str_i]);
 		exper.state = judge_token_state(exper.state, exper.type);
 		if (exper.type == CHAR_ESCAPE && exper.str[exper.str_i + 1] != '\0' &&
-			ft_strchr("\'\"$", exper.str[exper.str_i + 1]) != NULL)
+			ft_strchr("\\\'\"$", exper.str[exper.str_i + 1]) != NULL)
 		{
 			exper.str_i++;
 		}
