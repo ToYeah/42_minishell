@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 11:40:22 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/11 13:40:04 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/12 12:14:58 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,30 +25,42 @@ t_cmd_type	judge_cmd_type(const char *str)
 		return (COMMAND);
 }
 
-char		*search_command_binary(const char *cmd)
+void		try_search_command(char **split_path, char **res, const char *cmd)
 {
-	char	**split_path;
 	int		index;
-	char	*res;
 	char	*path;
 
 	index = 0;
-	res = NULL;
 	path = NULL;
-	if (!(split_path = get_colon_units(get_env_data("PATH"), ".")))
-		error_exit(NULL);
-	if (split_path[0] == NULL)
-		is_command_exist(cmd, &res);
 	while (split_path[index])
 	{
 		ft_safe_free_char(&path);
 		path = join_path(split_path[index], cmd);
-		if (is_command_exist(path, &res) && !is_directory(path) &&
+		if (is_command_exist(path, res) && !is_directory(path) &&
 			is_executable(path))
 			break ;
 		index++;
 	}
 	ft_safe_free_char(&path);
+}
+
+char		*search_command_binary(const char *cmd)
+{
+	char	**split_path;
+	char	*res;
+	const char	*env_value;
+
+	res = NULL;
+	env_value = get_env_data("PATH");
+	if (ft_strcmp((char *)env_value, "") == 0)
+	{
+		if (!(res = ft_strdup(cmd)))
+			error_exit(NULL);
+		return (res);
+	}
+	if (!(split_path = get_colon_units(env_value, ".")))
+		error_exit(NULL);
+	try_search_command(split_path, &res, cmd);
 	ft_safe_free_split(&split_path);
 	return (res);
 }
