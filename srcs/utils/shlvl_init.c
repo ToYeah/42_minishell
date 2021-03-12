@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shlvl_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 18:27:08 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/06 12:11:18 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/12 18:34:45 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,26 @@
 
 t_bool	is_digit_str(char *str)
 {
-	size_t index;
+	size_t	index;
+	t_bool	has_digit;
 
 	index = 0;
+	has_digit = FALSE;
 	while (ft_isspace(str[index]))
 		index++;
 	if (str[index] == '+' || str[index] == '-')
 		index++;
 	while (str[index])
 	{
-		if (!ft_isdigit(str[index]))
+		if (ft_isdigit(str[index]))
+			has_digit = TRUE;
+		else
 			break ;
 		index++;
 	}
 	while (str[index] == ' ' || str[index] == '\t')
 		index++;
-	if (str[index] == '\0')
+	if (str[index] == '\0' && has_digit == TRUE)
 		return (TRUE);
 	else
 		return (FALSE);
