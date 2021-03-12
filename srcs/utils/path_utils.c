@@ -6,15 +6,12 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 15:32:52 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/12 08:09:51 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/12 08:27:55 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 #include "libft.h"
-
-#define UNIT_START 0
-#define UNIT_END 1
 
 char	*join_path(const char *prev, const char *next)
 {
@@ -92,23 +89,24 @@ char	**get_colon_units(const char *str, const char *default_value)
 	char	**res;
 	size_t	index;
 	char	*copied_str;
-	char	*unit[2];
+	char	*unit_start;
+	char	*unit_end;
 
 	index = 0;
 	res = allocate_colon_unit_parent(str);
 	if (!(copied_str = ft_strdup(str)))
 		error_exit(NULL);
-	unit[UNIT_START] = copied_str;
-	unit[UNIT_END] = ft_strchr(unit[UNIT_START], ':');
-	while (unit[UNIT_END])
+	unit_start = copied_str;
+	unit_end = ft_strchr(unit_start, ':');
+	while (unit_end)
 	{
-		*unit[UNIT_END] = '\0';
-		res[index] = strdup_colon_unit(unit[UNIT_START], default_value);
-		unit[UNIT_START] = unit[UNIT_END] + 1;
-		unit[UNIT_END] = ft_strchr(unit[UNIT_START], ':');
+		*unit_end = '\0';
+		res[index] = strdup_colon_unit(unit_start, default_value);
+		unit_start = unit_end + 1;
+		unit_end = ft_strchr(unit_start, ':');
 		index++;
 	}
-	res[index] = strdup_colon_unit(unit[UNIT_START], default_value);
+	res[index] = strdup_colon_unit(unit_start, default_value);
 	ft_safe_free_char(&copied_str);
 	return (res);
 }
