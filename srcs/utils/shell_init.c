@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 11:07:08 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/01 15:01:19 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/12 18:06:20 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	old_pwd_init(void)
 		}
 		old_pwd_env->value = NULL;
 		old_pwd_env->next = NULL;
+		old_pwd_env->is_env = TRUE;
 		add_env(&g_envs, old_pwd_env);
 	}
 	ft_safe_free_char(&(old_pwd_env->value));
@@ -83,6 +84,7 @@ void	pwd_init(void)
 		}
 		pwd_env->value = NULL;
 		pwd_env->next = NULL;
+		pwd_env->is_env = TRUE;
 		add_env(&g_envs, pwd_env);
 	}
 	pwd_value_init(pwd_env);
