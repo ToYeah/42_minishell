@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shlvl_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 18:27:08 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/06 12:11:18 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/12 18:06:29 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ void	shlvl_init(void)
 			error_exit(NULL);
 		}
 		shlvl_env->next = NULL;
+		shlvl_env->is_env = TRUE;
 		add_env(&g_envs, shlvl_env);
 		return ;
 	}
