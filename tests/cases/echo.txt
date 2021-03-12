@@ -41,3 +41,7 @@ echo \"$\"
 echo "$ $ $ $ $ $ "
 echo "\$\$USER\\$USER""$USER"
 echo $
+echo \$USER
+echo \\$USER
+echo \\\$USER
+echo \\\\$USER
