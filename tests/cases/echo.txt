@@ -37,6 +37,10 @@ echo '\$PATH'
 echo a "" b "" c
 echo a "$NO_SUCH_ENV" b $NO_SUCH_ENV c, unset NO_SUCH_ENV
 echo		hello
+echo \"$\"
+echo "$ $ $ $ $ $ "
+echo "\$\$USER\\$USER""$USER"
+echo $
 echo \$USER
 echo \\$USER
 echo \\\$USER
