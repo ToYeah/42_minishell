@@ -6,13 +6,11 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/08 22:02:56 by totaisei          #+#    #+#             */
-/*   Updated: 2021/02/21 07:38:21 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/11 04:33:13 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-#include <stdio.h>
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
