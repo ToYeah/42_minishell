@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 11:40:22 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/12 12:14:58 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/12 12:36:28 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ void		try_search_command(char **split_path, char **res, const char *cmd)
 
 char		*search_command_binary(const char *cmd)
 {
-	char	**split_path;
-	char	*res;
+	char		**split_path;
+	char		*res;
 	const char	*env_value;
 
 	res = NULL;
