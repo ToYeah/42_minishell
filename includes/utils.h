@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 20:13:16 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/09 21:42:18 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/12 12:43:21 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stddef.h>
 # include <sys/stat.h>
+# include "const.h"
 # include "token.h"
 
 typedef struct	s_env
@@ -56,6 +57,7 @@ void			minishell_init(void);
 void			shlvl_init(void);
 char			*join_path(const char *prev, const char *next);
 char			*path_canonicalisation(char *path);
+char			**get_colon_units(const char *str, const char *subst);
 t_bool			is_digit_str(char *str);
 t_bool			is_directory(const char *path);
 void			update_env_value(const char *env_name, const char *new_value,

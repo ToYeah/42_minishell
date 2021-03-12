@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   const.h                                            :+:      :+:    :+:   */
+/*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/10 19:46:48 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/12 12:43:55 by nfukada          ###   ########.fr       */
+/*   Created: 2021/03/12 12:44:20 by nfukada           #+#    #+#             */
+/*   Updated: 2021/03/12 12:46:01 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CONST_H
-# define CONST_H
+#include <stdlib.h>
+#include "debug.h"
 
-# define SHELL_PROMPT			"\e[32mminishell > \e[0m"
-# define BACK_CURSOR			"\033[2D"
-# define CLEAR_FROM_CURSOR		"\033[0K"
+#if LEAKS
 
-# define STATUS_SYNTAX_ERROR		258
-# define STATUS_TOKEN_ERROR			2
-# define STATUS_CMD_NOT_FOUND		127
-# define STATUS_CMD_NOT_EXECUTABLE	126
+void	end(void)
+{
+	system("leaks minishell_leaks");
+}
 
 #endif
