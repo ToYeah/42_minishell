@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 13:24:58 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/02 11:34:47 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/12 16:36:10 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void		add_redirect(t_redirect **list, t_redirect *new)
 			now = now->next;
 		now->next = new;
 		new->next = NULL;
+		new->prev = now;
 	}
 }
 
@@ -41,6 +42,7 @@ t_redirect	*create_redirect(void)
 	redirect->fd_file = REDIR_FD_NOT_SPECIFIED;
 	redirect->fd_backup = REDIR_FD_NOT_SPECIFIED;
 	redirect->next = NULL;
+	redirect->prev = NULL;
 	redirect->filename = NULL;
 	return (redirect);
 }

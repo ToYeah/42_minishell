@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 20:07:01 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/08 21:50:17 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/12 16:31:35 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct			s_redirect
 	t_redirect_type		type;
 	t_token				*filename;
 	struct s_redirect	*next;
+	struct s_redirect	*prev;
 }						t_redirect;
 
 typedef struct			s_command
