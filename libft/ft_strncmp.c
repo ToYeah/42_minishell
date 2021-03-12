@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/08 22:02:56 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/11 04:33:13 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/12 12:15:38 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ int	ft_strcmp(char *s1, char *s2)
 		{
 			return (s1[i] - s2[i]);
 		}
-		i++;
 		if (!(s1[i]) && !(s2[i]))
 			break ;
+		i++;
 	}
 	return (0);
 }
