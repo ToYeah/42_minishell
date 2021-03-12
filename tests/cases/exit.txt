@@ -17,3 +17,6 @@ exit ++42
 exit 42 42
 exit a
 exit 1a
+exit +
+exit -
+exit "          "
