@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 12:11:37 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/09 21:00:27 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/12 16:10:41 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,16 +69,17 @@ void			expand_var_in_str(t_expander *exper)
 	if (!(vars[VAR_NAME] = extract_var_name(&exper->str[exper->str_i + 1])))
 		error_exit(NULL);
 	if (ft_strlen(vars[VAR_NAME]) == 0)
+	{
+		ft_safe_free_char(&vars[VAR_NAME]);
 		return ;
+	}
 	exper->str[exper->str_i] = '\0';
 	env_value = dup_env_value(vars[VAR_NAME]);
 	after_var_index = exper->str_i + ft_strlen(vars[VAR_NAME]) + 1;
 	if (!(vars[VALUE] = create_expanded_str(env_value, exper->state, FALSE)) ||
 		!(vars[TMP] = ft_strjoin(exper->str, vars[VALUE])) ||
 		!(vars[RES] = ft_strjoin(vars[TMP], &exper->str[after_var_index])))
-	{
 		error_exit(NULL);
-	}
 	exper->str_i = ft_strlen(vars[TMP]) - 1;
 	free(vars[VALUE]);
 	free(vars[VAR_NAME]);
