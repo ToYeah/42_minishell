@@ -6,13 +6,13 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 20:01:44 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/11 14:05:57 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/12 12:45:09 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "const.h"
 #include "lexer.h"
 #include "utils.h"
+#include "debug.h"
 
 void	close_token_list(t_tokeniser *toker)
 {
