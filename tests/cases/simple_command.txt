@@ -23,9 +23,4 @@ perm, touch perm; chmod 500 perm
 dir, mkdir dir
 ./dir, mkdir dir
 ./exe, printf "#!/bin/bash\necho 42" > exe; chmod +x exe; ln -s exe sym; chmod -h -x sym
-> file
-> file | cat < no_such_file
-echo hello 2147483647> file
-echo hello 2147483648> file
 echo a | $NO_ENV | cat, unset NO_ENV
-echo a > $NO_ENV | echo b, unset NO_ENV
