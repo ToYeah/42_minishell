@@ -100,6 +100,7 @@ void	shlvl_init(void)
 			error_exit(NULL);
 		}
 		shlvl_env->next = NULL;
+		shlvl_env->is_env = TRUE;
 		add_env(&g_envs, shlvl_env);
 		return ;
 	}
