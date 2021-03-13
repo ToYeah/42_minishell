@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 00:20:59 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/05 18:13:45 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/13 23:57:14 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@
 
 void		handle_signal(int signal)
 {
-	extern int	g_status;
-	int			prev_errno;
+	extern int		g_status;
+	extern t_bool	g_interrupted;
+	int				prev_errno;
 
 	prev_errno = errno;
 	ft_putstr_fd(BACK_CURSOR, STDERR_FILENO);
@@ -27,6 +28,7 @@ void		handle_signal(int signal)
 	{
 		ft_putstr_fd("\n"SHELL_PROMPT, STDERR_FILENO);
 		g_status = 1;
+		g_interrupted = TRUE;
 	}
 	errno = prev_errno;
 }

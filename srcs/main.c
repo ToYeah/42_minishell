@@ -21,6 +21,7 @@ t_env	*g_envs;
 int		g_status;
 char	*g_pwd;
 t_bool	g_interactive;
+t_bool	g_interrupted;
 
 void	run_commandline(char *line)
 {
@@ -67,6 +68,7 @@ void	loop_shell(void)
 	gnl_result = 1;
 	while (TRUE)
 	{
+		g_interrupted = FALSE;
 		set_signal_handler(handle_signal);
 		process_input(&gnl_result);
 	}
