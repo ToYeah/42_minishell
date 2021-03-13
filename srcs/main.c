@@ -60,6 +60,8 @@ void	process_input(int *gnl_result, char **buf_line)
 		error_exit(NULL);
 	if (*gnl_result == 0)
 		handle_eof(line, *buf_line);
+	if (g_interrupted == TRUE)
+		ft_safe_free_char(buf_line);
 	tmp = *buf_line;
 	if ((*buf_line = ft_strjoin(*buf_line, line)) == NULL)
 		error_exit(NULL);
