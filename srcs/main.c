@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 18:50:22 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/12 12:44:13 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/14 00:13:23 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,38 +39,51 @@ void	run_commandline(char *line)
 	del_node_list(&nodes);
 }
 
-void	process_input(int *gnl_result)
+void	handle_eof(char *line, char *buf_line)
+{
+	if (line[0] == '\0' && buf_line == NULL)
+	{
+		ft_putendl_fd("exit", STDERR_FILENO);
+		exit(g_status);
+	}
+	ft_putstr_fd(CLEAR_FROM_CURSOR, STDERR_FILENO);
+}
+
+void	process_input(int *gnl_result, char **buf_line)
 {
 	char	*line;
+	char	*tmp;
 
 	if (*gnl_result)
 		ft_putstr_fd(SHELL_PROMPT, STDERR_FILENO);
 	if ((*gnl_result = ft_get_next_line(STDIN_FILENO, &line)) < 0)
 		error_exit(NULL);
 	if (*gnl_result == 0)
-	{
-		if (line[0] == '\0')
-		{
-			ft_putendl_fd("exit", STDERR_FILENO);
-			exit(g_status);
-		}
-		ft_putstr_fd(CLEAR_FROM_CURSOR, STDERR_FILENO);
-	}
+		handle_eof(line, *buf_line);
+	tmp = *buf_line;
+	if ((*buf_line = ft_strjoin(*buf_line, line)) == NULL)
+		error_exit(NULL);
+	free(tmp);
 	if (*gnl_result)
-		run_commandline(line);
+	{
+		run_commandline(*buf_line);
+		ft_safe_free_char(buf_line);
+	}
 	free(line);
 }
 
 void	loop_shell(void)
 {
 	int		gnl_result;
+	char	*buf_line;
 
 	gnl_result = 1;
+	buf_line = NULL;
 	while (TRUE)
 	{
 		g_interrupted = FALSE;
 		set_signal_handler(handle_signal);
-		process_input(&gnl_result);
+		process_input(&gnl_result, &buf_line);
 	}
 }
 
