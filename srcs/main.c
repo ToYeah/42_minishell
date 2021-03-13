@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 18:50:22 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/14 00:13:23 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/14 00:21:31 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ void	process_input(int *gnl_result, char **buf_line)
 	char	*line;
 	char	*tmp;
 
-	if (*gnl_result)
-		ft_putstr_fd(SHELL_PROMPT, STDERR_FILENO);
 	if ((*gnl_result = ft_get_next_line(STDIN_FILENO, &line)) < 0)
 		error_exit(NULL);
 	if (*gnl_result == 0)
@@ -85,6 +83,8 @@ void	loop_shell(void)
 	{
 		g_interrupted = FALSE;
 		set_signal_handler(handle_signal);
+		if (gnl_result)
+			ft_putstr_fd(SHELL_PROMPT, STDERR_FILENO);
 		process_input(&gnl_result, &buf_line);
 	}
 }
