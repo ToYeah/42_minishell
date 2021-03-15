@@ -6,7 +6,7 @@
 /*   By: totaisei <totaisei@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 12:11:37 by totaisei          #+#    #+#             */
-/*   Updated: 2021/03/12 16:30:48 by totaisei         ###   ########.fr       */
+/*   Updated: 2021/03/15 12:59:40 by totaisei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,12 @@ char			*extract_var_name(char *str)
 	if (*str == '?')
 		return (ft_strdup("?"));
 	var_len = 0;
+	if (ft_isdigit(*str))
+	{
+		if (!(res = ft_strdup("")))
+			error_exit(NULL);
+		return (res);
+	}
 	while (ft_isalnum(str[var_len]) || str[var_len] == '_')
 		var_len++;
 	if (!(res = malloc(sizeof(char) * var_len + 1)))
