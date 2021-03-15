@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 18:50:22 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/14 00:21:31 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/15 20:54:15 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	run_commandline(char *line)
 
 void	handle_eof(char *line, char *buf_line)
 {
-	if (line[0] == '\0' && buf_line == NULL)
+	if (line[0] == '\0' && (buf_line == NULL || g_interrupted == TRUE))
 	{
 		ft_putendl_fd("exit", STDERR_FILENO);
 		exit(g_status);
