@@ -6,7 +6,7 @@
 #    By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/10 18:36:52 by nfukada           #+#    #+#              #
-#    Updated: 2021/03/12 16:10:51 by nfukada          ###   ########.fr        #
+#    Updated: 2021/03/14 00:04:09 by nfukada          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ LIBS		:= -lft -L$(LIBFT_DIR)
 CC			:= gcc
 CFLAGS		:= -Wall -Werror -Wextra $(INC)
 
-.PHONY: all clean fclean re bonus debug norm srcs
+.PHONY: all clean fclean re bonus debug leaks norm srcs
 
 all		: $(NAME)
 
