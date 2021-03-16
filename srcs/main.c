@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 18:50:22 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/15 20:54:15 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/16 13:33:10 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int		g_status;
 char	*g_pwd;
 t_bool	g_interactive;
 t_bool	g_interrupted;
+t_bool	g_exited;
 
 void	run_commandline(char *line)
 {
@@ -82,6 +83,7 @@ void	loop_shell(void)
 	while (TRUE)
 	{
 		g_interrupted = FALSE;
+		g_exited = FALSE;
 		set_signal_handler(handle_signal);
 		if (gnl_result)
 			ft_putstr_fd(SHELL_PROMPT, STDERR_FILENO);
