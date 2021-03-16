@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 17:59:52 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/05 20:36:29 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/16 13:36:27 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,9 @@ static void		exec_list(t_node *nodes)
 
 void			exec_nodes(t_node *nodes)
 {
-	if (!nodes)
+	extern t_bool g_exited;
+
+	if (!nodes || g_exited == TRUE)
 	{
 		return ;
 	}
