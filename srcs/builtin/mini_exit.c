@@ -6,7 +6,7 @@
 /*   By: nfukada <nfukada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 14:59:01 by nfukada           #+#    #+#             */
-/*   Updated: 2021/03/05 20:55:41 by nfukada          ###   ########.fr       */
+/*   Updated: 2021/03/16 13:36:01 by nfukada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int				exec_exit(char **args)
 {
 	extern int		g_status;
 	extern t_bool	g_interactive;
+	extern t_bool	g_exited;
 	int				i;
 	int				status;
 
@@ -45,8 +46,8 @@ int				exec_exit(char **args)
 		exit(g_status);
 	errno = 0;
 	status = ft_atoi(args[i]);
-	if (has_error(args, i) == TRUE)
-		return (EXIT_FAILURE);
-	exit(status);
+	if (has_error(args, i) == FALSE)
+		exit(status);
+	g_exited = TRUE;
 	return (EXIT_FAILURE);
 }
