@@ -21,5 +21,6 @@ exit +
 exit -
 exit "          "
 exit 0 0;
+exit 0 0; exit;
 exit 0 0; echo "this message should not be displayed" 2> file; ls
 exit 0 0 | echo hello
