@@ -45,7 +45,7 @@ run_tests () {
 	fi
 	while read -r line; do
 		TEST_CMD=`echo "$line" | cut -d ',' -f 1`
-		SETUP_CMD=`echo "$line" | cut -d ',' -f 2 -s`
+		SETUP_CMD=`echo "$line" | cut -d ',' -f 2- -s`
 		execute_shell "$TEST_CMD"
 		assert "$TEST_CMD" "$SETUP_CMD"
 		output_log "$TEST_CMD" "$SETUP_CMD"
