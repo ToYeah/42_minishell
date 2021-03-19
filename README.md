@@ -1,5 +1,5 @@
 # 42_minishell
-A small shell like bash written by Clang.
+A small shell like bash.
 
 # Usage
 
