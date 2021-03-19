@@ -7,6 +7,9 @@ A small shell like bash.
 git clone https://github.com/ToYeah/42_minishell.git && make -C 42_minishell && ./42_minishell/minishell
 ```
 
+# Tester
+https://github.com/nafuka11/42_minishell_tester
+
 
 # Feature
 
