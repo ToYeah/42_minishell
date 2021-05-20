@@ -1,6 +1,18 @@
 # 42_minishell
 A small shell like bash.
 
+# Article
+ToYeah :
+    
+[shellの文字列分解と環境変数展開を再実装した](https://qiita.com/ToYeah0102/items/4c980440ed790d110a7f)
+
+[[bash] カレントディレクトリが存在しなくてもcd ./は成功する
+](https://qiita.com/ToYeah0102/items/1e81b2c1d5ce40268eed)
+
+nafuka :
+
+[bash再実装の課題振り返り](https://nafuka.hatenablog.com/entry/2021/03/29/194200)
+
 # Usage
 
 ```
